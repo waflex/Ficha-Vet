@@ -1,39 +1,42 @@
 import { useForm } from "react-hook-form"
+import {registerRequest} from '../api/registroDatos'
 
 function IngresoPage() {
 
     const {register, handleSubmit} = useForm()
 
     return (
-        <form onSubmit={handleSubmit((data) => {
-          console.log(data)
+        <form onSubmit={handleSubmit(async (values) => {
+          console.log(values)
+          const res =  await registerRequest(values)
+          console.log(res)
         })}>
         <h1>Datos tutor</h1>
         <label htmlFor="RUT">RUT:</label>
         <input type="number"
-        { ... register("rut")}
+        { ... register("rut", {required: true})}
         />
     
         <label htmlFor="normbre">Nombre</label>
         <input type="text"
-        { ... register("nombre")}
+        { ... register("nombre", {required: true})}
         />
     
         <label htmlFor="correo">Correo</label>
         <input type="email"
-        { ... register("correo")}
+        { ... register("correo", {required: true})}
         />
     
         <label htmlFor="celular">Celular</label>
         <input type="number"
-        { ... register("celular")}
+        { ... register("celular", {required: true})}
         />
     
         <label htmlFor="direccion">Direccion</label>
         <input type="text"
-        { ... register("celular")}/>
+        { ... register("celular", {required: true})}/>
     
-        <button type="submit">Enviar</button>
+        <button type="submit">Registrar</button>
       </form>
       )
 }

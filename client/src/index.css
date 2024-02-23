@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background: #101010;
-  color: white;
+body{
+  background: #d4d4d4;
+  /* color: white; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* min-height: 100vh; */
+  min-height: 100vh;
 }
 label {
   display: block;
@@ -17,3 +17,4 @@ input,
 label {
   width: 100%;
 }
+
