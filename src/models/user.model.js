@@ -9,6 +9,13 @@ const UsuarioSchema = new mongoose.Schema({
       type: String,
       required: true,
   },
+  Contrasena:{
+    type: String,
+    required:true,
+  }
+  Fecha_creacion:{
+    type:Date;
+  }
 });
 
 export default mongoose.model("Usuario", UsuarioSchema);
