@@ -19,6 +19,10 @@ const UsuarioSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    ultimaConexion: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { timestamps: true }
 );
