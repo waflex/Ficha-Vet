@@ -5,6 +5,4 @@ connectDB();
 app.listen(3000);
 console.log("Servidor iniciado en", 3000);
 
-
-
-"N° ticket: 497230"
+("N° ticket: 497230");

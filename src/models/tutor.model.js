@@ -1,26 +1,30 @@
 import mongoose from "mongoose";
 
-const UsuarioSchema = new mongoose.Schema(
+const tutorSchema = new mongoose.Schema(
   {
-    rutUsuario: {
+    rutTutor: {
       type: String,
       required: true,
+      trim: true,
       unique: true,
     },
     Nombre: {
       type: String,
       required: true,
     },
-    Contrasena: {
+    Correo: {
       type: String,
       required: true,
     },
-    tipoUsuario: {
+    Celular: {
+      type: Number,
+      default: Date.Now,
+    },
+    Direccion: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Usuario", UsuarioSchema);
+export default mongoose.model("Tutor", tutorSchema);
