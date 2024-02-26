@@ -4,17 +4,19 @@
 
 body{
   background: #d4d4d4;
-  /* color: white; */
   display: flex;
   justify-content: center;
-  align-items: center;
+
   min-height: 100vh;
 }
-label {
-  display: block;
+div h1{
+  display:flex;
+  text-align: center;
 }
-input,
-label {
-  width: 100%;
+label, input{
+  margin-right: 5px;
 }
+
+
+
 

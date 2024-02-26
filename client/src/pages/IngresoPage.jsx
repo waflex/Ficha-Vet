@@ -1,5 +1,5 @@
-import { useForm } from "react-hook-form"
-import {registerRequest} from '../api/registroDatos'
+import { useForm } from "react-hook-form";
+import {registerRequest} from '../api/registroDatos';
 
 function IngresoPage() {
 
@@ -11,15 +11,19 @@ function IngresoPage() {
           const res =  await registerRequest(values)
           console.log(res)
         })}>
-        <h1>Datos tutor</h1>
+          <div>
+
+          <b><h1>Formulario de ingreso</h1></b>
+        <b><h2>Datos tutor</h2></b>
+
         <label htmlFor="RUT">RUT:</label>
         <input type="number"
         { ... register("rut", {required: true})}
         />
     
-        <label htmlFor="normbre">Nombre</label>
+        <label htmlFor="nombreTutor">Nombre</label>
         <input type="text"
-        { ... register("nombre", {required: true})}
+        { ... register("nombreTutor", {required: true})}
         />
     
         <label htmlFor="correo">Correo</label>
@@ -34,11 +38,49 @@ function IngresoPage() {
     
         <label htmlFor="direccion">Direccion</label>
         <input type="text"
-        { ... register("celular", {required: true})}/>
+        { ... register("direccion", {required: true})}/>
     
         <button type="submit">Registrar</button>
-      </form>
-      )
-}
+        </div>
 
+        <b><h2>Datos mascota</h2></b>
+
+        <label htmlFor="rutChip">RUT o Chip:</label>
+        <input type="number"
+        { ... register("rutChip", {required: true})}
+        />
+
+        <label htmlFor="nombreMascota">Nombre:</label>
+        <input type="text"
+        { ... register("nombremascota", {required: true})}
+        />
+
+        <label htmlFor="Especie">Especie:</label>
+        <select { ... register("especie", {required: true})}>
+        <option value="perro">Perro</option>
+        <option value="gato">Gato</option>
+        <option value="ave">Ave</option>
+        <option value="roedor">Roedor</option>
+        <option value="iguana">Iguana</option>
+        </select>
+
+        <label htmlFor="raza">Raza:</label>
+        <input type="text"
+        { ... register("raza")}
+        />
+
+        <label htmlFor="antecedentesMedicos">Antecedentes médicos:</label>
+        <input type="textarea"
+         {... register("antecedentesMedicos", {required: true})}
+        />
+        <button type="submit">Registrar</button>
+
+
+
+
+
+
+      </form>  
+    )
+}
 export default IngresoPage
