@@ -1,6 +1,6 @@
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 
-const { register, handleSubmit } = useForm();
+// const { register, handleSubmit } = useForm();
 
 function LoginPage() {
   return (
@@ -10,10 +10,10 @@ function LoginPage() {
       </b>
 
       <label htmlFor="RUT">RUT:</label>
-      <input type="number" {...register("rut", { required: true })} />
+      {/* <input type="number" {...register("rut", { required: true })} /> */}
 
       <label htmlFor="password">Contraseña: </label>
-      <input type="password" {...register("password", { required: true })} />
+      {/* <input type="password" {...register("password", { required: true })} /> */}
       <button type="submit">Registrar</button>
     </form>
   );
