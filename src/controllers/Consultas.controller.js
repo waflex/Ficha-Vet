@@ -1,4 +1,5 @@
 import Ficha from '../models/Ficha.model.js';
+import tutorModel from '../models/tutor.model.js';
 
 export const crearFicha = async (req,res)=>{
     res.send(console.log(req.body))

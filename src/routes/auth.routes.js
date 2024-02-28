@@ -10,10 +10,10 @@ import {
 
 const router = Router();
 
-router.post('/register', register);
+router.post('/register', authRequired,register);
 router.post('/login', login);
-router.post('/logout', logout);
-router.post('/registrarTutor', registrarTutor);
+router.post('/logout', authRequired,logout);
+router.post('/registrarTutor', authRequired,registrarTutor);
 router.get('/profile', authRequired, profile);
 
 export default router;
