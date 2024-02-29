@@ -22,7 +22,7 @@ function IngresoPage() {
           <label htmlFor="RUT">RUT:</label>
           <input type="checkbox" 
           {...register("existenciaTutor")}
-          defaultChecked={false} disabled className="mr-2"></input>
+          defaultChecked={false} className="mr-2"></input>
           <input type="number" {...register("rut", { required: true })} className="w-full border p-2 mb-2" />
 
           <label htmlFor="nombreTutor">Nombre:</label>
@@ -42,6 +42,9 @@ function IngresoPage() {
           <h2 className="text-xl font-bold mb-2">Datos mascota</h2>
 
           <label htmlFor="rutChip">RUT o Chip:</label>
+          <input type="checkbox" 
+          {...register("existenciaMascota")}
+          defaultChecked={false} className="mr-2"></input>
           <input type="number" {...register("rutChip", { required: true })} className="w-full border p-2 mb-2" />
 
           <label htmlFor="nombreMascota">Nombre:</label>
