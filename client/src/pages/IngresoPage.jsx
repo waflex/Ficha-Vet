@@ -9,9 +9,9 @@ function IngresoPage() {
       console.log(values);
       const res = await registerRequest(values);
       console.log(res);
-    })} className="max-w-screen-lg mx-auto mt-8 p-4 border border-gray-300 rounded">
+    })} className="max-w-screen-lg mx-auto mt-0 p-2 border border-gray-300 rounded">
 
-      <div className="text-center mb-4">
+      <div className="text-center mb-0">
         <h1 className="text-2xl font-bold">Formulario de ingreso</h1>
       </div>
 
@@ -20,6 +20,9 @@ function IngresoPage() {
           <h2 className="text-xl font-bold mb-2">Datos tutor</h2>
 
           <label htmlFor="RUT">RUT:</label>
+          <input type="checkbox" 
+          {...register("existenciaTutor")}
+          defaultChecked={false} disabled className="mr-2"></input>
           <input type="number" {...register("rut", { required: true })} className="w-full border p-2 mb-2" />
 
           <label htmlFor="nombreTutor">Nombre:</label>
@@ -55,15 +58,19 @@ function IngresoPage() {
 
           <label htmlFor="raza">Raza:</label>
           <input type="text" {...register("raza")} className="w-full border p-2 mb-2" />
+        
+          <label htmlFor="antcedentes">Antecedentes:</label>
+          <textarea {...register("antecedentes")} className="w-full border p-2 mb-2"></textarea>
+
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-0">
         <h2 className="text-xl font-bold mb-2">Síntomas/Observaciones</h2>
-        <textarea {...register("comentarios")} className="w-full border p-2 mb-2"></textarea>
+        <textarea {...register("comentarios")} className="w-full border p-2 mb-0"></textarea>
       </div>
 
-      <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded mt-4">Registrar</button>
+      <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded mt-2">Registrar</button>
     </form>
   );
 }

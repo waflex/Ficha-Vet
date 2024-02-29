@@ -1,10 +1,18 @@
 // import { useForm } from "react-hook-form";
-
 // const { register, handleSubmit } = useForm();
 
 function LoginPage() {
+  // const{ register, handleSubmit } = useForm();
+
   return (
-    <form>
+    <form onSubmit
+    // ={handleSubmit(async (values) =>{
+    //   console.log(values);
+    //   const res = await registerRequest(values);
+    //   console.log(res);
+
+    // })}
+    >
       <b>
         <h2>LOGIN</h2>
       </b>
