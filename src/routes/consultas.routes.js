@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authRequired } from '../middlewares/validateToken.js';
-import { borrarFicha, crearFicha, mainficha } from '../controllers/Consultas.controller.js';
+import { borrarFicha, crearFicha, mainficha, mainfichaID } from '../controllers/Consultas.controller.js';
 
 const router = Router();
 /*
@@ -13,8 +13,8 @@ Ver:id
 
 */
 router.get('/', authRequired,mainficha );
-router.get('/:id', authRequired);
-router.get('/crearConsulta', authRequired, crearFicha);
+router.get('/:id', authRequired, mainfichaID);
+router.post('/crearConsulta', crearFicha);
 router.delete('/Borrar:id', authRequired, borrarFicha);
 router.get('/Ver:id', authRequired);
 router.put('/Mod:id', authRequired);
