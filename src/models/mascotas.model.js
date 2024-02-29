@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const fichaEgSchema = new mongoose.Schema(
+const mascotaSchema = new mongoose.Schema(
   {
     Rut_Ficha_Masc: {
       type: String,
@@ -27,4 +27,4 @@ const fichaEgSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model('FichaEg', fichaEgSchema);
+export default mongoose.model('Mascota', mascotaSchema);
