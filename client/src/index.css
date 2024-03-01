@@ -9,12 +9,12 @@ body{
 
   min-height: 100vh;
 }
-div h1{
+tit-form-ing{
   display:flex;
   text-align: center;
 }
-label, input{
-  margin-right: 5px;
+label, select, input{
+  margin: 5px;
 }
 
 

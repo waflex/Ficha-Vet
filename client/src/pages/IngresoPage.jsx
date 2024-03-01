@@ -12,7 +12,7 @@ function IngresoPage() {
     })} className="max-w-screen-lg mx-auto mt-0 p-2 border border-gray-300 rounded">
 
       <div className="text-center mb-0">
-        <h1 className="text-2xl font-bold">Formulario de ingreso</h1>
+        <h1 className="text-2xl font-bold" id="tit-form-ing">Formulario de ingreso</h1>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -59,7 +59,7 @@ function IngresoPage() {
             <option value="iguana">Iguana</option>
           </select>
 
-          <label htmlFor="raza">Raza:</label>
+          <label htmlFor="">Raza:</label>
           <input type="text" {...register("raza")} className="w-full border p-2 mb-2" />
         
           <label htmlFor="antcedentes">Antecedentes:</label>
