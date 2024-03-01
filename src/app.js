@@ -17,4 +17,5 @@ app.use(cookieParser());
 app.use('/api', authRoutes);
 app.use('/api/Consultas', Consultas);
 
+
 export default app;

@@ -56,6 +56,9 @@ export const borrarFicha = async (req, res) => {
 };
 export const verFichaID = async (req, res) => {};
 
+
+
+
 async function CrearTutor(rutTutor, Nombre, Correo, Celular, Direccion) {
   const newTutor = Tutor({
     rutTutor,
