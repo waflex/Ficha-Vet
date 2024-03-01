@@ -4,7 +4,6 @@ import Mascota from '../models/mascotas.model.js';
 
 export const crearFicha = async (req, res) => {
   try {
-    console.log(req.body);
     const {
       celular,
       comentarios,
@@ -67,7 +66,7 @@ async function CrearTutor(rutTutor, Nombre, Correo, Celular, Direccion) {
     Celular,
     Direccion,
   });
-  //return await newTutor.save();
+  return await newTutor.save();
 }
 async function CrearMascota(
   Rut_Ficha_Masc,
@@ -85,8 +84,7 @@ async function CrearMascota(
     Rut_Tutor,
     Antencedentes,
   });
-  console.log(Antencedentes);
-  //return await Mascota.save();
+  return await Mascota.save();
 }
 async function subirFicha(Sintomas, Estado, ID_Mascota, ID_Tutor, ID_Usuario) {
   const ficha = Ficha({
@@ -96,5 +94,5 @@ async function subirFicha(Sintomas, Estado, ID_Mascota, ID_Tutor, ID_Usuario) {
     ID_Tutor,
     ID_Usuario,
   });
-  //return await ficha.save();
+  return await ficha.save();
 }
