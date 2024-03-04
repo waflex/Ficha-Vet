@@ -29,7 +29,7 @@ function FichaMedicaPage() {
               <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
                 <label htmlFor="RUT">RUT:</label>
                 <input
-                  type="number"
+                  type="text"
                   {...register('rut', { required: true })}
                   className="w-full border p-2 mb-2"
                 />

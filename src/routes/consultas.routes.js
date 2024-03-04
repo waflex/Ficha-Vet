@@ -10,7 +10,6 @@ Filtro:algo aqui
 Borrar:id
 Ver:id
     Mod
-
 */
 router.get('/', authRequired,mainficha );
 router.get('/:id', authRequired, mainfichaID);

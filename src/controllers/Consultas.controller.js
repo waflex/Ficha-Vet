@@ -46,7 +46,9 @@ export const crearFicha = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-export const verFicha = async (req, res) => {};
+export const verFicha = async (req, res) => {
+  const {chipMascota, idFicha} = req.body
+};
 export const mainfichaID = async (req, res) => {};
 export const mainficha = async (req, res) => {};
 export const filtro = async (req, res) => {};
