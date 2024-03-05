@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { registerRequest } from '../api/registroDatos';
+import { registroConsulta } from '../api/registroDatos';
 import { Sidebar } from '../components/Sidebar';
 
 function IngresoPage() {
@@ -14,7 +14,7 @@ function IngresoPage() {
         <form
           onSubmit={handleSubmit(async (values) => {
             console.log(values);
-            const res = await registerRequest(values);
+            const res = await registroConsulta(values);
             console.log(res);
           })}
           className="mx-auto mt-0 p-2 border border-gray-300 rounded">

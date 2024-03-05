@@ -4,14 +4,16 @@ import { createAccessToken } from '../libs/jwt.js';
 import bcrypt from 'bcryptjs';
 
 export const register = async (req, res) => {
-  const { rutUsuario, Nombre, Contrasena, tipoUsuario } = req.body;
+  console.log(req.body);
+  const { Rut, Nombre, TipoUsuario } = req.body;
+
   try {
-    const passwordHash = await bcrypt.hash(Contrasena, 10);
+    const passwordHash = await bcrypt.hash(Rut, 10);
     const newUser = new Usuario({
-      rutUsuario,
+      rutUsuario: Rut,
       Nombre,
       Contrasena: passwordHash,
-      tipoUsuario,
+      tipoUsuario: TipoUsuario,
     });
     const userSaved = await newUser.save();
     const token = await createAccessToken({ id: userSaved.rutUsuario });

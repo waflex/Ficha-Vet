@@ -21,7 +21,6 @@ const UsuarioSchema = new mongoose.Schema(
     },
     ultimaConexion: {
       type: Date,
-      default: Date.now,
     },
   },
   { timestamps: true }
