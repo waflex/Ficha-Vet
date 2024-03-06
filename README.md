@@ -1,7 +1,8 @@
 # Veterinary Medical Records Application
 
 This application is designed to manage basic veterinary medical records. It provides functionalities to record and manage information about animals, their owners, and their medical history.
-[!NOTE] Features
+
+>[!NOTE] Features
 
 - Animal Information: Record and store details about animals including their name, species, breed, age, and any additional notes.
 
