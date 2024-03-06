@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { obtenerDatos } from '../api/salaEspera';
 
 function SalaDeEspera() {

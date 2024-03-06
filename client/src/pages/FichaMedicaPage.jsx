@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form'; /* import { registerRequest } from '.
 import { Sidebar } from '../components/Sidebar';
 import AgendarControlModal from '../components/AgendarControlModal';
 
-
 function FichaMedicaPage() {
   const { register /* handleSubmit */ } = useForm();
 
@@ -111,13 +110,10 @@ function FichaMedicaPage() {
                 <input
                   type="text"
                   {...register('raza', { required: true })}
-                  className="w-full border p-2 mb-2"
-                />
-                 
+                  className="w-full border p-2 mb-2"/>
               </div>
             </div>
-            <section className="">
-              <div className="mb-3 flex flex-wrap"></div>{' '}
+            <section className="mb-3 flex flex-wrap">
               <label className="font-bold" htmlFor="antecedentes">
                 Antecedentes médicos:
               </label>
@@ -127,24 +123,54 @@ function FichaMedicaPage() {
                 className="w-full border p-2 mb-2"
               />
             </section>
-            <section>        
-              <div className="mb-2 flex flex-wrap"></div>{' '}
-              <label className="font-bold" htmlFor="antecedentes">
-                Diagnóstico
-              </label>
-              <textarea
-                type="text"
-                {...register('diagnostico', { required: true })}
-                className="w-full border p-2 mb-2"
-              />
+
+            <section className="">
+              <div className="mb-3 flex flex-wrap">
+                <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
+                  <label htmlFor="Peso">Peso:</label>
+                  <input
+                    type="number"
+                    {...register('peso', { required: true })}
+                    className="w-full border p-2 mb-2"
+                  />
+                </div>
+                <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
+                  <label htmlFor="tamaño">tamaño:</label>
+                  <input
+                    type="number"
+                    {...register('tamaño', { required: true })}
+                    className="w-full border p-2 mb-2"
+                  />
+                </div>
+                <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
+                  <label htmlFor="edad">Edad:</label>
+                  <input
+                    type="number"
+                    {...register('edad', { required: true })}
+                    className="w-full border p-2 mb-2"
+                  />
+                </div>
+                </div>
+                <div className="">
+                  <label className="font-bold" htmlFor="diagnostico">
+                    Diagnóstico
+                  </label>
+                  <textarea
+                    type="text"
+                    {...register('diagnostico', { required: true })}
+                    className="w-full border p-2 mb-2"
+                  />
+                </div>
+              
             </section>
+
             <div className="flex">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 mt-6  rounded">
-              Registrar
-            </button>
-            <AgendarControlModal />
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white p-2 mt-6  rounded">
+                Registrar
+              </button>
+              <AgendarControlModal />
             </div>
           </section>
         </form>
