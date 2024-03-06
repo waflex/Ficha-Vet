@@ -1,6 +1,3 @@
-import axios from 'axios';
-
-const API = 'http://localhost:3000/api';
-
+import axios from './axios';
 export const registroConsulta = (tutor) =>
-  axios.post(`${API}/consultas/crearConsulta`, tutor);
+  axios.post(`/consultas/crearConsulta`, tutor);
