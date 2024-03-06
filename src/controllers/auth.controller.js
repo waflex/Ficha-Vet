@@ -1,16 +1,17 @@
-import Tutor from '../models/tutor.model.js';
 import Usuario from '../models/user.model.js';
 import { createAccessToken } from '../libs/jwt.js';
 import bcrypt from 'bcryptjs';
 
 export const register = async (req, res) => {
-  console.log(req.body);
-  const { Rut, Nombre, TipoUsuario } = req.body;
+  const { rutUsuario, Nombre, TipoUsuario } = req.body;
 
   try {
-    const passwordHash = await bcrypt.hash(Rut, 10);
+    const usuarioExistente = await Usuario.findOne({ rutUsuario });
+    if (usuarioExistente) return res.status(400).json(['Usuario ya existe']);
+
+    const passwordHash = await bcrypt.hash(rutUsuario, 10);
     const newUser = new Usuario({
-      rutUsuario: Rut,
+      rutUsuario,
       Nombre,
       Contrasena: passwordHash,
       tipoUsuario: TipoUsuario,
@@ -32,13 +33,11 @@ export const login = async (req, res) => {
   const { rutUsuario, Contrasena } = req.body;
   try {
     const userFound = await Usuario.findOne({ rutUsuario });
-    if (!userFound)
-      return res.status(400).json({ message: 'Usuario no Encontrado' });
+    if (!userFound) return res.status(400).json(['Usuario no Encontrado']);
 
     const isMatch = await bcrypt.compare(Contrasena, userFound.Contrasena);
 
-    if (!isMatch)
-      return res.status(400).json({ message: 'Contraseña Incorrecta' });
+    if (!isMatch) return res.status(400).json(['Contraseña Incorrecta']);
 
     const token = await createAccessToken({ id: userFound.rutUsuario });
     Usuario.updateOne(userFound.rutUsuario, {

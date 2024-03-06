@@ -7,17 +7,17 @@ import {
   profile,
 } from '../controllers/auth.controller.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
-import { registerSchema } from '../schemas/auth.schema.js';
+import { loginSchema, registerSchema } from '../schemas/auth.schema.js';
 
 const router = Router();
 
 router.post(
   '/register',
-  authRequired,
+  //authRequired,
   validateSchema(registerSchema),
   register
 );
-router.post('/login', login);
+router.post('/login', validateSchema(loginSchema), login);
 router.post('/logout', authRequired, logout);
 router.get('/profile', authRequired, profile);
 
