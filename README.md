@@ -4,14 +4,14 @@ This application is designed to manage basic veterinary medical records. It prov
 
 >[!NOTE]
 >Features
-
-- Animal Information: Record and store details about animals including their name, species, breed, age, and any additional notes.
-
-- Owner Information: Manage information about animal owners such as their name, contact details, and address.
-
-- Medical History: Keep track of medical history including vaccinations, treatments, medications, and appointments.
-
-- Search and Filter: Easily search and filter records based on various criteria such as animal name, owner name, or medical condition.
+>
+>- Animal Information: Record and store details about animals including their name, species, breed, age, and any additional notes.
+>
+>- Owner Information: Manage information about animal owners such as their name, contact details, and address.
+>
+>- Medical History: Keep track of medical history including vaccinations, treatments, medications, and appointments.
+>
+>- Search and Filter: Easily search and filter records based on various criteria such as animal name, owner name, or medical condition.
 
 ### Installation
 
