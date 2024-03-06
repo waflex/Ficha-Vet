@@ -24,8 +24,15 @@ export const Sidebar = () => {
             Ingreso Paciente
           </Link>
         </li>
-        {/*  */}
         <hr className="my-2 border-gray-600"></hr>
+        {/*  */}
+        <li className="mb-4">
+          <Link to="/SalaDeEspera" className="mb-4 cursor-pointer text-gray-300">
+            Sala de espera
+          </Link>
+        </li>
+        <hr className="my-2 border-gray-600"></hr>
+        {/*  */}
         <li className="mb-4 cursor-pointer text-gray-300">Sección 2</li>
         <hr className="my-2 border-gray-600"></hr>
         <li className="mb-4 cursor-pointer text-gray-300">Sección 3</li>
