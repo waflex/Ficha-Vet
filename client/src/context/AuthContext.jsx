@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       const cookies = Cookies.get();
       if (!cookies.token) {
         setIsAuthenticated(false);
+        setLoading(false);
         return setUser(null);
       }
       try {
@@ -65,9 +66,11 @@ export const AuthProvider = ({ children }) => {
 
         setIsAuthenticated(true);
         setUser(res.data);
+        setLoading(false);
       } catch (error) {
         setIsAuthenticated(false);
         setUser(null);
+        setLoading(false);
       }
     }
     CheckLogin();
@@ -79,6 +82,7 @@ export const AuthProvider = ({ children }) => {
         logUser,
         IsAuthenticated,
         user,
+        loading,
         errors,
       }}>
       {children}
