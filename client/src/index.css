@@ -17,7 +17,13 @@ tit-form-ing{
 label, select, input{
   margin: 5px;
 }
-
-
-
+.custom-input {
+  /* border: none; */
+  outline: none;
+  background-color: transparent;
+  padding: 0;
+  font-size: inherit;
+  display: inline-block;
+  margin: 0;
+}
 

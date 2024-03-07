@@ -14,14 +14,14 @@ export const Sidebar = () => {
         {/*  */}
         <li className="mb-4">
           <Link to="/Ficha" className="mb-4 cursor-pointer text-gray-300">
-            Ficha Médica
+            Ficha médica
           </Link>
           <hr className="my-2 border-gray-600"></hr>
         </li>
         {/*  */}
         <li className="mb-4">
           <Link to="/IngresoPage" className="mb-4 cursor-pointer text-gray-300">
-            Ingreso Paciente
+            Ingreso  de paciente
           </Link>
         </li>
         <hr className="my-2 border-gray-600"></hr>
