@@ -14,11 +14,13 @@ const fichaSchema = new mongoose.Schema(
       type: String,
     },
     ID_Mascota: {
-      type: String,
-      required:true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Mascota', // referencia a la colección Mascota
+      required: true,
     },
     ID_Tutor:{
-      type:String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Tutor', // referencia a la colección Tutor
     },
     ID_Usuario:{
       type:String

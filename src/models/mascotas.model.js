@@ -8,21 +8,22 @@ const mascotaSchema = new mongoose.Schema(
     },
     Nombre: {
       type: String,
-      required:true,
+      required: true,
     },
     Especie: {
       type: String,
       default: Date.now,
     },
-    Raza:{
-      type:String,
+    Raza: {
+      type: String,
     },
-    Antencedentes:{
-      type:String
+    Antencedentes: {
+      type: String,
     },
-    Rut_Tutor:{
-        type:String
-      }
+    Rut_Tutor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Tutor', // referencia a la colección Tutor
+    },
   },
   { timestamps: true }
 );

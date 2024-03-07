@@ -47,18 +47,55 @@ export const crearFicha = async (req, res) => {
   }
 };
 export const verFicha = async (req, res) => {
-  const {chipMascota, idFicha} = req.body
+  const { chipMascota, idFicha } = req.body;
 };
 export const mainfichaID = async (req, res) => {};
-export const mainficha = async (req, res) => {};
+export const mainficha = async (req, res) => {
+  try {
+    const Fichas = await Ficha.find({})
+      .populate('ID_Mascota')
+      .populate('ID_Tutor');
+    const fichasConNombres = Fichas.map((ficha) => ({
+      ...ficha._doc,
+      Nombre_Mascota: ficha.ID_Mascota.Nombre,
+      Nombre_Tutor: ficha.ID_Tutor.Nombre,
+    }));
+    console.log(fichasConNombres);
+    return res.status(200);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 export const filtro = async (req, res) => {};
 export const borrarFicha = async (req, res) => {
   res.send(console.log('hola mundo'));
 };
 export const verFichaID = async (req, res) => {};
 
-
-
+export const getMascota = async (req, res) => {
+  try {
+    const { id: Rut_Ficha_Masc } = req.params;
+    const mascota = await Mascota.findOne({ Rut_Ficha_Masc });
+    if (!mascota) return res.status(401).json({ message: 'No Autorizado' });
+    return res.json({
+      Nombre: mascota.Nombre,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'no encontrado' });
+  }
+};
+export const getTutor = async (req, res) => {
+  const { id: rutTutor } = req.params;
+  try {
+    const tutor = await Tutor.findOne({ rutTutor });
+    if (!tutor) return res.status(401).json({ message: 'No Autorizado' });
+    return res.json({
+      Nombre: tutor.Nombre,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 
 async function CrearTutor(rutTutor, Nombre, Correo, Celular, Direccion) {
   const newTutor = Tutor({
@@ -70,6 +107,7 @@ async function CrearTutor(rutTutor, Nombre, Correo, Celular, Direccion) {
   });
   return await newTutor.save();
 }
+
 async function CrearMascota(
   Rut_Ficha_Masc,
   Nombre,
@@ -78,7 +116,7 @@ async function CrearMascota(
   Rut_Tutor,
   Antencedentes
 ) {
-  const masctot = Mascota({
+  const mascota = Mascota({
     Rut_Ficha_Masc,
     Nombre,
     Especie,
@@ -86,8 +124,9 @@ async function CrearMascota(
     Rut_Tutor,
     Antencedentes,
   });
-  return await Mascota.save();
+  return await mascota.save();
 }
+
 async function subirFicha(Sintomas, Estado, ID_Mascota, ID_Tutor, ID_Usuario) {
   const ficha = Ficha({
     Sintomas,

@@ -1,19 +1,25 @@
 import { useState, useEffect } from 'react';
-import { obtenerDatos } from '../api/salaEspera';
+import { filtroDatos, getMascota, getTutor } from '../api/salaEspera';
+import { useDatosM } from '../context/DatosMedicos';
 
 function SalaDeEspera() {
   const [datos, setDatos] = useState([]);
   const [filtro, setFiltro] = useState(null);
+  const { obtenerDatosM, DatosM } = useDatosM();
+
+  useEffect(() => {
+    obtenerDatosM();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleFiltro = (filtroSeleccionado) => {
-    console.log('Filtro seleccionado:', filtroSeleccionado);
     setFiltro(filtroSeleccionado);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await obtenerDatos(filtro);
+        const data = await filtroDatos(filtro);
         setDatos(data);
       } catch (error) {
         console.error(error.message);
@@ -45,7 +51,9 @@ function SalaDeEspera() {
             onClick={() => handleFiltro('finalizado')}>
             <img src="/img/check.png" alt="Icono finzalizado" />
           </button>
-          <button className="filter-btn" onClick={() => handleFiltro('anulado')}>
+          <button
+            className="filter-btn"
+            onClick={() => handleFiltro('anulado')}>
             <img src="/img/x.png" alt="Icono anulado" />
           </button>
         </div>
@@ -61,14 +69,17 @@ function SalaDeEspera() {
           </tr>
         </thead>
         <tbody>
-          {datos.map((fila) =>(
-          <tr key={fila.id}>
-            <td className="py-2 px-4 border-b">{fila.id}</td>
-            <td className="py-2 px-4 border-b">{fila.tutor}</td>
-            <td className="py-2 px-4 border-b">{fila.mascota}</td>
-            <td className="py-2 px-4 border-b">{fila.hora}</td>
-            <td className="py-2 px-4 border-b">{fila.estado}</td>
-          </tr>
+          {/* {console.log(datos)} */}
+          {DatosM.map((fila) => (
+            <tr key={fila._id}>
+              <td className="py-2 px-4 border-b">{fila._id}</td>
+              <td className="py-2 px-4 border-b">
+                {/* {console.log(await getTutor(fila.ID_Tutor))} */}
+              </td>
+              <td className="py-2 px-4 border-b">{fila.ID_Mascota}</td>
+              <td className="py-2 px-4 border-b">{fila.Fecha}</td>
+              <td className="py-2 px-4 border-b">{fila.Estado}</td>
+            </tr>
           ))}
         </tbody>
       </table>
