@@ -5,7 +5,7 @@ export const filtroDatos = async (filtro) => {
     const response = await axios.get({ params: { filtro } });
     return response.data;
   } catch (error) {
-    throw new Error('Error al obtener datos de la API:', error);
+    throw new Error('Error al obtener datos de la API: filtro', error);
   }
 };
 export const obtenerDatos = async () => {

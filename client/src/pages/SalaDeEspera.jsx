@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { filtroDatos, getMascota, getTutor } from '../api/salaEspera';
+import { filtroDatos } from '../api/salaEspera';
 import { useDatosM } from '../context/DatosMedicos';
 
 function SalaDeEspera() {
@@ -17,16 +17,7 @@ function SalaDeEspera() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await filtroDatos(filtro);
-        setDatos(data);
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
-
-    fetchData();
+    obtenerDatosM();
   }, [filtro]);
 
   return (
@@ -69,18 +60,16 @@ function SalaDeEspera() {
           </tr>
         </thead>
         <tbody>
-          {/* {console.log(datos)} */}
-          {DatosM.map((fila) => (
-            <tr key={fila._id}>
-              <td className="py-2 px-4 border-b">{fila._id}</td>
-              <td className="py-2 px-4 border-b">
-                {/* {console.log(await getTutor(fila.ID_Tutor))} */}
-              </td>
-              <td className="py-2 px-4 border-b">{fila.ID_Mascota}</td>
-              <td className="py-2 px-4 border-b">{fila.Fecha}</td>
-              <td className="py-2 px-4 border-b">{fila.Estado}</td>
-            </tr>
-          ))}
+          {DatosM.Fichas &&
+            DatosM.Fichas.map((fila) => (
+              <tr key={fila._id}>
+                <td className="py-2 px-4 border-b">{fila._id}</td>
+                <td className="py-2 px-4 border-b ">{fila.ID_Tutor.Nombre}</td>
+                <td className="py-2 px-4 border-b">{fila.ID_Mascota.Nombre}</td>
+                <td className="py-2 px-4 border-b">{hora(fila.Fecha)}</td>
+                <td className="py-2 px-4 border-b">{fila.Estado}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
@@ -88,3 +77,8 @@ function SalaDeEspera() {
 }
 
 export default SalaDeEspera;
+
+function hora(fechaCompleta) {
+  const fecha = new Date(fechaCompleta);
+  return fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}

@@ -29,12 +29,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const logUser = async (user) => {
-    console.log(user);
     try {
       const res = await loginRequest(user);
       setIsAuthenticated(true);
       setUser(res);
-      console.log(res);
     } catch (error) {
       console.log(error);
       setErrors(error.response.data);

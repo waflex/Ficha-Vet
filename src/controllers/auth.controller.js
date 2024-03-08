@@ -19,8 +19,6 @@ export const register = async (req, res) => {
       tipoUsuario: TipoUsuario,
     });
     const userSaved = await newUser.save();
-    const token = await createAccessToken({ id: userSaved.rutUsuario });
-    res.cookie('token', token);
     res.json({
       nombreUsuario: userSaved.Nombre,
       Contrasena: userSaved.Contrasena,
@@ -41,12 +39,13 @@ export const login = async (req, res) => {
 
     if (!isMatch) return res.status(400).json(['Contraseña Incorrecta']);
 
-    const token = await createAccessToken({ id: userFound.rutUsuario });
+    const token = await createAccessToken({ id: userFound._id });
     Usuario.updateOne(userFound.rutUsuario, {
       ultimaConexion: Date.now(),
     });
     res.cookie('token', token);
     res.json({
+      Rut_Usuario: userFound.rutUsuario,
       nombreUsuario: userFound.Nombre,
       Contrasena: userFound.Contrasena,
       tipoUsuario: userFound.tipoUsuario,
@@ -75,13 +74,20 @@ export const profile = async (req, res) => {
 
 export const verify = async (req, res) => {
   const { token } = req.cookies;
-  if (!token) return res.status(401).json({ message: 'No Autorizado' });
+
+  if (!token)
+    return res.status(401).json({ message: 'No Autorizado, No hay token' });
 
   jwt.verify(token, TOKEN_SECRET, async (err, user) => {
-    if (err) return res.status(401).json({ message: 'No Autorizado' });
-
-    const userFound = await Usuario.findOne({ rutUsuario: user.id });
-    if (!userFound) return res.status(401).json({ message: 'No Autorizado' });
+    if (err)
+      return res
+        .status(401)
+        .json({ message: 'No Autorizado, Error al validar' });
+    const userFound = await Usuario.findOne({ _id: user.id });
+    if (!userFound)
+      return res
+        .status(401)
+        .json({ message: 'No Autorizado, Usuario No encontrado' });
     return res.json({
       rutUsuario: userFound.rutUsuario,
       Nombre: userFound.Nombre,

@@ -4,6 +4,7 @@ import Mascota from '../models/mascotas.model.js';
 
 export const crearFicha = async (req, res) => {
   try {
+    let idtutor, idmascota;
     const {
       celular,
       comentarios,
@@ -28,21 +29,30 @@ export const crearFicha = async (req, res) => {
         celular,
         direccion
       );
+      idtutor = newTutor._id;
     }
+    console.log(idtutor);
     if (!existenciaMascota) {
       const newPet = await CrearMascota(
         rutChip,
         nombreMascota,
         especie,
         raza,
-        rut,
+        idtutor,
         antecedentes
       );
+      idmascota = newPet._id;
     }
 
-    const newFicha = await subirFicha(comentarios, 'En Espera', rutChip, rut);
+    const newFicha = await subirFicha(
+      comentarios,
+      'En Espera',
+      idmascota,
+      idtutor
+    );
     res.json({ message: 'true' });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -50,18 +60,15 @@ export const verFicha = async (req, res) => {
   const { chipMascota, idFicha } = req.body;
 };
 export const mainfichaID = async (req, res) => {};
+
 export const mainficha = async (req, res) => {
   try {
     const Fichas = await Ficha.find({})
       .populate('ID_Mascota')
       .populate('ID_Tutor');
-    const fichasConNombres = Fichas.map((ficha) => ({
-      ...ficha._doc,
-      Nombre_Mascota: ficha.ID_Mascota.Nombre,
-      Nombre_Tutor: ficha.ID_Tutor.Nombre,
-    }));
-    console.log(fichasConNombres);
-    return res.status(200);
+    return res.json({
+      Fichas,
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -105,7 +112,11 @@ async function CrearTutor(rutTutor, Nombre, Correo, Celular, Direccion) {
     Celular,
     Direccion,
   });
-  return await newTutor.save();
+  try {
+    return await newTutor.save();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function CrearMascota(
@@ -124,7 +135,11 @@ async function CrearMascota(
     Rut_Tutor,
     Antencedentes,
   });
-  return await mascota.save();
+  try {
+    return await mascota.save();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function subirFicha(Sintomas, Estado, ID_Mascota, ID_Tutor, ID_Usuario) {
@@ -135,5 +150,10 @@ async function subirFicha(Sintomas, Estado, ID_Mascota, ID_Tutor, ID_Usuario) {
     ID_Tutor,
     ID_Usuario,
   });
-  return await ficha.save();
+  try {
+    await ficha.save();
+    return;
+  } catch (error) {
+    console.log(error);
+  }
 }
