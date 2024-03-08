@@ -10,20 +10,20 @@ import { DatosMProvider } from './context/DatosMedicos';
 
 function App() {
   return (
-    <AuthProvider>
-      <DatosMProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/IngresoPage" element={<IngresoPage />} />
-            <Route path="/Ficha" element={<FichaMedicaPage />} />
-            <Route path="/Home" element={<HomePage />} />
-            <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
-            <Route path="/Registro" element={<RegistroUser />} />
-          </Routes>
-        </BrowserRouter>
-      </DatosMProvider>
-    </AuthProvider>
+      <AuthProvider>
+        <DatosMProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/IngresoPage" element={<IngresoPage />} />
+              <Route path="/Ficha" element={<FichaMedicaPage />} />
+              <Route path="/Home" element={<HomePage />} />
+              <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
+              <Route path="/Registro" element={<RegistroUser />} />
+            </Routes>
+          </BrowserRouter>
+        </DatosMProvider>
+      </AuthProvider>
   );
 }
 

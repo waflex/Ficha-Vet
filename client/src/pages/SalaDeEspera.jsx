@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { filtroDatos } from '../api/salaEspera';
 import { useDatosM } from '../context/DatosMedicos';
+import { Sidebar } from '../components/Sidebar';
 
 function SalaDeEspera() {
   const [datos, setDatos] = useState([]);
@@ -21,14 +22,15 @@ function SalaDeEspera() {
   }, [filtro]);
 
   return (
-    <div className="overflow-x-auto">
-      <div className="text-center m-8">
+    <div className="flex min-w-[calc(100vw-100px)] min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <Sidebar />
+      <div className="flex-grow p-4 text-center m-8">
         <h1 className="text-2xl font-bold" id="tit-form-ing">
           Sala de Espera
         </h1>
       </div>
-      <div className="flex justify-end items-center bg-gray-200 p-4">
-        <div className="flex space-x-4">
+      <div className="bg-gray-200 p-4">
+        <div className="flex justify-end space-x-4">
           <button className="filter-btn" onClick={() => handleFiltro('espera')}>
             <img src="/img/reloj.png" alt="Icono en espera" />
           </button>
@@ -49,29 +51,30 @@ function SalaDeEspera() {
           </button>
         </div>
       </div>
-      <table className="min-w-full bg-white border rounded-lg">
-        <thead className="bg-gray-800 text-white">
-          <tr>
-            <th className="py-2 px-4 border-b">ID</th>
-            <th className="py-2 px-4 border-b">Tutor</th>
-            <th className="py-2 px-4 border-b">Mascota</th>
-            <th className="py-2 px-4 border-b">Hora</th>
-            <th className="py-2 px-4 border-b">Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          {DatosM.Fichas &&
-            DatosM.Fichas.map((fila) => (
-              <tr key={fila._id}>
-                <td className="py-2 px-4 border-b">{fila._id}</td>
-                <td className="py-2 px-4 border-b ">{fila.ID_Tutor.Nombre}</td>
-                <td className="py-2 px-4 border-b">{fila.ID_Mascota.Nombre}</td>
-                <td className="py-2 px-4 border-b">{hora(fila.Fecha)}</td>
-                <td className="py-2 px-4 border-b">{fila.Estado}</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      {DatosM.Fichas &&
+        DatosM.Fichas.map((fila) => (
+          <div
+            key={fila._id}
+            className="card rounded-md mx-4 my-2 p-2 hover:scale-125 duration-150">
+            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Nombre Paciente: {fila.ID_Mascota.Nombre}
+              </h5>
+              <h6 className="font-normal text-gray-700 dark:text-gray-400">
+                Nombre Tutor: {fila.ID_Tutor.Nombre}
+              </h6>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                ID: {fila._id}
+              </p>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                Fecha: {hora(fila.Fecha)}
+              </p>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                Estado: {fila.Estado}
+              </p>
+            </div>
+          </div>
+        ))}
     </div>
   );
 }

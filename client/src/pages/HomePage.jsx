@@ -7,7 +7,9 @@ function HomePage() {
       {/* Menú */}
       <Sidebar />
       <div className="flex-grow p-4">
-    </div>
+        {' '}
+        <h1>Esta es la Home page</h1>
+      </div>
     </div>
   );
 }
