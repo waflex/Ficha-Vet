@@ -21,14 +21,25 @@ export const Sidebar = () => {
         {/*  */}
         <li className="mb-4">
           <Link to="/IngresoPage" className="mb-4 cursor-pointer text-gray-300">
-            Ingreso  de paciente
+            Ingreso de paciente
           </Link>
         </li>
         <hr className="my-2 border-gray-600"></hr>
         {/*  */}
         <li className="mb-4">
-          <Link to="/SalaDeEspera" className="mb-4 cursor-pointer text-gray-300">
+          <Link
+            to="/SalaDeEspera"
+            className="mb-4 cursor-pointer text-gray-300">
             Sala de espera
+          </Link>
+        </li>
+        <hr className="my-2 border-gray-600"></hr>
+        {/*  */}
+        <li className="mb-4">
+          <Link
+            to="/ListadoFichasMedicas"
+            className="mb-4 cursor-pointer text-gray-300">
+            Listado de fichas
           </Link>
         </li>
         <hr className="my-2 border-gray-600"></hr>
@@ -38,6 +49,8 @@ export const Sidebar = () => {
         <li className="mb-4 cursor-pointer text-gray-300">Sección 3</li>
         <hr className="my-2 border-gray-600"></hr>
       </ul>
+
+      
     </div>
   );
 };
