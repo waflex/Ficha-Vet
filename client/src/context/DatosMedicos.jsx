@@ -20,17 +20,29 @@ export function DatosMProvider({ children }) {
   const obtenerDatosM = async () => {
     try {
       const res = await obtenerDatos();
-      setDatosM(res.data);
+      if (res !== DatosM) {
+        setDatosM(res.data);
+      }
     } catch (error) {
       console.log(error);
     }
   };
-
+  const obtenerDatosFiltrados = async (id) => {
+    try {
+      const res = await obtenerDatos();
+      if (res !== DatosM) {
+        setDatosM(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <DatosMContext.Provider
       value={{
         DatosM,
         obtenerDatosM,
+        obtenerDatosFiltrados,
       }}>
       {children}
     </DatosMContext.Provider>

@@ -56,7 +56,7 @@ function SalaDeEspera() {
           {DatosM.Fichas &&
             DatosM.Fichas.map((fila) => (
               <Link
-                to={`/detalles/${fila._id}`}
+                to={`/Ficha/${fila._id}`}
                 key={fila._id}
                 className="card max-w-96 rounded-md p-2 hover:scale-105 duration-150 ml-6">
                 <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">

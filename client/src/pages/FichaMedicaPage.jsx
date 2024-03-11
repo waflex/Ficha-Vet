@@ -1,26 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Lateral } from '../components/Sidebar';
 import AgendarControlModal from '../components/AgendarControlModal';
-import { obtenerDatos } from '../api/salaEspera'; //MODIFICAR LOCATION DE ACUERDO A LA API
+import { useDatosM } from '../context/DatosMedicos';
+import { useParams } from 'react-router-dom';
 
 function FichaMedicaPage() {
-  const [datosTutor, setDatosTutor] = useState({});
-  const [datosMascota, setDatosMascota] = useState({});
-  const [idFicha, setIdFicha] = useState(null); //TRAER IDFICHA DESDE OTRA VISTA
+  const { DatosM } = useDatosM();
+  const { id } = useParams();
+
+  const [datosFicha, setDatosFicha] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await obtenerDatos(idFicha);
-        setDatosTutor(data);
-        setDatosMascota(data);
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
-    fetchData();
-  }, [idFicha]);
-
+    // Filtrar los datos de Fichas basados en el ID
+    const fichaEncontrada =
+      DatosM.Fichas &&
+      Object.values(DatosM.Fichas).find((ficha) => ficha._id === id);
+    setDatosFicha(fichaEncontrada);
+  }, [DatosM, id]);
+  console.log(DatosM);
+  console.log(datosFicha);
   return (
     <div className="flex">
       {/* Menú */}
@@ -39,7 +37,7 @@ function FichaMedicaPage() {
               <input
                 type="text"
                 className="w-full border p-2 mb-2 custom-input"
-                value={datosTutor.rut}
+                value={datosFicha.ID_Tutor.rutTutor}
               />
             </div>
 
@@ -48,7 +46,7 @@ function FichaMedicaPage() {
               <input
                 type="text"
                 className="w-full border p-2 mb-2 custom-input"
-                value={datosTutor.nombre}
+                value={datosFicha.ID_Tutor.Nombre}
               />
             </div>
 
@@ -57,7 +55,7 @@ function FichaMedicaPage() {
               <input
                 type="email"
                 className="w-full border p-2 mb-2 custom-input"
-                value={datosTutor.correo}
+                value={datosFicha.ID_Tutor.correo}
               />
             </div>
 
@@ -66,7 +64,7 @@ function FichaMedicaPage() {
               <input
                 type="text"
                 className="w-full border p-2 mb-2 custom-input"
-                value={datosTutor.direccion}
+                // value={datosTutor.direccion}
               />
             </div>
 
@@ -75,7 +73,7 @@ function FichaMedicaPage() {
               <input
                 type="number"
                 className="w-full border p-2 mb-2 custom-input"
-                value={datosTutor.celular}
+                // value={datosTutor.celular}
               />
             </div>
           </div>
@@ -94,7 +92,7 @@ function FichaMedicaPage() {
               <input
                 type="text"
                 className="w-full border p-2 mb-2 custom-input"
-                value={datosMascota.nombreMascota}
+                // value={datosMascota.nombreMascota}
               />
             </div>
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
@@ -104,7 +102,7 @@ function FichaMedicaPage() {
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <label htmlFor="raza">Raza:</label>
               <p type="text" className="w-full border p-2 mb-2 custom-input">
-                {datosMascota.raza}
+                {/* {datosMascota.raza} */}
               </p>
             </div>
           </div>
@@ -115,7 +113,7 @@ function FichaMedicaPage() {
             <textarea
               type="text"
               className="w-full border p-2 mb-2 custom-input"
-              value={datosMascota.antecedentes}
+              // value={datosMascota.antecedentes}
             />
           </section>
 

@@ -17,11 +17,14 @@ function App() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/IngresoPage" element={<IngresoPage />} />
-            <Route path="/Ficha" element={<FichaMedicaPage />} />
+            <Route path="/Ficha/:id" element={<FichaMedicaPage />} />
             <Route path="/Home" element={<HomePage />} />
             <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
             <Route path="/Registro" element={<RegistroUser />} />
-            <Route path="/ListadoFichasMedicas" element={<ListadoFichasPage />} />
+            <Route
+              path="/ListadoFichasMedicas"
+              element={<ListadoFichasPage />}
+            />
           </Routes>
         </BrowserRouter>
       </DatosMProvider>
