@@ -2,19 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body{
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
   background: #d4d4d4;
-  display: flex;
   justify-content: center;
 
   min-height: 100vh;
 }
-tit-form-ing{
-  display:flex;
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+tit-form-ing {
+  display: flex;
   text-align: center;
 }
-label, select, input{
+label,
+select,
+input {
   margin: 5px;
 }
 .custom-input {
@@ -26,4 +37,3 @@ label, select, input{
   display: inline-block;
   margin: 0;
 }
-
