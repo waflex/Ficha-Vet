@@ -1,25 +1,39 @@
-import  { useState } from 'react';
-import AgendarControlModal from './AgendarControlModal';
+'use client';
 
-const AgendarControlButton = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+import { Button, Modal } from 'flowbite-react';
+import { useState } from 'react';
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-  const handleOpenModal = () => {
-    setModalVisible(true);
-  };
+function AgendarControlButton() {
+  const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div>
-      <button
-        onClick={handleOpenModal}
-        className="px-4 py-4 text-sm font-medium text-white ms-5 bg-blue-900 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-      >
-        Agendar Control
-      </button>
-
-      {modalVisible && <AgendarControlModal onClose={() => setModalVisible(false)} />}
-    </div>
+    <>
+      <Button onClick={() => setOpenModal(true)}>Agendar Control</Button>
+      <Modal
+        show={openModal}
+        size="md"
+        onClose={() => setOpenModal(false)}
+        popup>
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this product?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={() => setOpenModal(false)}>
+                {"Yes, I'm sure"}
+              </Button>
+              <Button color="gray" onClick={() => setOpenModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
   );
-};
-
+}
 export default AgendarControlButton;

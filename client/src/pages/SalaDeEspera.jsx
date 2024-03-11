@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { filtroDatos } from '../api/salaEspera';
 import { useDatosM } from '../context/DatosMedicos';
-import { Sidebar } from '../components/Sidebar';
+import { Lateral } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
 
 function SalaDeEspera() {
@@ -24,7 +24,7 @@ function SalaDeEspera() {
 
   return (
     <div className="flex w-full h-full">
-      <Sidebar />
+      <Lateral />
       <div className="flex flex-grow flex-col justify-start p-4 bg-gray-100">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold" id="tit-form-ing">

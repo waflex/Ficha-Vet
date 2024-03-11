@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Sidebar } from '../components/Sidebar';
+import { Lateral } from '../components/Sidebar';
 import AgendarControlModal from '../components/AgendarControlModal';
 import { obtenerDatos } from '../api/salaEspera'; //MODIFICAR LOCATION DE ACUERDO A LA API
 
@@ -24,7 +24,7 @@ function FichaMedicaPage() {
   return (
     <div className="flex">
       {/* Menú */}
-      <Sidebar />
+      <Lateral />
 
       <div className="flex-grow p-6">
         {/* Datos tutor */}

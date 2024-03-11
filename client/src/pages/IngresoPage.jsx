@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { registroConsulta } from '../api/registroDatos';
-import { Sidebar } from '../components/Sidebar';
+import { Lateral } from '../components/Sidebar';
 
 function IngresoPage() {
   const { register, handleSubmit } = useForm();
@@ -8,14 +8,12 @@ function IngresoPage() {
   return (
     <div className="flex">
       {/* Menú */}
-      <Sidebar />
+      <Lateral />
 
       <div className="flex-grow p-4">
         <form
           onSubmit={handleSubmit(async (values) => {
-            console.log(values);
             const res = await registroConsulta(values);
-            console.log(res);
           })}
           className="mx-auto mt-0 p-2 border border-gray-300 rounded">
           <div className="text-center mb-0">

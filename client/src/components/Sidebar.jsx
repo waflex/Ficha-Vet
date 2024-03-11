@@ -1,56 +1,52 @@
-// import React from "react";
+'use client';
+
 import { Link } from 'react-router-dom';
+import { Sidebar } from 'flowbite-react';
+import {
+  HiArrowSmRight,
+  HiChartPie,
+  HiInbox,
+  HiShoppingBag,
+  HiTable,
+  HiUser,
+  HiViewBoards,
+} from 'react-icons/hi';
 
-export const Sidebar = () => {
+export const Lateral = () => {
+  // IngresoPage" element={<IngresoPage />} />
+  //           <Route path="/Ficha" element={<FichaMedicaPage />} />
+  //           <Route path="/Home" element={<HomePage />} />
+  //           <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
+  //           <Route path="/Registro" element={<RegistroUser />} />
+  //           <Route path="/LisListadoFichasMedicas
   return (
-    <div className="bg-gray-800 text-white">
-      <ul className="whitespace-nowrap m-5 mt-9">
-        <li className="mb-4">
-          <Link to="/Home" className="cursor-pointer text-lg font-semibold">
-            Home
-          </Link>
-        </li>
-        <hr className="my-2 border-gray-600"></hr>
-        {/*  */}
-        <li className="mb-4">
-          <Link to="/Ficha" className="mb-4 cursor-pointer text-gray-300">
-            Ficha médica
-          </Link>
-          <hr className="my-2 border-gray-600"></hr>
-        </li>
-        {/*  */}
-        <li className="mb-4">
-          <Link to="/IngresoPage" className="mb-4 cursor-pointer text-gray-300">
-            Ingreso de paciente
-          </Link>
-        </li>
-        <hr className="my-2 border-gray-600"></hr>
-        {/*  */}
-        <li className="mb-4">
-          <Link
-            to="/SalaDeEspera"
-            className="mb-4 cursor-pointer text-gray-300">
-            Sala de espera
-          </Link>
-        </li>
-        <hr className="my-2 border-gray-600"></hr>
-        {/*  */}
-        <li className="mb-4">
-          <Link
-            to="/ListadoFichasMedicas"
-            className="mb-4 cursor-pointer text-gray-300">
-            Listado de fichas
-          </Link>
-        </li>
-        <hr className="my-2 border-gray-600"></hr>
-        {/*  */}
-        <li className="mb-4 cursor-pointer text-gray-300">Sección 2</li>
-        <hr className="my-2 border-gray-600"></hr>
-        <li className="mb-4 cursor-pointer text-gray-300">Sección 3</li>
-        <hr className="my-2 border-gray-600"></hr>
-      </ul>
-
-      
-    </div>
+    <Sidebar aria-label="Sidebar">
+      <Sidebar.Items>
+        <Sidebar.ItemGroup>
+          <Sidebar.Item href="/" icon={HiChartPie}>
+            Inicio
+          </Sidebar.Item>
+          <Sidebar.Item
+            href="/SalaDeEspera"
+            icon={HiViewBoards}
+            label="Pro"
+            labelColor="dark">
+            SalaDeEspera
+          </Sidebar.Item>
+          <Sidebar.Item href="/Registro" icon={HiUser}>
+            Registro
+          </Sidebar.Item>
+          <Sidebar.Item href="/IngresoPage" icon={HiShoppingBag}>
+            Nueva Consulta
+          </Sidebar.Item>
+          <Sidebar.Item href="/LisListadoFichasMedicas" icon={HiShoppingBag}>
+            Registro Mascota
+          </Sidebar.Item>
+          <Sidebar.Item href="#" icon={HiTable}>
+            Cerrar Sesion
+          </Sidebar.Item>
+        </Sidebar.ItemGroup>
+      </Sidebar.Items>
+    </Sidebar>
   );
 };
