@@ -6,7 +6,6 @@ import ListadoFichasPage from './pages/ListadoFichasPage';
 import HomePage from './pages/HomePage';
 import SalaDeEspera from './pages/SalaDeEspera';
 import RegistroUser from './pages/RegistroUser';
-
 import { AuthProvider } from './context/AuthContext';
 import { DatosMProvider } from './context/DatosMedicos';
 

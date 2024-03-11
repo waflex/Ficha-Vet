@@ -23,7 +23,7 @@ function SalaDeEspera() {
   }, [filtro]);
 
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-full">
       <Sidebar />
       <div className="flex flex-grow flex-col justify-start p-4 bg-gray-100">
         <div className="text-center mb-8">
@@ -58,11 +58,14 @@ function SalaDeEspera() {
               <Link
                 to={`/detalles/${fila._id}`}
                 key={fila._id}
-                className="card rounded-md p-2 hover:scale-125 duration-150 ml-6">
+                className="card max-w-96 rounded-md p-2 hover:scale-105 duration-150 ml-6">
                 <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                   {/* Contenido de la ficha */}
+                  <h6 className="font-normal text-gray-700 dark:text-gray-400">
+                    Nombre Paciente
+                  </h6>
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Nombre Paciente: {fila.ID_Mascota.Nombre}
+                    {fila.ID_Mascota.Nombre}
                   </h5>
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
                     Nombre Tutor: {fila.ID_Tutor.Nombre}

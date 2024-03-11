@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import AgendarControlModal from '../components/AgendarControlModal';
-import { obtenerDatos } from '../api/salaEspera';//MODIFICAR LOCATION DE ACUERDO A LA API
+import { obtenerDatos } from '../api/salaEspera'; //MODIFICAR LOCATION DE ACUERDO A LA API
 
 function FichaMedicaPage() {
   const [datosTutor, setDatosTutor] = useState({});
   const [datosMascota, setDatosMascota] = useState({});
-  const [idFicha, setIdFicha] = useState(null);//TRAER IDFICHA DESDE OTRA VISTA
+  const [idFicha, setIdFicha] = useState(null); //TRAER IDFICHA DESDE OTRA VISTA
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,27 +36,47 @@ function FichaMedicaPage() {
           <div className="mb-3 flex flex-wrap">
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <label htmlFor="RUT">RUT:</label>
-              <input type="text" className="w-full border p-2 mb-2 custom-input" value={datosTutor.rut} />
+              <input
+                type="text"
+                className="w-full border p-2 mb-2 custom-input"
+                value={datosTutor.rut}
+              />
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <label htmlFor="nombreTutor">Nombre:</label>
-              <input type="text" className="w-full border p-2 mb-2 custom-input" value={datosTutor.nombre} />
+              <input
+                type="text"
+                className="w-full border p-2 mb-2 custom-input"
+                value={datosTutor.nombre}
+              />
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <label htmlFor="correo">Correo:</label>
-              <input type="email" className="w-full border p-2 mb-2 custom-input" value={datosTutor.correo} />
+              <input
+                type="email"
+                className="w-full border p-2 mb-2 custom-input"
+                value={datosTutor.correo}
+              />
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <label htmlFor="direccion">Dirección:</label>
-              <input type="text" className="w-full border p-2 mb-2 custom-input" value={datosTutor.direccion} />
+              <input
+                type="text"
+                className="w-full border p-2 mb-2 custom-input"
+                value={datosTutor.direccion}
+              />
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5">
               <label htmlFor="celular">Celular:</label>
-              <input type="number" className="w-full border p-2 mb-2 custom-input" value={datosTutor.celular} />
+              <input
+                type="number"
+                className="w-full border p-2 mb-2 custom-input"
+                value={datosTutor.celular}
+              />
             </div>
           </div>
         </section>
@@ -64,43 +84,47 @@ function FichaMedicaPage() {
         <section className="m-4">
           <h2 className="font-bold">Datos mascota:</h2>
           <div className="mb-3 flex flex-wrap">
-            <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
+            <div className="w-full sm:w-1/2 md:w-1/5 pr-4 place-items-start">
               <label htmlFor="rutChip">RUT o Chip:</label>
-              <input type="number" className="w-full border p-2 mb-2 custom-input" value={datosTutor.rutChip} />
+              <p>11111111111</p>
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <label htmlFor="nombreMascota">Nombre:</label>
-              <input type="text" className="w-full border p-2 mb-2 custom-input" value={datosMascota.nombreMascota} />
+              <input
+                type="text"
+                className="w-full border p-2 mb-2 custom-input"
+                value={datosMascota.nombreMascota}
+              />
             </div>
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <label htmlFor="especie">Especie:</label>
-              <select className="w-full border p-2 mb-2 custom-input" value={datosMascota.especie}  >
-                <option value="perro">Perro</option>
-                <option value="gato">Gato</option>
-                <option value="ave">Ave</option>
-                <option value="roedor">Roedor</option>
-                <option value="iguana">Iguana</option>
-              </select>
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <label htmlFor="raza">Raza:</label>
-              <input type="text" className="w-full border p-2 mb-2 custom-input" value={datosMascota.raza} />
+              <p type="text" className="w-full border p-2 mb-2 custom-input">
+                {datosMascota.raza}
+              </p>
             </div>
           </div>
           <section className="mb-3 flex flex-wrap">
             <label className="font-bold" htmlFor="antecedentes">
               Antecedentes médicos:
             </label>
-            <textarea type="text" className="w-full border p-2 mb-2 custom-input" value={datosMascota.antecedentes} />
+            <textarea
+              type="text"
+              className="w-full border p-2 mb-2 custom-input"
+              value={datosMascota.antecedentes}
+            />
           </section>
 
           <section className="">
             <div className="mb-3 flex flex-wrap">
               <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
                 <label htmlFor="Peso">Peso:</label>
-                <input type="number"
+                <input
+                  type="number"
                   // {...register('peso', { required: true })}
                   className="w-full border p-2 mb-2"
                 />
@@ -115,7 +139,8 @@ function FichaMedicaPage() {
               </div>
               <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
                 <label htmlFor="edad">Edad:</label>
-                <input type="number"
+                <input
+                  type="number"
                   // {...register('edad', { required: true })}
                   className="w-full border p-2 mb-2 "
                 />
@@ -125,7 +150,8 @@ function FichaMedicaPage() {
               <label className="font-bold" htmlFor="diagnostico">
                 Diagnóstico
               </label>
-              <textarea type="text"
+              <textarea
+                type="text"
                 // {...register('diagnostico', { required: true })}
                 className="w-full border p-2 mb-2 "
               />
