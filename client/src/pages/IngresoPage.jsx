@@ -6,7 +6,7 @@ function IngresoPage() {
   const { register, handleSubmit } = useForm();
 
   return (
-    <div className="flex">
+    <div className="flex h-full">
       {/* Menú */}
       <Lateral />
 

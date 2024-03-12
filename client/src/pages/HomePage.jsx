@@ -3,7 +3,7 @@ import { Lateral } from '../components/Sidebar';
 
 function HomePage() {
   return (
-    <div className="flex">
+    <div className="flex h-full">
       {/* Menú */}
       <Lateral />
       <div className="flex-grow p-4">

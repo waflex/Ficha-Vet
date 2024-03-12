@@ -75,9 +75,31 @@ export const mainfichaID = async (req, res) => {
 
 export const mainficha = async (req, res) => {
   try {
-    const Fichas = await Ficha.find({})
+    // Obtiene la fecha de hoy
+    const today = new Date();
+    // Establece la fecha de inicio de hoy a las 00:00:00
+    const startOfToday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+    // Establece la fecha de fin de hoy a las 23:59:59
+    const endOfToday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+      23,
+      59,
+      59
+    );
+
+    const Fichas = await Ficha.find({
+      // Busca fichas que tengan la fecha dentro del rango de hoy
+      Fecha: { $gte: startOfToday, $lte: endOfToday },
+    })
       .populate('ID_Mascota')
-      .populate('ID_Tutor');
+      .populate('ID_Tutor')
+      .sort({ Fecha: -1 });
     return res.json({
       Fichas,
     });

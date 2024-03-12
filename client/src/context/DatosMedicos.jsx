@@ -30,7 +30,6 @@ export function DatosMProvider({ children }) {
     try {
       const res = await obtenerDatosfiltradoM(id);
       setDatosMFiltrados(res.data);
-      console.log(DatosMFiltrados);
     } catch (error) {
       console.log(error);
     }

@@ -14,7 +14,7 @@ const router = Router();
 
 router.post(
   '/register',
-  //authRequired,
+  authRequired,
   validateSchema(registerSchema),
   register
 );

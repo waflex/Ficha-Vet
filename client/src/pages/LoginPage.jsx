@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function LoginPage() {
   const {
@@ -8,10 +10,20 @@ function LoginPage() {
     formState: { errors },
   } = useForm();
 
-  const { logUser, errors: signError } = useAuth();
+  const { logUser, errors: signError, IsAuthenticated } = useAuth();
+
   const onSubmit = handleSubmit((data) => {
     logUser(data);
   });
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(IsAuthenticated);
+    if (IsAuthenticated) {
+      navigate('/Home');
+    }
+  }, [IsAuthenticated]);
   return (
     <div className="flex h-[calc(100vh-100px)]  items-center justify-center ">
       <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md">
@@ -38,7 +50,7 @@ function LoginPage() {
             Contraseña
           </label>
           <input
-            type="text"
+            type="password"
             {...register('Contrasena', { required: true })}
             className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
             placeholder="Contraseña"
