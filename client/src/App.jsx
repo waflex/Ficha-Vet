@@ -8,6 +8,7 @@ import SalaDeEspera from './pages/SalaDeEspera';
 import RegistroUser from './pages/RegistroUser';
 import { AuthProvider } from './context/AuthContext';
 import { DatosMProvider } from './context/DatosMedicos';
+import ProtectedRoute from './routes';
 
 function App() {
   return (
@@ -16,15 +17,17 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LoginPage />} />
-            <Route path="/IngresoPage" element={<IngresoPage />} />
-            <Route path="/Ficha/:id" element={<FichaMedicaPage />} />
-            <Route path="/Home" element={<HomePage />} />
-            <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
-            <Route path="/Registro" element={<RegistroUser />} />
-            <Route
-              path="/ListadoFichasMedicas"
-              element={<ListadoFichasPage />}
-            />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/IngresoPage" element={<IngresoPage />} />
+              <Route path="/Ficha/:id" element={<FichaMedicaPage />} />
+              <Route path="/Home" element={<HomePage />} />
+              <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
+              <Route path="/Registro" element={<RegistroUser />} />
+              <Route
+                path="/ListadoFichasMedicas"
+                element={<ListadoFichasPage />}
+              />
+            </Route>
           </Routes>
         </BrowserRouter>
       </DatosMProvider>

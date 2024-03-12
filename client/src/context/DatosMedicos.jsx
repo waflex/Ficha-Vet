@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { obtenerDatos } from '../api/salaEspera';
+import { obtenerDatos, obtenerDatosfiltradoM } from '../api/salaEspera';
 
 // eslint-disable-next-line react-refresh/only-export-components
 const DatosMContext = createContext();
@@ -16,23 +16,21 @@ export const useDatosM = () => {
 // eslint-disable-next-line react/prop-types
 export function DatosMProvider({ children }) {
   const [DatosM, setDatosM] = useState([]);
+  const [DatosMFiltrados, setDatosMFiltrados] = useState([]);
 
   const obtenerDatosM = async () => {
     try {
       const res = await obtenerDatos();
-      if (res !== DatosM) {
-        setDatosM(res.data);
-      }
+      setDatosM(res.data);
     } catch (error) {
       console.log(error);
     }
   };
   const obtenerDatosFiltrados = async (id) => {
     try {
-      const res = await obtenerDatos();
-      if (res !== DatosM) {
-        setDatosM(res.data);
-      }
+      const res = await obtenerDatosfiltradoM(id);
+      setDatosMFiltrados(res.data);
+      console.log(DatosMFiltrados);
     } catch (error) {
       console.log(error);
     }
@@ -41,6 +39,7 @@ export function DatosMProvider({ children }) {
     <DatosMContext.Provider
       value={{
         DatosM,
+        DatosMFiltrados,
         obtenerDatosM,
         obtenerDatosFiltrados,
       }}>

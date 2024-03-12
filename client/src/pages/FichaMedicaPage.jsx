@@ -5,20 +5,21 @@ import { useDatosM } from '../context/DatosMedicos';
 import { useParams } from 'react-router-dom';
 
 function FichaMedicaPage() {
-  const { DatosM } = useDatosM();
+  const { obtenerDatosFiltrados, DatosMFiltrados } = useDatosM();
   const { id } = useParams();
-
-  const [datosFicha, setDatosFicha] = useState([]);
-
+  const { Ficha } = DatosMFiltrados;
   useEffect(() => {
-    // Filtrar los datos de Fichas basados en el ID
-    const fichaEncontrada =
-      DatosM.Fichas &&
-      Object.values(DatosM.Fichas).find((ficha) => ficha._id === id);
-    setDatosFicha(fichaEncontrada);
-  }, [DatosM, id]);
-  console.log(DatosM);
-  console.log(datosFicha);
+    obtenerDatosFiltrados(id);
+  }, [id]);
+
+  // Verificar si los datos han sido cargados antes de renderizar
+  if (!DatosMFiltrados || !DatosMFiltrados.Fichas) {
+    return <div>Cargando datos...</div>;
+  }
+
+  // Extraer los datos del tutor y la mascota
+  const { ID_Tutor, ID_Mascota } = DatosMFiltrados.Fichas;
+
   return (
     <div className="flex">
       {/* Menú */}
@@ -37,7 +38,7 @@ function FichaMedicaPage() {
               <input
                 type="text"
                 className="w-full border p-2 mb-2 custom-input"
-                value={datosFicha.ID_Tutor.rutTutor}
+                value={ID_Tutor.rutTutor}
               />
             </div>
 
@@ -46,7 +47,7 @@ function FichaMedicaPage() {
               <input
                 type="text"
                 className="w-full border p-2 mb-2 custom-input"
-                value={datosFicha.ID_Tutor.Nombre}
+                value={ID_Tutor.Nombre}
               />
             </div>
 
@@ -55,7 +56,7 @@ function FichaMedicaPage() {
               <input
                 type="email"
                 className="w-full border p-2 mb-2 custom-input"
-                value={datosFicha.ID_Tutor.correo}
+                value={ID_Tutor.correo}
               />
             </div>
 
@@ -161,7 +162,7 @@ function FichaMedicaPage() {
               type="submit"
               className="w-full bg-blue-500 text-white p-2 mt-6  rounded">
               Registrar
-            </button> */}
+  </button> */}
             <AgendarControlModal />
           </div>
         </section>

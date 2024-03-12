@@ -1,11 +1,8 @@
 'use client';
 
-import { Link } from 'react-router-dom';
 import { Sidebar } from 'flowbite-react';
 import {
-  HiArrowSmRight,
   HiChartPie,
-  HiInbox,
   HiShoppingBag,
   HiTable,
   HiUser,
@@ -13,12 +10,6 @@ import {
 } from 'react-icons/hi';
 
 export const Lateral = () => {
-  // IngresoPage" element={<IngresoPage />} />
-  //           <Route path="/Ficha" element={<FichaMedicaPage />} />
-  //           <Route path="/Home" element={<HomePage />} />
-  //           <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
-  //           <Route path="/Registro" element={<RegistroUser />} />
-  //           <Route path="/LisListadoFichasMedicas
   return (
     <Sidebar aria-label="Sidebar">
       <Sidebar.Items>

@@ -17,9 +17,9 @@ export const obtenerDatos = async () => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
-export const obtenerDatosfiltrado = async () => {
+export const obtenerDatosfiltradoM = async (id) => {
   try {
-    const res = await axios.get('Consultas/id');
+    const res = await axios.get(`Consultas/${id}`);
     return res;
   } catch (error) {
     throw new Error('No se pudo conectar a la API:', error);

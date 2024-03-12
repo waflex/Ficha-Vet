@@ -31,7 +31,6 @@ export const crearFicha = async (req, res) => {
       );
       idtutor = newTutor._id;
     }
-    console.log(idtutor);
     if (!existenciaMascota) {
       const newPet = await CrearMascota(
         rutChip,
@@ -59,7 +58,20 @@ export const crearFicha = async (req, res) => {
 export const verFicha = async (req, res) => {
   const { chipMascota, idFicha } = req.body;
 };
-export const mainfichaID = async (req, res) => {};
+export const mainfichaID = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const Fichas = await Ficha.findById({ _id: id })
+      .populate('ID_Mascota')
+      .populate('ID_Tutor');
+    return res.json({
+      Fichas,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
 
 export const mainficha = async (req, res) => {
   try {

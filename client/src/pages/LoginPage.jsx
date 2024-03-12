@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
+
 function LoginPage() {
   const {
     register,
