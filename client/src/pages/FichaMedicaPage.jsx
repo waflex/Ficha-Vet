@@ -21,7 +21,7 @@ function FichaMedicaPage() {
   const { ID_Tutor, ID_Mascota } = DatosMFiltrados.Fichas;
 
   return (
-    <div className="flex">
+    <div className="flex h-full">
       {/* Menú */}
       <Lateral />
 
@@ -33,39 +33,29 @@ function FichaMedicaPage() {
           </div>
           <h2 className="font-bold">Datos tutor:</h2>
           <div className="mb-3 flex flex-wrap">
-
             <div className="w-full sm:w-1/2 md:w-1/5 ">
               <h5 htmlFor="RUT">RUT:</h5>
-              <h6 className="w-full mb-3">
-                {ID_Tutor.rutTutor}</h6>
+              <h6 className="w-full mb-3">{ID_Tutor.rutTutor}</h6>
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5">
               <h5 htmlFor="nombreTutor">Nombre:</h5>
-              <h6 className="w-full mb-3">
-                {ID_Tutor.Nombre}</h6>
+              <h6 className="w-full mb-3">{ID_Tutor.Nombre}</h6>
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5">
               <h5 htmlFor="correo">Correo:</h5>
-              <h6 className="w-full mb-3">
-                {ID_Tutor.Correo}
-              </h6>
+              <h6 className="w-full mb-3">{ID_Tutor.Correo}</h6>
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5">
               <h5 htmlFor="direccion">Dirección:</h5>
-              <h6 className="w-full mb-3">
-                  {ID_Tutor.Direccion}
-                </h6>
-              
+              <h6 className="w-full mb-3">{ID_Tutor.Direccion}</h6>
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5">
               <h5 htmlFor="celular">Celular:</h5>
-              <h6
-                className="w-full mb-3"
-                >{ID_Tutor.Celular}</h6>
+              <h6 className="w-full mb-3">{ID_Tutor.Celular}</h6>
             </div>
           </div>
         </section>
@@ -81,23 +71,17 @@ function FichaMedicaPage() {
 
             <div className="w-full sm:w-1/2 md:w-1/5">
               <h5 htmlFor="nombreMascota">Nombre:</h5>
-              <h6
-                className="w-full mb-3">{ID_Mascota.Nombre}
-                </h6>
+              <h6 className="w-full mb-3">{ID_Mascota.Nombre}</h6>
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <h5 htmlFor="especie">Especie:</h5>
-              <h6
-                className="w-full mb-3">{ID_Mascota.Especie}
-                </h6>
+              <h6 className="w-full mb-3">{ID_Mascota.Especie}</h6>
             </div>
 
             <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
               <h5 htmlFor="raza">Raza:</h5>
-              <h6
-                className="w-full mb-3">{ID_Mascota.Raza}
-                </h6>
+              <h6 className="w-full mb-3">{ID_Mascota.Raza}</h6>
             </div>
           </div>
 
@@ -105,9 +89,7 @@ function FichaMedicaPage() {
             <h5 className="font-bold" htmlFor="antecedentes">
               Antecedentes médicos:
             </h5>
-            <h6
-                className="w-full mb-3">{ID_Mascota.Antencedentes}
-                </h6>
+            <h6 className="w-full mb-3">{ID_Mascota.Antencedentes}</h6>
           </section>
 
           <section className="">

@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      sans: ['Inter var', 'system-ui', 'sans-serif'],
+    },
   },
   plugins: [flowbitePlugin, animated],
 };

@@ -95,7 +95,7 @@ export const mainficha = async (req, res) => {
 
     const Fichas = await Ficha.find({
       // Busca fichas que tengan la fecha dentro del rango de hoy
-      Fecha: { $gte: startOfToday, $lte: endOfToday },
+      // Fecha: { $gte: startOfToday, $lte: endOfToday },
     })
       .populate('ID_Mascota')
       .populate('ID_Tutor')
