@@ -3,6 +3,7 @@ import { Lateral } from '../components/Sidebar';
 import AgendarControlModal from '../components/AgendarControlModal';
 import { useDatosM } from '../context/DatosMedicos';
 import { useParams } from 'react-router-dom';
+import { Spinner } from 'flowbite-react';
 
 function FichaMedicaPage() {
   const { obtenerDatosFiltrados, DatosMFiltrados } = useDatosM();
@@ -14,7 +15,18 @@ function FichaMedicaPage() {
 
   // Verificar si los datos han sido cargados antes de renderizar
   if (!DatosMFiltrados || !DatosMFiltrados.Fichas) {
-    return <div>Cargando datos...</div>;
+    return (
+      <div className="flex flex-wrap gap-2">
+        <div className="text-center">
+          Cargando...
+          <Spinner aria-label="Extra large spinner example" size="xl" />
+        </div>
+      </div>
+    );
+  }
+  if (DatosMFiltrados.Fichas[0] == 'No encontrado') {
+    alert('Valor No Encontrado');
+    window.location.href = '/SalaDeEspera';
   }
 
   // Extraer los datos del tutor y la mascota
@@ -43,23 +55,33 @@ function FichaMedicaPage() {
             <tbody>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">RUT</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.rutTutor}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Tutor.rutTutor}
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Nombre</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.Nombre}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Tutor.Nombre}
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Correo</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.Correo}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Tutor.Correo}
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Dirección</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.Direccion}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Tutor.Direccion}
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Celular</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.Celular}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Tutor.Celular}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -78,35 +100,53 @@ function FichaMedicaPage() {
             <tbody>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">RUT o Chip</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Rut_Ficha_Masc}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Mascota.Rut_Ficha_Masc}
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Nombre</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Nombre}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Mascota.Nombre}
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Especie</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Especie}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Mascota.Especie}
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Raza</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Raza}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Mascota.Raza}
+                </td>
               </tr>
               <tr>
-                <td className="py-2 px-3 border border-gray-400">Antecedentes médicos</td>
-                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Antencedentes}</td>
+                <td className="py-2 px-3 border border-gray-400">
+                  Antecedentes médicos
+                </td>
+                <td className="py-2 px-3 border border-gray-400">
+                  {ID_Mascota.Antencedentes}
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Peso</td>
-                <td className="py-2 px-3 border border-gray-400"><input type="number" className="w-full border p-2 mb-2"/></td>
+                <td className="py-2 px-3 border border-gray-400">
+                  <input type="number" className="w-full border p-2 mb-2" />
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Tamaño</td>
-                <td className="py-2 px-3 border border-gray-400"><input type="number" className="w-full border p-2 mb-2"/></td>
+                <td className="py-2 px-3 border border-gray-400">
+                  <input type="number" className="w-full border p-2 mb-2" />
+                </td>
               </tr>
               <tr>
                 <td className="py-2 px-3 border border-gray-400">Edad</td>
-                <td className="py-2 px-3 border border-gray-400"><input type="number" className="w-full border p-2 mb-2"/></td>
+                <td className="py-2 px-3 border border-gray-400">
+                  <input type="number" className="w-full border p-2 mb-2" />
+                </td>
               </tr>
             </tbody>
           </table>

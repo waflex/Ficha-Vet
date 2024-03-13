@@ -64,6 +64,13 @@ export const mainfichaID = async (req, res) => {
     const Fichas = await Ficha.findById({ _id: id })
       .populate('ID_Mascota')
       .populate('ID_Tutor');
+    if (!Fichas)
+      return res
+        .status(401)
+        .json([
+          'No encontrado',
+          'No se encontro la ficha con el id proporcionado',
+        ]);
     return res.json({
       Fichas,
     });

@@ -19,7 +19,6 @@ function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(IsAuthenticated);
     if (IsAuthenticated) {
       navigate('/Home');
     }

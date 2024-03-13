@@ -3,6 +3,7 @@ import { useDatosM } from '../context/DatosMedicos';
 import { Lateral } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
 import { FaClock, FaCheckCircle, FaTimesCircle, FaCheck } from 'react-icons/fa';
+import { HiFilter } from 'react-icons/hi';
 
 function SalaDeEspera() {
   const [filtro, setFiltro] = useState(null);
@@ -35,14 +36,17 @@ function SalaDeEspera() {
           backgroundSize: 'contain',
           backgroundPosition: 'center right',
           backgroundRepeat: 'no-repeat',
-          backgroundColor: '#eff0eb',
+          backgroundColor: '#f3f4ef',
         }}>
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold" id="tit-form-ing">
             Sala de Espera
           </h1>
         </div>
-        <div className="bg-gray-200 m-0 p-4 flex justify-end space-x-4">
+        <div className="bg-gray-200 rounded m-0 p-4 flex justify-center space-x-4">
+          <button>
+            <HiFilter onClick={() => handleFiltro(null)} />
+          </button>
           <button
             className="filter-btn"
             onClick={() => handleFiltro('En Espera')}>
