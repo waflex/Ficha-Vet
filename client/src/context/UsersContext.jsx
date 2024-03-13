@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState } from 'react';
 import {} from '../api/auth';
 import { obtenerUsuario, obtenerUsuarios } from '../api/Usuarios';
 
@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
       console.log(error);
     }
   };
+
   return (
     <AuthContext.Provider
       value={{

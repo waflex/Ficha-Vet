@@ -144,6 +144,11 @@ function SalaDeEspera() {
 export default SalaDeEspera;
 
 function hora(fechaCompleta) {
+  // const fecha = new Date(fechaCompleta);
+  // return fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const fecha = new Date(fechaCompleta);
-  return fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const ahora = new Date();
+  const diferencia = ahora - fecha;
+  const minutosPasados = Math.floor(diferencia / (1000 * 60)); // Convertir la diferencia a minutos
+  return `Hace ${minutosPasados} minutos`;
 }

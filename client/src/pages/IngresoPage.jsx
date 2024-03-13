@@ -1,6 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { registroConsulta } from '../api/registroDatos';
 import { Lateral } from '../components/Sidebar';
+import {
+  FloatingLabel,
+  Checkbox,
+  Label,
+  Select,
+  Textarea,
+} from 'flowbite-react';
 
 function IngresoPage() {
   const { register, handleSubmit } = useForm();
@@ -10,107 +17,127 @@ function IngresoPage() {
       {/* Menú */}
       <Lateral />
 
-      <div className="flex-grow p-4">
+      <div
+        className="flex-grow p-4"
+        style={{
+          backgroundImage: `url(/img/Background_Ingreso.jpg)`,
+          backgroundSize: 'cover',
+        }}>
         <form
           onSubmit={handleSubmit(async (values) => {
-            const res = await registroConsulta(values);
+            console.log(values);
+            // const res = await registroConsulta(values);
           })}
-          className="mx-auto mt-0 p-2 border border-gray-300 rounded">
+          className="mx-auto mt-0 p-2 rounded backdrop-blur-md">
           <div className="text-center mb-0">
             <h1 className="text-2xl font-bold" id="tit-form-ing">
               Formulario de ingreso
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
             <div>
               <h2 className="text-xl font-bold mb-2">Datos tutor</h2>
 
-              <label htmlFor="RUT">RUT:</label>
-              <input
-                type="checkbox"
-                {...register('existenciaTutor')}
-                defaultChecked={false}
-                className="mr-2"></input>
-              <input
-                type="number"
+              <Checkbox {...register('existenciaTutor')} />
+              <Label
+                htmlFor="existenciaTutor"
+                className="w-full dark:text-black">
+                Existente
+              </Label>
+              <FloatingLabel
+                variant="outlined"
+                label="Rut Tutor"
+                className="w-full my-2 dark:text-black dark:bg-white"
                 {...register('rut', { required: true })}
-                className="w-full border p-2 mb-2"
               />
 
-              <label htmlFor="nombreTutor">Nombre:</label>
-              <input
-                type="text"
+              <FloatingLabel
+                variant="outlined"
+                label="Nombre Tutor"
+                className="my-2 dark:text-black dark:bg-white"
                 {...register('nombreTutor', { required: true })}
-                className="w-full border p-2 mb-2"
               />
 
-              <label htmlFor="correo">Correo:</label>
-              <input
-                type="email"
+              <FloatingLabel
+                variant="outlined"
+                label="Correo"
+                className="my-2 dark:text-black dark:bg-white"
                 {...register('correo', { required: true })}
-                className="w-full border p-2 mb-2"
               />
 
-              <label htmlFor="celular">Celular:</label>
-              <input
-                type="number"
+              <FloatingLabel
+                variant="outlined"
+                label="Celular"
+                className="my-2 dark:text-black dark:bg-white"
                 {...register('celular', { required: true })}
-                className="w-full border p-2 mb-2"
               />
 
-              <label htmlFor="direccion">Dirección:</label>
-              <input
-                type="text"
+              <FloatingLabel
+                variant="outlined"
+                label="Direccion"
+                className="my-2 dark:text-black dark:bg-white"
                 {...register('direccion', { required: true })}
-                className="w-full border p-2 mb-2"
               />
             </div>
 
             <div>
               <h2 className="text-xl font-bold mb-2">Datos mascota</h2>
-
-              <label htmlFor="rutChip">RUT o Chip:</label>
-              <input
-                type="checkbox"
-                {...register('existenciaMascota')}
-                defaultChecked={false}
-                className="mr-2"></input>
-              <input
-                type="number"
+              <Checkbox {...register('existenciaMascota')} />
+              <Label htmlFor="existenciaTutor" className="dark:text-black">
+                Existente
+              </Label>
+              <FloatingLabel
+                variant="outlined"
+                label="Rut o Chip Mascota (Opcional)"
+                className="my-2 dark:text-black dark:bg-white"
                 {...register('rutChip', { required: true })}
-                className="w-full border p-2 mb-2"
               />
-
-              <label htmlFor="nombreMascota">Nombre:</label>
-              <input
-                type="text"
+              <FloatingLabel
+                variant="outlined"
+                label="Nombre Mascota"
+                className="my-2 dark:text-black dark:bg-white"
                 {...register('nombreMascota', { required: true })}
-                className="w-full border p-2 mb-2"
               />
 
-              <label htmlFor="especie">Especie:</label>
-              <select
-                {...register('especie', { required: true })}
-                className="w-full border p-2 mb-2">
-                <option value="perro">Perro</option>
-                <option value="gato">Gato</option>
-                <option value="ave">Ave</option>
-                <option value="roedor">Roedor</option>
-                <option value="iguana">Iguana</option>
-              </select>
+              <div className="max-w">
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="especie"
+                    value="Seleccione la Especie:"
+                    className="dark:text-dark"
+                  />
+                </div>
+                <Select
+                  id="especie"
+                  {...register('especie', { required: true })}
+                  required>
+                  <option value="perro">Perro</option>
+                  <option value="gato">Gato</option>
+                  <option value="ave">Ave</option>
+                  <option value="roedor">Roedor</option>
+                  <option value="iguana">Iguana</option>
+                </Select>
+              </div>
 
-              <label htmlFor="">Raza:</label>
-              <input
-                type="text"
-                {...register('raza')}
-                className="w-full border p-2 mb-2"
+              <FloatingLabel
+                variant="outlined"
+                label="Raza"
+                className="my-2 dark:text-black dark:bg-white"
+                {...register('raza', { required: true })}
               />
-
-              <label htmlFor="antcedentes">Antecedentes:</label>
-              <textarea
-                {...register('antecedentes')}
-                className="w-full border p-2 mb-2"></textarea>
+              <div className="max-w">
+                <div className="mb-2 block">
+                  <Label htmlFor="antcedentes" value="Your message" />
+                </div>
+                <Textarea
+                  id="comment"
+                  placeholder="Leave a comment..."
+                  {...register('antecedentes')}
+                  required
+                  rows={4}
+                />
+              </div>
             </div>
           </div>
 
