@@ -18,7 +18,7 @@ function IngresoPage() {
       <Lateral />
 
       <div
-        className="flex-grow p-4"
+        className="flex-grow p-4 max-h-full overflow-y-auto"
         style={{
           backgroundImage: `url(/img/Background_Ingreso.jpg)`,
           backgroundSize: 'cover',

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lateral } from '../components/Sidebar';
 import AgendarControlModal from '../components/AgendarControlModal';
 import { useDatosM } from '../context/DatosMedicos';
@@ -16,7 +16,7 @@ function FichaMedicaPage() {
   if (!DatosMFiltrados || !DatosMFiltrados.Fichas) {
     return <div>Cargando datos...</div>;
   }
-  console.log(DatosMFiltrados.Fichas);
+
   // Extraer los datos del tutor y la mascota
   const { ID_Tutor, ID_Mascota } = DatosMFiltrados.Fichas;
 
@@ -25,121 +25,96 @@ function FichaMedicaPage() {
       {/* Menú */}
       <Lateral />
 
-      <div className="flex-grow p-6">
-        {/* Datos tutor */}
-        <section className="m-4">
-          <div className="text-center mb-4">
-            <h1 className="text-2xl font-bold">Ficha Médica</h1>
-          </div>
-          <h2 className="font-bold">Datos tutor:</h2>
-          <div className="mb-3 flex flex-wrap">
-            <div className="w-full sm:w-1/2 md:w-1/5 ">
-              <h5 htmlFor="RUT">RUT:</h5>
-              <h6 className="w-full mb-3">{ID_Tutor.rutTutor}</h6>
-            </div>
+      <div className="flex-grow p-6 max-h-full overflow-y-auto">
+        <div className="text-center mb-4">
+          <h1 className="text-2xl font-bold">Ficha Médica</h1>
+        </div>
 
-            <div className="w-full sm:w-1/2 md:w-1/5">
-              <h5 htmlFor="nombreTutor">Nombre:</h5>
-              <h6 className="w-full mb-3">{ID_Tutor.Nombre}</h6>
-            </div>
+        <div>
+          {/* Datos tutor */}
+          <h2 className="font-bold py-3">Datos tutor:</h2>
+          <table className="w-full border-collapse border border-gray-400">
+            <thead>
+              <tr>
+                <th className="py-2 px-3 border border-gray-400">Campo</th>
+                <th className="py-2 px-3 border border-gray-400">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">RUT</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.rutTutor}</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Nombre</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.Nombre}</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Correo</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.Correo}</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Dirección</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.Direccion}</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Celular</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Tutor.Celular}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-            <div className="w-full sm:w-1/2 md:w-1/5">
-              <h5 htmlFor="correo">Correo:</h5>
-              <h6 className="w-full mb-3">{ID_Tutor.Correo}</h6>
-            </div>
+        <div>
+          {/* Datos mascota */}
+          <h2 className="font-bold py-3">Datos mascota:</h2>
+          <table className="w-full border-collapse border border-gray-400">
+            <thead>
+              <tr>
+                <th className="py-2 px-3 border border-gray-400">Campo</th>
+                <th className="py-2 px-3 border border-gray-400">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">RUT o Chip</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Rut_Ficha_Masc}</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Nombre</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Nombre}</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Especie</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Especie}</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Raza</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Raza}</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Antecedentes médicos</td>
+                <td className="py-2 px-3 border border-gray-400">{ID_Mascota.Antencedentes}</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Peso</td>
+                <td className="py-2 px-3 border border-gray-400"><input type="number" className="w-full border p-2 mb-2"/></td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Tamaño</td>
+                <td className="py-2 px-3 border border-gray-400"><input type="number" className="w-full border p-2 mb-2"/></td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 border border-gray-400">Edad</td>
+                <td className="py-2 px-3 border border-gray-400"><input type="number" className="w-full border p-2 mb-2"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-            <div className="w-full sm:w-1/2 md:w-1/5">
-              <h5 htmlFor="direccion">Dirección:</h5>
-              <h6 className="w-full mb-3">{ID_Tutor.Direccion}</h6>
-            </div>
-
-            <div className="w-full sm:w-1/2 md:w-1/5">
-              <h5 htmlFor="celular">Celular:</h5>
-              <h6 className="w-full mb-3">{ID_Tutor.Celular}</h6>
-            </div>
-          </div>
-        </section>
-        {/* Datos Mascota */}
-        <section className="m-4">
-          <h2 className="font-bold">Datos mascota:</h2>
-
-          <div className="mb-3 flex flex-wrap">
-            <div className="w-full sm:w-1/2 md:w-1/5 pr-4 place-items-start">
-              <h5 htmlFor="rutChip">RUT o Chip:</h5>
-              <h6>{ID_Mascota.Rut_Ficha_Masc}</h6>
-            </div>
-
-            <div className="w-full sm:w-1/2 md:w-1/5">
-              <h5 htmlFor="nombreMascota">Nombre:</h5>
-              <h6 className="w-full mb-3">{ID_Mascota.Nombre}</h6>
-            </div>
-
-            <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
-              <h5 htmlFor="especie">Especie:</h5>
-              <h6 className="w-full mb-3">{ID_Mascota.Especie}</h6>
-            </div>
-
-            <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
-              <h5 htmlFor="raza">Raza:</h5>
-              <h6 className="w-full mb-3">{ID_Mascota.Raza}</h6>
-            </div>
-          </div>
-
-          <section className="mb-3 flex flex-wrap">
-            <h5 className="font-bold" htmlFor="antecedentes">
-              Antecedentes médicos:
-            </h5>
-            <h6 className="w-full mb-3">{ID_Mascota.Antencedentes}</h6>
-          </section>
-
-          <section className="">
-            <div className="mb-3 flex flex-wrap">
-              <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
-                <h5 htmlFor="Peso">Peso:</h5>
-                <input
-                  type="number"
-                  // {...register('peso', { required: true })}
-                  className="w-full border p-2 mb-2"
-                />
-              </div>
-              <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
-                <h5 htmlFor="tamaño">tamaño:</h5>
-                <input
-                  type="number"
-                  // {...register('tamaño', { required: true })}
-                  className="w-full border p-2 mb-2"
-                />
-              </div>
-              <div className="w-full sm:w-1/2 md:w-1/5 pr-4">
-                <h5 htmlFor="edad">Edad:</h5>
-                <input
-                  type="number"
-                  // {...register('edad', { required: true })}
-                  className="w-full border p-2 mb-2 "
-                />
-              </div>
-            </div>
-            <div className="">
-              <h5 className="font-bold" htmlFor="diagnostico">
-                Diagnóstico
-              </h5>
-              <textarea
-                type="text"
-                // {...register('diagnostico', { required: true })}
-                className="w-full border p-2 mb-2 "
-              />
-            </div>
-          </section>
-
-          <div className="flex">
-            {/* <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 mt-6  rounded">
-              Registrar
-  </button> */}
-            <AgendarControlModal />
-          </div>
-        </section>
+        <div className="flex mt-5">
+          <AgendarControlModal />
+        </div>
       </div>
     </div>
   );
