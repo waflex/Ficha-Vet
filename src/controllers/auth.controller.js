@@ -23,6 +23,7 @@ export const register = async (req, res) => {
       nombreUsuario: userSaved.Nombre,
       Contrasena: userSaved.Contrasena,
       tipoUsuario: userSaved.tipoUsuario,
+      ultimaConexion: 'Nunca',
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

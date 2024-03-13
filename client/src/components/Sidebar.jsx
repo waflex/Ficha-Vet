@@ -10,6 +10,7 @@ import {
   HiHeart,
   HiUserGroup,
   HiKey,
+  HiCalculator,
 } from 'react-icons/hi';
 import { useAuth } from '../context/AuthContext';
 import { DarkThemeToggle } from 'flowbite-react';
@@ -39,6 +40,12 @@ export const Lateral = () => {
           <Sidebar.Item href="/ListadoFichasMedicas" icon={HiBookOpen}>
             Ver Fichas Medicas
           </Sidebar.Item>
+          <Sidebar.Collapse icon={HiCalculator} label="Herramientas">
+            <Sidebar.Item href="#">Calcular dosis</Sidebar.Item>
+            <Sidebar.Item href="#">Sales</Sidebar.Item>
+            <Sidebar.Item href="#">Refunds</Sidebar.Item>
+            <Sidebar.Item href="#">Shipping</Sidebar.Item>
+          </Sidebar.Collapse>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
       <Sidebar.Items className="absolute bottom-5 left-5">
@@ -52,7 +59,7 @@ export const Lateral = () => {
               <Sidebar.Item href="/Registro" icon={HiUserAdd}>
                 Agregar Usuario
               </Sidebar.Item>
-              <Sidebar.Item href="#" icon={HiUserGroup}>
+              <Sidebar.Item href="/Usuarios" icon={HiUserGroup}>
                 Ver usuarios
               </Sidebar.Item>
             </>

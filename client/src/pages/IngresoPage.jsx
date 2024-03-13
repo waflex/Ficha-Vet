@@ -36,67 +36,72 @@ function IngresoPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
-            <div>
+            <div className="flex flex-col space-y-4">
               <h2 className="text-xl font-bold mb-2">Datos tutor</h2>
-
-              <Checkbox {...register('existenciaTutor')} />
-              <Label
-                htmlFor="existenciaTutor"
-                className="w-full dark:text-black">
-                Existente
-              </Label>
+              <div>
+                <Checkbox {...register('existenciaTutor')} />
+                <Label
+                  htmlFor="existenciaTutor"
+                  className="w-full dark:text-black">
+                  Existente
+                </Label>
+              </div>
               <FloatingLabel
                 variant="outlined"
                 label="Rut Tutor"
-                className="w-full my-2 dark:text-black dark:bg-white"
+                className="w-full my-2 bg-transparent dark:text-black dark:bg-transparent"
                 {...register('rut', { required: true })}
               />
 
               <FloatingLabel
                 variant="outlined"
                 label="Nombre Tutor"
-                className="my-2 dark:text-black dark:bg-white"
+                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
                 {...register('nombreTutor', { required: true })}
               />
 
               <FloatingLabel
                 variant="outlined"
                 label="Correo"
-                className="my-2 dark:text-black dark:bg-white"
+                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
                 {...register('correo', { required: true })}
               />
 
               <FloatingLabel
                 variant="outlined"
                 label="Celular"
-                className="my-2 dark:text-black dark:bg-white"
+                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
                 {...register('celular', { required: true })}
               />
 
               <FloatingLabel
                 variant="outlined"
                 label="Direccion"
-                className="my-2 dark:text-black dark:bg-white"
+                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
                 {...register('direccion', { required: true })}
               />
             </div>
 
-            <div>
-              <h2 className="text-xl font-bold mb-2">Datos mascota</h2>
-              <Checkbox {...register('existenciaMascota')} />
-              <Label htmlFor="existenciaTutor" className="dark:text-black">
-                Existente
-              </Label>
+            <div className="flex flex-col space-y-4">
+              <div>
+                <h2 className="text-xl font-bold mb-2">Datos mascota</h2>
+                <Checkbox {...register('existenciaMascota')} />
+                <Label
+                  htmlFor="existenciaTutor"
+                  className="bg-transparent dark:text-black dark:bg-transparent">
+                  Existente
+                </Label>
+              </div>
               <FloatingLabel
                 variant="outlined"
                 label="Rut o Chip Mascota (Opcional)"
-                className="my-2 dark:text-black dark:bg-white"
+                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
                 {...register('rutChip', { required: true })}
               />
               <FloatingLabel
                 variant="outlined"
                 label="Nombre Mascota"
-                className="my-2 dark:text-black dark:bg-white"
+                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
                 {...register('nombreMascota', { required: true })}
               />
 
@@ -105,11 +110,11 @@ function IngresoPage() {
                   <Label
                     htmlFor="especie"
                     value="Seleccione la Especie:"
-                    className="dark:text-dark"
+                    className="bg-transparent dark:text-black dark:bg-transparent"
                   />
                 </div>
                 <Select
-                  id="especie"
+                  className="bg-transparent dark:text-black dark:bg-transparent"
                   {...register('especie', { required: true })}
                   required>
                   <option value="perro">Perro</option>
@@ -123,19 +128,23 @@ function IngresoPage() {
               <FloatingLabel
                 variant="outlined"
                 label="Raza"
-                className="my-2 dark:text-black dark:bg-white"
+                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
                 {...register('raza', { required: true })}
               />
               <div className="max-w">
-                <div className="mb-2 block">
-                  <Label htmlFor="antcedentes" value="Your message" />
+                <div className="mb-2 block ">
+                  <Label
+                    htmlFor="antcedentes"
+                    className="bg-transparent dark:text-black dark:bg-transparent"
+                    value="Antecedentes o Problemas de salud"
+                  />
                 </div>
                 <Textarea
-                  id="comment"
-                  placeholder="Leave a comment..."
+                  placeholder="Antecedentes medicos de la mascota."
                   {...register('antecedentes')}
+                  className="text-black bg-transparent dark:text-black dark:bg-transparent"
                   required
-                  rows={4}
+                  rows={3}
                 />
               </div>
             </div>
@@ -143,9 +152,13 @@ function IngresoPage() {
 
           <div className="mt-0">
             <h2 className="text-xl font-bold mb-2">Síntomas/Observaciones</h2>
-            <textarea
+            <Textarea
               {...register('comentarios')}
-              className="w-full border p-2 mb-0"></textarea>
+              placeholder="Observaciones o síntomas de la mascota."
+              className="w-full border p-2 mb-0"
+              required
+              rows={4}
+            />
           </div>
 
           <button

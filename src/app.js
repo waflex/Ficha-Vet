@@ -19,6 +19,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/api', authRoutes);
 app.use('/api/Consultas', Consultas);
-app.use('/api/Usuario', Usuarios);
+app.use('/api/Usuarios', Usuarios);
 
 export default app;

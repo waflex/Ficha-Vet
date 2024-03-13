@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { FaClock, FaCheckCircle, FaTimesCircle, FaCheck } from 'react-icons/fa';
 
 function Usuarios() {
-  const { Usuarios } = useUsers();
+  const { Usuarios, getUsers } = useUsers();
   useEffect(() => {
-    obtenerDatosM();
+    getUsers();
+    console.log(Usuarios);
   }, []);
 
   return (
@@ -23,7 +24,7 @@ function Usuarios() {
           Botones de Filtro
         </div>
         {/* Contenedor de las fichas */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
           {DatosM.Fichas &&
             DatosM.Fichas.map((fila) => (
               <Link
@@ -31,7 +32,7 @@ function Usuarios() {
                 key={fila._id}
                 className="relative card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
                 <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                  {/* Contenido de la ficha */}
+                  {/* Contenido de la ficha }
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
                     Nombre Paciente
                   </h6>
@@ -48,7 +49,7 @@ function Usuarios() {
                     Estado: {fila.Estado}
                   </p>
                 </div>
-                {/* Icono de estado */}
+                {/* Icono de estado }
                 {(() => {
                   switch (fila.Estado) {
                     case 'En Espera':
@@ -101,7 +102,7 @@ function Usuarios() {
                 })()}
               </Link>
             ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
