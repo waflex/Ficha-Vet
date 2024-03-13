@@ -11,7 +11,13 @@ import {
 
 function IngresoPage() {
   const { register, handleSubmit } = useForm();
-
+  const onSubmit = async (values) => {
+    const res = await registroConsulta(values);
+    if (res.status === 201) {
+      alert('Consulta registrada con éxito');
+      window.location.href = '/SalaDeEspera';
+    }
+  };
   return (
     <div className="flex h-full">
       {/* Menú */}
@@ -24,10 +30,7 @@ function IngresoPage() {
           backgroundSize: 'cover',
         }}>
         <form
-          onSubmit={handleSubmit(async (values) => {
-            console.log(values);
-            const res = await registroConsulta(values);
-          })}
+          onSubmit={handleSubmit(onSubmit)}
           className="mx-auto mt-0 p-2 rounded backdrop-blur-md">
           <div className="text-center mb-0">
             <h1 className="text-2xl font-bold" id="tit-form-ing">

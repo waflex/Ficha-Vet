@@ -49,7 +49,7 @@ export const crearFicha = async (req, res) => {
       idmascota,
       idtutor
     );
-    res.json({ message: 'true' });
+    res.status(201).json(['Ficha creada', newFicha]);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });

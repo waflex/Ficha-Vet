@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { filtroDatos } from '../api/salaEspera';
 import { useDatosM } from '../context/DatosMedicos';
 import { Lateral } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
@@ -15,7 +14,11 @@ function SalaDeEspera() {
   }, []);
 
   const handleFiltro = (filtroSeleccionado) => {
-    setFiltro(filtroSeleccionado);
+    if (filtro === filtroSeleccionado) {
+      setFiltro(null);
+    } else {
+      setFiltro(filtroSeleccionado);
+    }
   };
 
   useEffect(() => {
@@ -25,40 +28,53 @@ function SalaDeEspera() {
   return (
     <div className="flex w-full h-full" id="main-content">
       <Lateral />
-      <div className="flex flex-grow flex-col justify-start p-4 bg-gray-100">
+      <div
+        className="flex flex-grow flex-col justify-start p-4 bg-gray-100"
+        style={{
+          backgroundImage: `url(/img/bg_doc_dog.jpg)`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center right',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#eff0eb',
+        }}>
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold" id="tit-form-ing">
             Sala de Espera
           </h1>
         </div>
         <div className="bg-gray-200 m-0 p-4 flex justify-end space-x-4">
-          <button className="filter-btn" onClick={() => handleFiltro('espera')}>
+          <button
+            className="filter-btn"
+            onClick={() => handleFiltro('En Espera')}>
             <img src="/img/reloj.png" alt="Icono en espera" />
           </button>
           <button
             className="filter-btn"
-            onClick={() => handleFiltro('ingresado')}>
+            onClick={() => handleFiltro('Ingresado')}>
             <img src="/img/!.png" alt="Icono ingresado" />
           </button>
           <button
             className="filter-btn"
-            onClick={() => handleFiltro('finalizado')}>
+            onClick={() => handleFiltro('Finalizado')}>
             <img src="/img/check.png" alt="Icono finzalizado" />
           </button>
           <button
             className="filter-btn"
-            onClick={() => handleFiltro('anulado')}>
+            onClick={() => handleFiltro('Anulado')}>
             <img src="/img/x.png" alt="Icono anulado" />
           </button>
         </div>
         {/* Contenedor de las fichas */}
         {DatosM.Fichas && DatosM.Fichas.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto">
-            {DatosM.Fichas.map((fila) => (
+            {DatosM.Fichas.filter((fila) => {
+              if (!filtro) return true;
+              return fila.Estado === filtro;
+            }).map((fila) => (
               <Link
                 to={`/Ficha/${fila._id}`}
                 key={fila._id}
-                className="relative card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
+                className="relative  min-w-48 card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
                 {/* Contenido de la ficha */}
                 <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
@@ -144,11 +160,28 @@ function SalaDeEspera() {
 export default SalaDeEspera;
 
 function hora(fechaCompleta) {
-  // const fecha = new Date(fechaCompleta);
-  // return fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const fecha = new Date(fechaCompleta);
-  const ahora = new Date();
-  const diferencia = ahora - fecha;
-  const minutosPasados = Math.floor(diferencia / (1000 * 60)); // Convertir la diferencia a minutos
-  return `Hace ${minutosPasados} minutos`;
+  const fechaBase = new Date('1900-01-01T00:00:00.196Z');
+  const fechaActual = new Date();
+
+  // Si la fecha es igual a la fecha base, devuelve "Nunca"
+  if (fecha.getTime() === fechaBase.getTime()) {
+    return 'Nunca';
+  } else {
+    // Calcula la diferencia de tiempo en milisegundos
+    const diferencia = Math.abs(fecha.getTime() - fechaActual.getTime());
+    // Convierte la diferencia de tiempo a minutos
+    const minutos = Math.floor(diferencia / 60000);
+
+    console.log(minutos);
+    // Si la diferencia es menor a 60 minutos, devuelve la diferencia en minutos
+    if (minutos < 60) {
+      return `Hace ${minutos} minutos`;
+    } else {
+      // Si la diferencia es mayor o igual a 60 minutos, calcula las horas y los minutos
+      const horas = Math.floor(minutos / 60);
+      const minutosRestantes = minutos % 60;
+      return `Hace ${horas} horas con ${minutosRestantes} minutos`;
+    }
+  }
 }

@@ -1,14 +1,39 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUsers } from '../context/UsersContext';
 import { Lateral } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
-import { FaClock, FaCheckCircle, FaTimesCircle, FaCheck } from 'react-icons/fa';
+import { Dropdown } from 'flowbite-react';
+import { HiFilter } from 'react-icons/hi';
 
 function Usuarios() {
-  const { Usuarios, getUsers } = useUsers();
+  const [filtro, setFiltro] = useState(null);
+
+  const handleFiltroAdmin = () => {
+    if (filtro === 'Administrador') {
+      setFiltro(null);
+    } else {
+      setFiltro('Administrador');
+    }
+  };
+
+  const handleFiltroDocente = () => {
+    if (filtro === 'Docente') {
+      setFiltro(null);
+    } else {
+      setFiltro('Docente');
+    }
+  };
+
+  const handleFiltroAlumno = () => {
+    if (filtro === 'Alumno') {
+      setFiltro(null);
+    } else {
+      setFiltro('Alumno');
+    }
+  };
+  const { users, getUsers } = useUsers();
   useEffect(() => {
     getUsers();
-    console.log(Usuarios);
   }, []);
 
   return (
@@ -21,88 +46,44 @@ function Usuarios() {
           </h1>
         </div>
         <div className="bg-gray-200 m-0 p-4 flex justify-end space-x-4">
-          Botones de Filtro
+          <Dropdown label="Filtros" dismissOnClick={true}>
+            <Dropdown.Item onClick={handleFiltroAdmin}>Admin</Dropdown.Item>
+            <Dropdown.Item onClick={handleFiltroDocente}>Docente</Dropdown.Item>
+            <Dropdown.Item onClick={handleFiltroAlumno}>Alumno</Dropdown.Item>
+          </Dropdown>
         </div>
         {/* Contenedor de las fichas */}
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
-          {DatosM.Fichas &&
-            DatosM.Fichas.map((fila) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
+          {users.Usuarios &&
+            users.Usuarios.filter((usuario) => {
+              if (!filtro) return true;
+              return verificarTipoUsuario(usuario.tipoUsuario) === filtro;
+            }).map((fila) => (
               <Link
                 to={`/Ficha/${fila._id}`}
                 key={fila._id}
-                className="relative card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
-                <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                  {/* Contenido de la ficha }
+                className="relative card max-w-96 rounded-md p-2 hover:scale-105 duration-150 ml-6">
+                <div className="block min-h-64 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                  {/* Contenido de la ficha */}
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
-                    Nombre Paciente
+                    Usuario:
                   </h6>
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {fila.ID_Mascota.Nombre}
+                    {fila.Nombre}
                   </h5>
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
-                    Nombre Tutor: {fila.ID_Tutor.Nombre}
+                    Rut: {fila.rutUsuario}
                   </h6>
                   <p className="font-normal text-gray-700 dark:text-gray-400">
-                    Fecha: {hora(fila.Fecha)}
+                    Ultima Conexion: {calcularTiempo(fila.ultimaConexion)}
                   </p>
                   <p className="font-normal text-gray-700 dark:text-gray-400">
-                    Estado: {fila.Estado}
+                    Tipo Usuario: {verificarTipoUsuario(fila.tipoUsuario)}
                   </p>
                 </div>
-                {/* Icono de estado }
-                {(() => {
-                  switch (fila.Estado) {
-                    case 'En Espera':
-                      return (
-                        <FaClock
-                          className="absolute top-0 right-0 mr-2 mt-2 text-gray-500 opacity-50"
-                          style={{
-                            fontSize: '5em',
-                            position: 'absolute',
-                            zIndex: -1,
-                          }}
-                        />
-                      );
-                    case 'Atendido':
-                      return (
-                        <FaCheckCircle
-                          className="absolute top-0 right-0 mr-2 mt-2 text-green-500 opacity-50"
-                          style={{
-                            fontSize: '5em',
-                            position: 'absolute',
-                            zIndex: -1,
-                          }}
-                        />
-                      );
-                    case 'Cancelado':
-                      return (
-                        <FaTimesCircle
-                          className="absolute top-0 right-0 mr-2 mt-2 text-red-500 opacity-50"
-                          style={{
-                            fontSize: '5em',
-                            position: 'absolute',
-                            zIndex: -1,
-                          }}
-                        />
-                      );
-                    case 'Finalizado':
-                      return (
-                        <FaCheck
-                          className="absolute top-0 right-0 mr-2 mt-2 text-blue-500 opacity-50"
-                          style={{
-                            fontSize: '5em',
-                            position: 'absolute',
-                            zIndex: -1,
-                          }}
-                        />
-                      );
-                    default:
-                      return null;
-                  }
-                })()}
               </Link>
             ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );
@@ -110,7 +91,40 @@ function Usuarios() {
 
 export default Usuarios;
 
-function hora(fechaCompleta) {
+function calcularTiempo(fechaCompleta) {
   const fecha = new Date(fechaCompleta);
-  return fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const fechaBase = new Date('1900-01-01T00:00:00.000Z');
+  const fechaActual = new Date();
+
+  // Si la fecha es igual a la fecha base, devuelve "Nunca"
+  if (fecha.getTime() === fechaBase.getTime()) {
+    return 'Nunca';
+  } else {
+    // Calcula la diferencia de tiempo en milisegundos
+    const diferencia = Math.abs(fecha.getTime() - fechaActual.getTime());
+    // Convierte la diferencia de tiempo a minutos
+    const minutos = Math.floor(diferencia / 60000);
+
+    // Si la diferencia es menor a 60 minutos, devuelve la diferencia en minutos
+    if (minutos < 60) {
+      return `Hace ${minutos} minutos`;
+    } else {
+      // Si la diferencia es mayor o igual a 60 minutos, calcula las horas y los minutos
+      const horas = Math.floor(minutos / 60);
+      const minutosRestantes = minutos % 60;
+      return `Hace ${horas} horas con ${minutosRestantes} minutos`;
+    }
+  }
+}
+function verificarTipoUsuario(tipoUsuario) {
+  switch (tipoUsuario) {
+    case '1':
+      return 'Administrador';
+    case '2':
+      return 'Docente';
+    case '3':
+      return 'Alumno';
+    default:
+      return 'Tipo de usuario no válido';
+  }
 }

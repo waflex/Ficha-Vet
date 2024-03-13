@@ -12,18 +12,20 @@ export const register = async (req, res) => {
     if (usuarioExistente) return res.status(400).json(['Usuario ya existe']);
 
     const passwordHash = await bcrypt.hash(rutUsuario, 10);
+    const fechaInicio = new Date('1900-01-01T00:00:00.000Z');
     const newUser = new Usuario({
       rutUsuario,
       Nombre,
       Contrasena: passwordHash,
       tipoUsuario: TipoUsuario,
+      ultimaConexion: fechaInicio,
     });
     const userSaved = await newUser.save();
     res.json({
       nombreUsuario: userSaved.Nombre,
       Contrasena: userSaved.Contrasena,
       tipoUsuario: userSaved.tipoUsuario,
-      ultimaConexion: 'Nunca',
+      ultimaConexion: userSaved.ultimaConexion,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -41,15 +43,18 @@ export const login = async (req, res) => {
     if (!isMatch) return res.status(400).json(['Contraseña Incorrecta']);
 
     const token = await createAccessToken({ id: userFound._id });
-    Usuario.updateOne(userFound.rutUsuario, {
-      ultimaConexion: Date.now(),
-    });
+    await Usuario.findByIdAndUpdate(
+      userFound._id,
+      { ultimaConexion: Date.now() },
+      { new: true }
+    );
     res.cookie('token', token);
     res.json({
       Rut_Usuario: userFound.rutUsuario,
       nombreUsuario: userFound.Nombre,
       Contrasena: userFound.Contrasena,
       tipoUsuario: userFound.tipoUsuario,
+      ultimaConexion: userFound.ultimaConexion,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

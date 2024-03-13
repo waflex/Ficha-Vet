@@ -51,33 +51,29 @@ export const AuthProvider = ({ children }) => {
       return () => clearTimeout(timer);
     }
   }, [errors]);
+
   useEffect(() => {
-    async function CheckLogin() {
+    const CheckLogin = async () => {
       const cookies = Cookies.get();
       if (!cookies.token) {
         setIsAuthenticated(false);
         setLoading(false);
-        return setUser(null);
+        return;
       }
       try {
         const res = await verifyTokenRequest(cookies.token);
-        if (!res.data) {
-          setIsAuthenticated(false);
-          setLoading(false);
-          return;
-        }
-
+        if (!res.data) return setIsAuthenticated(false);
         setIsAuthenticated(true);
         setUser(res.data);
         setLoading(false);
       } catch (error) {
         setIsAuthenticated(false);
-        setUser(null);
         setLoading(false);
       }
-    }
+    };
     CheckLogin();
   }, []);
+  
   return (
     <AuthContext.Provider
       value={{

@@ -53,8 +53,7 @@ export const Lateral = () => {
           <Sidebar.Item href="#" icon={HiUser}>
             Perfil
           </Sidebar.Item>
-          {console.log(user.TipoUsuario)}
-          {parseInt(user.TipoUsuario) === 1 ? (
+          {user.TipoUsuario && parseInt(user.TipoUsuario) === 1 ? (
             <>
               <Sidebar.Item href="/Registro" icon={HiUserAdd}>
                 Agregar Usuario
