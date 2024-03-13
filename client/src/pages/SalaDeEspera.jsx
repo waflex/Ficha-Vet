@@ -23,7 +23,7 @@ function SalaDeEspera() {
   }, [filtro]);
 
   return (
-    <div className="flex w-full h-full">
+    <div className="flex w-full h-full" id="main-content">
       <Lateral />
       <div className="flex flex-grow flex-col justify-start p-4 bg-gray-100">
         <div className="text-center mb-8">
@@ -53,7 +53,7 @@ function SalaDeEspera() {
         </div>
         {/* Contenedor de las fichas */}
         {DatosM.Fichas && DatosM.Fichas.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto">
             {DatosM.Fichas.map((fila) => (
               <Link
                 to={`/Ficha/${fila._id}`}

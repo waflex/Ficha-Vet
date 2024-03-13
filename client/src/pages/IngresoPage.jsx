@@ -26,7 +26,7 @@ function IngresoPage() {
         <form
           onSubmit={handleSubmit(async (values) => {
             console.log(values);
-            // const res = await registroConsulta(values);
+            const res = await registroConsulta(values);
           })}
           className="mx-auto mt-0 p-2 rounded backdrop-blur-md">
           <div className="text-center mb-0">

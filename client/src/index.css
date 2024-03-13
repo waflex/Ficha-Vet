@@ -10,13 +10,12 @@ body {
   height: 100%;
   background: #d4d4d4;
   justify-content: center;
-
   min-height: 100vh;
 }
 
 #root {
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
 tit-form-ing {

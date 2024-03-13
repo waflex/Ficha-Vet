@@ -1,14 +1,16 @@
 'use client';
-
+import { useForm } from 'react-hook-form';
 import { Button, Modal, Datepicker } from 'flowbite-react';
 import { useState } from 'react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 function AgendarControlButton() {
   const [openModal, setOpenModal] = useState(false);
+  const { register, handleSubmit } = useForm();
 
   return (
     <>
+    <form>
       <Button onClick={() => setOpenModal(true)}>Agendar Control</Button>
       <Modal
         show={openModal}
@@ -37,6 +39,7 @@ function AgendarControlButton() {
           </div>
         </Modal.Body>
       </Modal>
+      </form>
     </>
   );
 }
