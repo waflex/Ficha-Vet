@@ -8,6 +8,7 @@ import {
   Select,
   Textarea,
 } from 'flowbite-react';
+import { HiMenu } from 'react-icons/hi';
 
 function IngresoPage() {
   const { register, handleSubmit } = useForm();
@@ -29,15 +30,17 @@ function IngresoPage() {
           backgroundImage: `url(/img/Background_Ingreso.jpg)`,
           backgroundSize: 'cover',
         }}>
+        <div className="text-center mb-0">
+          <button className="cel fixed top-5 left-5 right-0" onClick={onClick}>
+            <HiMenu />
+          </button>
+          <h1 className="text-2xl font-bold" id="tit-form-ing">
+            Formulario de ingreso
+          </h1>
+        </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="mx-auto mt-0 p-2 rounded backdrop-blur-md">
-          <div className="text-center mb-0">
-            <h1 className="text-2xl font-bold" id="tit-form-ing">
-              Formulario de ingreso
-            </h1>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
             <div className="flex flex-col space-y-4">
               <h2 className="text-xl font-bold mb-2">Datos tutor</h2>
@@ -176,3 +179,9 @@ function IngresoPage() {
 }
 
 export default IngresoPage;
+function onClick() {
+  const sideBar = document.querySelector('.SideBar');
+  sideBar.classList.toggle('show');
+  const cel = document.querySelector('.cel');
+  cel.classList.toggle('show');
+}

@@ -7,3 +7,4 @@ function ListadoControles() {
 }
 
 export default ListadoControles
+

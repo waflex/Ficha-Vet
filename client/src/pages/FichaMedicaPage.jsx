@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Lateral } from '../components/Sidebar';
 import AgendarControlModal from '../components/AgendarControlModal';
 import { useDatosM } from '../context/DatosMedicos';
 import { useParams } from 'react-router-dom';
 import { Spinner } from 'flowbite-react';
+<<<<<<< Updated upstream
 import { Table } from 'flowbite-react';
 import { FloatingLabel } from 'flowbite-react';
+=======
+import { HiMenu } from 'react-icons/hi';
+>>>>>>> Stashed changes
 
 function FichaMedicaPage() {
   const { obtenerDatosFiltrados, DatosMFiltrados } = useDatosM();
@@ -41,6 +45,9 @@ function FichaMedicaPage() {
 
       <div className="flex-grow p-6 max-h-full overflow-y-auto">
         <div className="text-center mb-4">
+          <button className="cel fixed top-5 left-5 right-0" onClick={onClick}>
+            <HiMenu />
+          </button>
           <h1 className="text-2xl font-bold">Ficha Médica</h1>
         </div>
 
@@ -161,5 +168,10 @@ function FichaMedicaPage() {
     </div>
   );
 }
-
+function onClick() {
+  const sideBar = document.querySelector('.SideBar');
+  sideBar.classList.toggle('show');
+  const cel = document.querySelector('.cel');
+  cel.classList.toggle('show');
+}
 export default FichaMedicaPage;

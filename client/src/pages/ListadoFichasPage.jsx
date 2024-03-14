@@ -41,5 +41,10 @@ function ListadoFichasPage() {
     </div>
   );
 }
-
+function onClick() {
+  const sideBar = document.querySelector('.SideBar');
+  sideBar.classList.toggle('show');
+  const cel = document.querySelector('.cel');
+  cel.classList.toggle('show');
+}
 export default ListadoFichasPage;

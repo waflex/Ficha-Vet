@@ -1,0 +1,38 @@
+.cel {
+  transition: all 0.5s;
+}
+.SideBar {
+  transition: all 0.5s;
+}
+@media only screen and (min-width: 600px) {
+  .cel {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .SideBar {
+    width: 0;
+    transition: width 0.5s;
+    display: none;
+    top: 0;
+    left: 0;
+    bottom: 0; /* Color de fondo de la barra lateral */
+  }
+
+  .cel {
+    display: flex;
+  }
+  .SideBar.show {
+    transition: all 0.5s;
+    display: grid;
+    width: 100vw;
+    position: fixed;
+    z-index: 1;
+  }
+  .cel.show {
+    z-index: 1;
+    left: 90%;
+    top: 1.25rem;
+  }
+}

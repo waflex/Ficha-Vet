@@ -3,7 +3,7 @@ import { useDatosM } from '../context/DatosMedicos';
 import { Lateral } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
 import { FaClock, FaCheckCircle, FaTimesCircle, FaCheck } from 'react-icons/fa';
-import { HiFilter } from 'react-icons/hi';
+import { HiFilter, HiMenu } from 'react-icons/hi';
 
 function SalaDeEspera() {
   const [filtro, setFiltro] = useState(null);
@@ -27,7 +27,7 @@ function SalaDeEspera() {
   }, [filtro]);
 
   return (
-    <div className="flex w-full h-full" id="main-content">
+    <div className="flex w-full h-full dark:text-white" id="main-content">
       <Lateral />
       <div
         className="flex flex-grow flex-col justify-start p-4 bg-gray-100"
@@ -39,12 +39,15 @@ function SalaDeEspera() {
           backgroundColor: '#f3f4ef',
         }}>
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold" id="tit-form-ing">
+          <button className="cel fixed top-5 left-5 right-0" onClick={onClick}>
+            <HiMenu />
+          </button>
+          <h1 className="dark:text-black text-2xl font-bold" id="tit-form-ing">
             Sala de Espera
           </h1>
         </div>
         <div className="bg-gray-200 rounded m-0 p-4 flex justify-center space-x-4">
-          <button>
+          <button className="dark:text-black">
             <HiFilter onClick={() => handleFiltro(null)} />
           </button>
           <button
@@ -107,7 +110,6 @@ function SalaDeEspera() {
                           style={{
                             fontSize: '5em',
                             position: 'absolute',
-                            zIndex: -1,
                           }}
                         />
                       );
@@ -118,7 +120,6 @@ function SalaDeEspera() {
                           style={{
                             fontSize: '5em',
                             position: 'absolute',
-                            zIndex: -1,
                           }}
                         />
                       );
@@ -129,7 +130,6 @@ function SalaDeEspera() {
                           style={{
                             fontSize: '5em',
                             position: 'absolute',
-                            zIndex: -1,
                           }}
                         />
                       );
@@ -140,7 +140,6 @@ function SalaDeEspera() {
                           style={{
                             fontSize: '5em',
                             position: 'absolute',
-                            zIndex: -1,
                           }}
                         />
                       );
@@ -177,7 +176,6 @@ function hora(fechaCompleta) {
     // Convierte la diferencia de tiempo a minutos
     const minutos = Math.floor(diferencia / 60000);
 
-    console.log(minutos);
     // Si la diferencia es menor a 60 minutos, devuelve la diferencia en minutos
     if (minutos < 60) {
       return `Hace ${minutos} minutos`;
@@ -188,4 +186,10 @@ function hora(fechaCompleta) {
       return `Hace ${horas} horas con ${minutosRestantes} minutos`;
     }
   }
+}
+function onClick() {
+  const sideBar = document.querySelector('.SideBar');
+  sideBar.classList.toggle('show');
+  const cel = document.querySelector('.cel');
+  cel.classList.toggle('show');
 }

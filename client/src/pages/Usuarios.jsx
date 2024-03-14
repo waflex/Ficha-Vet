@@ -3,7 +3,7 @@ import { useUsers } from '../context/UsersContext';
 import { Lateral } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'flowbite-react';
-import { HiFilter } from 'react-icons/hi';
+import { HiFilter, HiMenu } from 'react-icons/hi';
 
 function Usuarios() {
   const [filtro, setFiltro] = useState(null);
@@ -41,12 +41,15 @@ function Usuarios() {
       <Lateral />
       <div className="flex flex-grow flex-col justify-start p-4 bg-gray-100">
         <div className="text-center mb-8">
+          <button className="cel fixed top-5 left-5 right-0" onClick={onClick}>
+            <HiMenu />
+          </button>
           <h1 className="text-2xl font-bold" id="tit-form-ing">
             Usuarios
           </h1>
         </div>
         <div className="bg-gray-200 m-0 p-4 flex justify-end space-x-4">
-          <Dropdown label="Filtros" dismissOnClick={true}>
+          <Dropdown label='Filtros' dismissOnClick={true} >
             <Dropdown.Item onClick={handleFiltroAdmin}>Admin</Dropdown.Item>
             <Dropdown.Item onClick={handleFiltroDocente}>Docente</Dropdown.Item>
             <Dropdown.Item onClick={handleFiltroAlumno}>Alumno</Dropdown.Item>
@@ -127,4 +130,10 @@ function verificarTipoUsuario(tipoUsuario) {
     default:
       return 'Tipo de usuario no válido';
   }
+}
+function onClick() {
+  const sideBar = document.querySelector('.SideBar');
+  sideBar.classList.toggle('show');
+  const cel = document.querySelector('.cel');
+  cel.classList.toggle('show');
 }
