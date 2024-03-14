@@ -6,6 +6,7 @@ import ListadoFichasPage from './pages/ListadoFichasPage';
 import HomePage from './pages/HomePage';
 import SalaDeEspera from './pages/SalaDeEspera';
 import RegistroUser from './pages/RegistroUser';
+import ListadoControles from './pages/ListadoControles';
 import Usuarios from './pages/Usuarios';
 import { AuthProvider } from './context/AuthContext';
 import { DatosMProvider } from './context/DatosMedicos';
@@ -29,6 +30,7 @@ function App() {
                   <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
                   <Route path="/Registro" element={<RegistroUser />} />
                   <Route path="/Usuarios" element={<Usuarios />} />
+                  <Route path="/ListadoControles" element={<ListadoControles />} />
                   <Route
                     path="/ListadoFichasMedicas"
                     element={<ListadoFichasPage />}

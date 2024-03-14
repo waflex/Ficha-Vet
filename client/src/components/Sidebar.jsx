@@ -41,6 +41,9 @@ export const Lateral = () => {
             <Sidebar.Item href="/ListadoFichasMedicas" icon={HiBookOpen}>
               Ver Fichas Medicas
             </Sidebar.Item>
+            <Sidebar.Item href="/ListadoControles" icon={HiBookOpen}>
+              Controles
+            </Sidebar.Item>
             <Sidebar.Collapse icon={HiCalculator} label="Herramientas">
               <Sidebar.Item href="#">Calcular dosis</Sidebar.Item>
               <Sidebar.Item href="#">Sales</Sidebar.Item>

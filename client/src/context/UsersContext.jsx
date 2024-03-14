@@ -7,7 +7,7 @@ export const UsersContext = createContext();
 export const useUsers = () => {
   const context = useContext(UsersContext);
   if (!context) {
-    throw new Error('DatosMedicos debe estar dentro de su Proveedor');
+    throw new Error('Datos médicos debe estar dentro de su Proveedor');
   }
   return context;
 };
