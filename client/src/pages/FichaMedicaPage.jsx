@@ -4,6 +4,8 @@ import AgendarControlModal from '../components/AgendarControlModal';
 import { useDatosM } from '../context/DatosMedicos';
 import { useParams } from 'react-router-dom';
 import { Spinner } from 'flowbite-react';
+import { Table } from 'flowbite-react';
+import { FloatingLabel } from 'flowbite-react';
 
 function FichaMedicaPage() {
   const { obtenerDatosFiltrados, DatosMFiltrados } = useDatosM();
@@ -44,112 +46,112 @@ function FichaMedicaPage() {
 
         <div>
           {/* Datos tutor */}
-          <h2 className="font-bold py-3">Datos tutor:</h2>
-          <table className="w-full border-collapse border border-gray-400">
-            <thead>
-              <tr>
-                <th className="py-2 px-3 border border-gray-400">Campo</th>
-                <th className="py-2 px-3 border border-gray-400">Valor</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">RUT</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Tutor.rutTutor}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Nombre</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Tutor.Nombre}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Correo</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Tutor.Correo}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Dirección</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Tutor.Direccion}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Celular</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Tutor.Celular}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div>
-          {/* Datos mascota */}
-          <h2 className="font-bold py-3">Datos mascota:</h2>
-          <table className="w-full border-collapse border border-gray-400">
-            <thead>
-              <tr>
-                <th className="py-2 px-3 border border-gray-400">Campo</th>
-                <th className="py-2 px-3 border border-gray-400">Valor</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">RUT o Chip</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Mascota.Rut_Ficha_Masc}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Nombre</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Mascota.Nombre}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Especie</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Mascota.Especie}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Raza</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Mascota.Raza}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">
-                  Antecedentes médicos
-                </td>
-                <td className="py-2 px-3 border border-gray-400">
-                  {ID_Mascota.Antencedentes}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Peso</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  <input type="number" className="w-full border p-2 mb-2" />
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Tamaño</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  <input type="number" className="w-full border p-2 mb-2" />
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 border border-gray-400">Edad</td>
-                <td className="py-2 px-3 border border-gray-400">
-                  <input type="number" className="w-full border p-2 mb-2" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <Table>
+            <Table.Row>
+              <Table.Head>
+                <Table.HeadCell>Datos tutor</Table.HeadCell>
+                <Table.HeadCell></Table.HeadCell>
+              </Table.Head>
+            </Table.Row>
+            <Table.Body className="divide-y">
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  RUT
+                </Table.Cell>
+                <Table.Cell>{ID_Tutor.rutTutor}</Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Nombre
+                </Table.Cell>
+                <Table.Cell>{ID_Tutor.Nombre}</Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Correo
+                </Table.Cell>
+                <Table.Cell>{ID_Tutor.Correo}</Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Direccion
+                </Table.Cell>
+                <Table.Cell>{ID_Tutor.Direccion}</Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Celular
+                </Table.Cell>
+                <Table.Cell>{ID_Tutor.Celular}</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Head>
+                  <Table.HeadCell>Datos mascota</Table.HeadCell>
+                  <Table.HeadCell></Table.HeadCell>
+                </Table.Head>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  RUT o Chip
+                </Table.Cell>
+                <Table.Cell>{ID_Mascota.Rut_Ficha_Masc}</Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Nombre
+                </Table.Cell>
+                <Table.Cell>{ID_Mascota.Nombre}</Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Especie
+                </Table.Cell>
+                <Table.Cell>{ID_Mascota.Especie}</Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Raza
+                </Table.Cell>
+                <Table.Cell>{ID_Mascota.Raza}</Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Antecedentes
+                </Table.Cell>
+                <Table.Cell>{ID_Mascota.Antencedentes}</Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Peso
+                </Table.Cell>
+                <Table.Cell>
+                  <FloatingLabel
+                    variant="outlined"
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Tamaño
+                </Table.Cell>
+                <Table.Cell>
+                  <FloatingLabel
+                    variant="outlined"
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 ">
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  Edad
+                </Table.Cell>
+                <Table.Cell className="">
+                  <FloatingLabel
+                    variant="outlined"
+                  />
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
         </div>
 
         <div className="flex mt-5">
