@@ -3,8 +3,9 @@ import mongoose from 'mongoose';
 const controlSchema = new mongoose.Schema(
   {
     ID_Mascota: {
-      type: String,
-      required:true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Mascota',
+      required: true,
     },
     Fecha: {
       type: Date,
@@ -12,6 +13,7 @@ const controlSchema = new mongoose.Schema(
     },
     Estado: {
       type: String,
+      default: 'Agendado',
     },
   },
   { timestamps: true }

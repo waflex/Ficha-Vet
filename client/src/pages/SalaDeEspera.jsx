@@ -2,15 +2,25 @@ import { useState, useEffect } from 'react';
 import { useDatosM } from '../context/DatosMedicos';
 import { Lateral } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
-import { FaClock, FaCheckCircle, FaTimesCircle, FaCheck } from 'react-icons/fa';
+import {
+  FaClock,
+  FaGlasses,
+  FaTimesCircle,
+  FaCheckCircle,
+} from 'react-icons/fa';
 import { HiFilter, HiMenu } from 'react-icons/hi';
+import { Pagination } from 'flowbite-react';
 
 function SalaDeEspera() {
   const [filtro, setFiltro] = useState(null);
   const { obtenerDatosM, DatosM } = useDatosM();
+  const [loading, setLoading] = useState(true); //
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    obtenerDatosM();
+    obtenerDatosM()
+      .then(() => setLoading(false))
+      .catch((error) => console.error('Error al obtener los datos:', error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -26,6 +36,21 @@ function SalaDeEspera() {
     obtenerDatosM();
   }, [filtro]);
 
+  // Pacientes a mostrar en la página actual
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
+  const pacientesPorPagina = 9; // Cantidad de pacientes por página
+  const indexOfLastPaciente = currentPage * pacientesPorPagina;
+  const indexOfFirstPaciente = indexOfLastPaciente - pacientesPorPagina;
+  const pacientesActuales = DatosM.Fichas.slice(
+    indexOfFirstPaciente,
+    indexOfLastPaciente
+  );
   return (
     <div className="flex w-full h-full dark:text-white" id="main-content">
       <Lateral />
@@ -67,17 +92,14 @@ function SalaDeEspera() {
           </button>
           <button
             className="filter-btn"
-            onClick={() => handleFiltro('Anulado')}>
+            onClick={() => handleFiltro('Cancelado')}>
             <img src="/img/x.png" alt="Icono anulado" />
           </button>
         </div>
         {/* Contenedor de las fichas */}
         {DatosM.Fichas && DatosM.Fichas.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto">
-            {DatosM.Fichas.filter((fila) => {
-              if (!filtro) return true;
-              return fila.Estado === filtro;
-            }).map((fila) => (
+            {pacientesActuales.map((fila) => (
               <Link
                 to={`/Ficha/${fila._id}`}
                 key={fila._id}
@@ -113,10 +135,10 @@ function SalaDeEspera() {
                           }}
                         />
                       );
-                    case 'Atendido':
+                    case 'Ingresado':
                       return (
-                        <FaCheckCircle
-                          className="absolute top-0 right-0 mr-2 mt-2 text-green-500 opacity-50"
+                        <FaGlasses
+                          className="absolute top-0 right-0 mr-2 mt-2 text-blue-500 opacity-50"
                           style={{
                             fontSize: '5em',
                             position: 'absolute',
@@ -135,8 +157,8 @@ function SalaDeEspera() {
                       );
                     case 'Finalizado':
                       return (
-                        <FaCheck
-                          className="absolute top-0 right-0 mr-2 mt-2 text-blue-500 opacity-50"
+                        <FaCheckCircle
+                          className="absolute top-0 right-0 mr-2 mt-2 text-green-500 opacity-50"
                           style={{
                             fontSize: '5em',
                             position: 'absolute',
@@ -155,6 +177,16 @@ function SalaDeEspera() {
             No hay resultados
           </div>
         )}
+        <Pagination
+          layout="pagination"
+          currentPage={currentPage}
+          totalPages={Math.ceil(DatosM.Fichas.length / pacientesPorPagina)}
+          {...console.log(Math.ceil(DatosM.Fichas.length / pacientesPorPagina))}
+          previousLabel="Volver"
+          nextLabel="Siguiente"
+          itemsPerPage={pacientesPorPagina}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
     </div>
   );

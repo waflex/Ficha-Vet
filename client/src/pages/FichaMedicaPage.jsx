@@ -43,7 +43,7 @@ function FichaMedicaPage() {
           <button className="cel fixed top-5 left-5 right-0" onClick={onClick}>
             <HiMenu />
           </button>
-          <h1 className="text-2xl font-bold text-gray-800">Ficha Médica</h1>
+          <h1 className="text-2xl font-robot font-bold">Ficha Médica</h1>
         </div>
 
         <div>

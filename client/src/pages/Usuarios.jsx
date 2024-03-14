@@ -4,6 +4,7 @@ import { Lateral } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'flowbite-react';
 import { HiFilter, HiMenu } from 'react-icons/hi';
+import ModificarUsuario from '../components/ModificarUsuario';
 
 function Usuarios() {
   const [filtro, setFiltro] = useState(null);
@@ -49,7 +50,7 @@ function Usuarios() {
           </h1>
         </div>
         <div className="bg-gray-200 m-0 p-4 flex justify-end space-x-4">
-          <Dropdown label='Filtros' dismissOnClick={true} >
+          <Dropdown label="Filtros" dismissOnClick={true}>
             <Dropdown.Item onClick={handleFiltroAdmin}>Admin</Dropdown.Item>
             <Dropdown.Item onClick={handleFiltroDocente}>Docente</Dropdown.Item>
             <Dropdown.Item onClick={handleFiltroAlumno}>Alumno</Dropdown.Item>
@@ -66,7 +67,7 @@ function Usuarios() {
                 to={`/Ficha/${fila._id}`}
                 key={fila._id}
                 className="relative card max-w-96 rounded-md p-2 hover:scale-105 duration-150 ml-6">
-                <div className="block min-h-64 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div className="block min-h-64 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 min-h-80 min-w-56 max-h-90 max-w-96">
                   {/* Contenido de la ficha */}
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
                     Usuario:

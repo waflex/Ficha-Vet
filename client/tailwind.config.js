@@ -12,6 +12,7 @@ export default {
     extend: {},
     fontFamily: {
       sans: ['Inter var', 'system-ui', 'sans-serif'],
+      robot: ['Roboto', 'sans-serif'],  
     },
   },
   plugins: [flowbitePlugin, animated],

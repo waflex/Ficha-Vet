@@ -73,7 +73,7 @@ export const Lateral = () => {
               Cerrar Sesion
             </Sidebar.Item>
             <Sidebar.Item>
-              <DarkThemeToggle />
+              <DarkThemeToggle className="w-full" />
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>

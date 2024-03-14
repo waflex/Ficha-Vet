@@ -19,6 +19,7 @@ const mascotaSchema = new mongoose.Schema(
     },
     Antencedentes: {
       type: String,
+      default: 'Sin Antecedentes',
     },
     Rut_Tutor: {
       type: mongoose.Schema.Types.ObjectId,

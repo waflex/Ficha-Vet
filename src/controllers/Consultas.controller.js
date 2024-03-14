@@ -1,6 +1,7 @@
 import Ficha from '../models/Ficha.model.js';
 import Tutor from '../models/tutor.model.js';
 import Mascota from '../models/mascotas.model.js';
+import control from '../models/control.model.js';
 
 export const crearFicha = async (req, res) => {
   try {
@@ -120,28 +121,21 @@ export const borrarFicha = async (req, res) => {
 };
 export const verFichaID = async (req, res) => {};
 
-export const getMascota = async (req, res) => {
+export const crearControl = async (req, res) => {
   try {
-    const { id: Rut_Ficha_Masc } = req.params;
-    const mascota = await Mascota.findOne({ Rut_Ficha_Masc });
-    if (!mascota) return res.status(401).json({ message: 'No Autorizado' });
-    return res.json({
-      Nombre: mascota.Nombre,
-    });
+    const { date: Fecha, id } = req.body;
+    const ficha = await Ficha.findById({ _id: id })
+      .populate('ID_Mascota')
+      .populate('ID_Tutor');
+    const ID_Mascota = ficha.ID_Mascota._id;
+    console.log(ficha.ID_Mascota.Nombre);
+    console.log(ID_Mascota, Fecha);
+    const newControl = control({ ID_Mascota, Fecha });
+    await newControl.save();
+    res.status(201).json(['Ficha creada']);
   } catch (error) {
-    return res.status(500).json({ message: 'no encontrado' });
-  }
-};
-export const getTutor = async (req, res) => {
-  const { id: rutTutor } = req.params;
-  try {
-    const tutor = await Tutor.findOne({ rutTutor });
-    if (!tutor) return res.status(401).json({ message: 'No Autorizado' });
-    return res.json({
-      Nombre: tutor.Nombre,
-    });
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
+    console.log(error);
+    res.status(500).json({ message: error.message });
   }
 };
 

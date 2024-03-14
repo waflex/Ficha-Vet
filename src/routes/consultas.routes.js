@@ -5,17 +5,15 @@ import {
   crearFicha,
   mainficha,
   mainfichaID,
-  getMascota,
-  getTutor,
+  crearControl,
 } from '../controllers/Consultas.controller.js';
 
 const router = Router();
 
 router.get('/', mainficha);
 router.get('/:id', authRequired, mainfichaID);
-router.get('/getTutor/:id', getTutor);
-router.get('/getMascota/:id', getMascota);
 router.post('/crearConsulta', crearFicha);
+router.post('/crearControl', crearControl);
 router.delete('/Borrar:id', authRequired, borrarFicha);
 router.get('/Ver:id', authRequired);
 router.put('/Mod:id', authRequired);
