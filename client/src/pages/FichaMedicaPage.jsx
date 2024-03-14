@@ -4,12 +4,9 @@ import AgendarControlModal from '../components/AgendarControlModal';
 import { useDatosM } from '../context/DatosMedicos';
 import { useParams } from 'react-router-dom';
 import { Spinner } from 'flowbite-react';
-<<<<<<< Updated upstream
 import { Table } from 'flowbite-react';
 import { FloatingLabel } from 'flowbite-react';
-=======
 import { HiMenu } from 'react-icons/hi';
->>>>>>> Stashed changes
 
 function FichaMedicaPage() {
   const { obtenerDatosFiltrados, DatosMFiltrados } = useDatosM();
@@ -132,9 +129,7 @@ function FichaMedicaPage() {
                   Peso
                 </Table.Cell>
                 <Table.Cell>
-                  <FloatingLabel
-                    variant="outlined"
-                  />
+                  <FloatingLabel variant="outlined" />
                 </Table.Cell>
               </Table.Row>
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -142,9 +137,7 @@ function FichaMedicaPage() {
                   Tamaño
                 </Table.Cell>
                 <Table.Cell>
-                  <FloatingLabel
-                    variant="outlined"
-                  />
+                  <FloatingLabel variant="outlined" />
                 </Table.Cell>
               </Table.Row>
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 ">
@@ -152,9 +145,7 @@ function FichaMedicaPage() {
                   Edad
                 </Table.Cell>
                 <Table.Cell className="">
-                  <FloatingLabel
-                    variant="outlined"
-                  />
+                  <FloatingLabel variant="outlined" />
                 </Table.Cell>
               </Table.Row>
             </Table.Body>
