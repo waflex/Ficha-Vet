@@ -1,59 +1,83 @@
-import { useState, useEffect } from 'react';
-import { Modal, Button } from 'flowbite-react';
+import { useState } from 'react';
+import { Button, Label, Modal, TextInput } from 'flowbite-react';
+import { HiUserCircle } from 'react-icons/hi';
 
-const ModificarUsuario = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [userData, setUserData] = useState(null);
-
-  // Función para obtener los datos del usuario seleccionado
-  const obtenerDatosUsuario = async () => {
-    try {
-      // Realiza una llamada a la API para obtener los datos del usuario
-      const response = await fetch('URL_DE_LA_API');
-      const data = await response.json();
-      setUserData(data);
-    } catch (error) {
-      console.error('Error al obtener los datos del usuario:', error);
-    }
-  };
-
-  useEffect(() => {
-    // Llama a la función para obtener los datos del usuario cuando se monta el componente
-    obtenerDatosUsuario();
-  }, []);
+function handleModificar() {
+  
+}
+const ModificarUsuario = (Data) => {
+  const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div>
-      <Button onClick={() => setShowModal(true)}>Abrir Modal</Button>
-
-      {showModal && (
-        <Modal show={openModal} onClose={() => setOpenModal(false)}>
-          <Modal.Header>Terms of Service</Modal.Header>
-          <Modal.Body>
-            <div className="space-y-6">
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                With less than a month to go before the European Union enacts
-                new consumer privacy laws for its citizens, companies around the
-                world are updating their terms of service agreements to comply.
-              </p>
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                The European Union’s General Data Protection Regulation
-                (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                common set of data rights in the European Union. It requires
-                organizations to notify users as soon as possible of high-risk
-                data breaches that could personally affect them.
-              </p>
+    <>
+      <Button.Group outline>
+        <Button color="gray" onClick={() => setOpenModal(true)}>
+          <HiUserCircle />
+          Modificar
+        </Button>
+      </Button.Group>
+      <Modal
+        show={openModal}
+        size="md"
+        popup
+        onClose={() => setOpenModal(false)}>
+        <Modal.Header>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+            Modificar Usuario
+          </h2>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="space-y-6">
+            <div>
+              <Label htmlFor="Nombre" value="Nombre Usuario" />
+              <TextInput id="Nombre" value={Data.name} required />
             </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={() => setOpenModal(false)}>I accept</Button>
-            <Button color="gray" onClick={() => setOpenModal(false)}>
-              Decline
+            <div>
+              <Label htmlFor="rut" value="Rut" />
+              <TextInput id="rut" value={Data.rut} required />
+            </div>
+
+            <div className="max-w-sm mx-auto">
+              <label
+                htmlFor="Cargo"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Tipo de Usuario
+              </label>
+              <select
+                id="Cargo"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>{Data.Tipo}</option>
+                <option value="1">Administrador</option>
+                <option value="2">Docente</option>
+                <option value="3">Alumno</option>
+              </select>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button.Group className="inline-flex h-auto flex-auto justify-center items-center">
+            <Button
+              color="green"
+              className="h-full"
+              onClick={() => console.log('Guardar')}>
+              Guardar Cambios
             </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
-    </div>
+            <Button
+              color="failure"
+              className="h-full"
+              onClick={() => setOpenModal(false)}>
+              Restablecer Contraseña
+            </Button>
+            <Button
+              color="failure"
+              className="h-full"
+              onClick={() => setOpenModal(false)}>
+              Cancelar
+            </Button>
+          </Button.Group>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
