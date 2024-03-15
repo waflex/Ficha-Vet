@@ -5,7 +5,7 @@ import control from '../models/control.model.js';
 
 export const crearFicha = async (req, res) => {
   try {
-    let idtutor, idmascota;
+    let idtutor, idmascota, newRut;
     const {
       celular,
       comentarios,
@@ -21,6 +21,12 @@ export const crearFicha = async (req, res) => {
       existenciaTutor,
       existenciaMascota,
     } = req.body;
+
+    if (!rutChip) {
+      newRut = await newID(rutChip);
+      console.log(newRut);
+    }
+
     if (!existenciaTutor) {
       //verficar checkbox
       const newTutor = await CrearTutor(
@@ -31,10 +37,15 @@ export const crearFicha = async (req, res) => {
         direccion
       );
       idtutor = newTutor._id;
+    } else {
+      Tutor.findOne({ rutTutor: rut }).then((tutor) => {
+        idtutor = tutor._id;
+      });
     }
     if (!existenciaMascota) {
+      console.log(newRut ? newRut : rutChip);
       const newPet = await CrearMascota(
-        rutChip,
+        newRut ? newRut : rutChip,
         nombreMascota,
         especie,
         raza,
@@ -42,6 +53,10 @@ export const crearFicha = async (req, res) => {
         antecedentes
       );
       idmascota = newPet._id;
+    } else {
+      Mascota.findOne({ Rut_Ficha_Masc: rutChip }).then((mascota) => {
+        idmascota = mascota._id;
+      });
     }
 
     const newFicha = await subirFicha(
@@ -50,7 +65,7 @@ export const crearFicha = async (req, res) => {
       idmascota,
       idtutor
     );
-    res.status(201).json(['Ficha creada', newFicha]);
+    res.status(201).json(['Ficha creada']);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -115,11 +130,57 @@ export const mainficha = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-export const filtro = async (req, res) => {};
-export const borrarFicha = async (req, res) => {
-  res.send(console.log('hola mundo'));
+
+export const actualizarFichaEst = async (req, res) => {
+  const { Estado, id } = req.body;
+  try {
+    const ficha = await Ficha.findByIdAndUpdate({ _id: id }, { Estado });
+    if (!ficha)
+      return res
+        .status(401)
+        .json([
+          'No encontrado',
+          'No se encontro la ficha con el id proporcionado',
+        ]);
+    return res.json(['Ficha Actualizada']);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
-export const verFichaID = async (req, res) => {};
+
+export const actualizarControlEst = async (req, res) => {
+  const { Estado, id } = req.body;
+  try {
+    const control = await control.findByIdAndUpdate({ _id: id }, { Estado });
+    if (!control)
+      return res
+        .status(401)
+        .json([
+          'No encontrado',
+          'No se encontro el control con el id proporcionado',
+        ]);
+    return res.json(['Control Actualizado']);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const borrarFicha = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const ficha = await Ficha.findByIdAndDelete({ _id: id });
+    if (!ficha)
+      return res
+        .status(401)
+        .json([
+          'No encontrado',
+          'No se encontro la ficha con el id proporcionado',
+        ]);
+    return res.json(['Ficha eliminada']);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 
 export const crearControl = async (req, res) => {
   try {
@@ -128,13 +189,20 @@ export const crearControl = async (req, res) => {
       .populate('ID_Mascota')
       .populate('ID_Tutor');
     const ID_Mascota = ficha.ID_Mascota._id;
-    console.log(ficha.ID_Mascota.Nombre);
-    console.log(ID_Mascota, Fecha);
     const newControl = control({ ID_Mascota, Fecha });
     await newControl.save();
-    res.status(201).json(['Ficha creada']);
+    res.status(201).json(['Control Agendado']);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getControl = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const controles = await control.find({});
+    res.status(200).json({ controles });
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
@@ -190,5 +258,31 @@ async function subirFicha(Sintomas, Estado, ID_Mascota, ID_Tutor, ID_Usuario) {
     return;
   } catch (error) {
     console.log(error);
+  }
+}
+
+async function newID(rutChip) {
+  if (rutChip === '' || rutChip === undefined || rutChip === null) {
+    let newRut = 'M00001';
+    console.log('Verificando Rut');
+    const existintRutM = await Mascota.findOne({ Rut_Ficha_Masc: rutChip });
+    if (!existintRutM) {
+      const lastRutM = await Mascota.findOne({
+        Rut_Ficha_Masc: { $regex: /^M\d+$/ },
+      }).sort({ Rut_Ficha_Masc: -1 });
+      console.log(lastRutM);
+      const lastId = lastRutM ? lastRutM.Rut_Ficha_Masc : 'M00001';
+      console.log('Last ID', lastId);
+      const nextId = lastId.replace(/\d+/, (match) => {
+        const number = parseInt(match) + 1;
+        return number.toString().padStart(match.length, '0');
+      });
+      console.log('Next ID', nextId);
+      const newFichaId = nextId.replace(/^(\D+)(\d+)$/, 'M$2');
+      console.log('New ID', newFichaId);
+      return newFichaId;
+    } else {
+      return newRut;
+    }
   }
 }

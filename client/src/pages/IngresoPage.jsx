@@ -102,7 +102,7 @@ function IngresoPage() {
                 variant="outlined"
                 label="Rut o Chip Mascota (Opcional)"
                 className="my-2 bg-transparent dark:text-black dark:bg-transparent"
-                {...register('rutChip', { required: true })}
+                {...register('rutChip', { required: false })}
               />
               <FloatingLabel
                 variant="outlined"
@@ -147,9 +147,8 @@ function IngresoPage() {
                 </div>
                 <Textarea
                   placeholder="Antecedentes medicos de la mascota."
-                  {...register('antecedentes')}
+                  {...register('antecedentes', { required: false })}
                   className="text-black bg-transparent dark:text-black dark:bg-transparent"
-                  required
                   rows={3}
                 />
               </div>

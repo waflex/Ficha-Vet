@@ -5,6 +5,7 @@ const mascotaSchema = new mongoose.Schema(
     Rut_Ficha_Masc: {
       type: String,
       required: true,
+      unique: true,
     },
     Nombre: {
       type: String,

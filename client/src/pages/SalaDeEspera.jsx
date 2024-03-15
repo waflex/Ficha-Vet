@@ -55,7 +55,7 @@ function SalaDeEspera() {
     <div className="flex w-full h-full dark:text-white" id="main-content">
       <Lateral />
       <div
-        className="flex flex-grow flex-col justify-start p-4 bg-gray-100"
+        className="flex items-center flex-grow flex-col justify-start p-4 bg-gray-100"
         style={{
           backgroundImage: `url(/img/bg_doc_dog.jpg)`,
           backgroundSize: 'contain',
@@ -184,7 +184,7 @@ function SalaDeEspera() {
           {...console.log(Math.ceil(DatosM.Fichas.length / pacientesPorPagina))}
           previousLabel="Volver"
           nextLabel="Siguiente"
-          itemsPerPage={pacientesPorPagina}
+          itemsperpage={pacientesPorPagina}
           onPageChange={(page) => setCurrentPage(page)}
         />
       </div>
