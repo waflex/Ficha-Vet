@@ -13,6 +13,7 @@ import { DatosMProvider } from './context/DatosMedicos';
 import ProtectedRoute from './routes';
 import { Flowbite } from 'flowbite-react';
 import { UsersProvider } from './context/UsersContext';
+import { ControlesProvider } from './context/ControlesContext';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <AuthProvider>
         <DatosMProvider>
           <UsersProvider>
+          <ControlesProvider>
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<LoginPage />} />
@@ -38,6 +40,7 @@ function App() {
                 </Route>
               </Routes>
             </BrowserRouter>
+            </ControlesProvider>
           </UsersProvider>
         </DatosMProvider>
       </AuthProvider>

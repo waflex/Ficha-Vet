@@ -32,6 +32,7 @@ function Usuarios() {
       setFiltro('Alumno');
     }
   };
+  
   const { users, getUsers } = useUsers();
   useEffect(() => {
     getUsers();

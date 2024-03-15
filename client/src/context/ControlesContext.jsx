@@ -10,8 +10,9 @@ export const useControles = () => {
     throw new Error('Controles debe estar dentro de su Proveedor');
   }
   return context;
-}
+};
 
+// eslint-disable-next-line react/prop-types
 export const ControlesProvider = ({ children }) => {
   const [controles, setControles] = useState([]);
 
@@ -27,7 +28,7 @@ export const ControlesProvider = ({ children }) => {
     <ControlesContext.Provider
       value={{
         getControles,
-        controles
+        controles,
       }}>
       {children}
     </ControlesContext.Provider>
