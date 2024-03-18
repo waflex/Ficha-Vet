@@ -3,8 +3,7 @@ import { useAuth } from './context/AuthContext';
 import { Spinner } from 'flowbite-react';
 
 function ProtectedRoute() {
-  const { loading, IsAuthenticated } = useAuth();
-
+  const { loading, IsAuthenticated, user } = useAuth();
   if (loading)
     return (
       <div className="flex flex-wrap gap-2">

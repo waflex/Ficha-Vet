@@ -9,14 +9,67 @@ import {
   Textarea,
 } from 'flowbite-react';
 import { HiMenu } from 'react-icons/hi';
+import { useState } from 'react';
 
 function IngresoPage() {
+  const [rut, setRut] = useState('');
+  const [rutValido, setRutValido] = useState(false);
   const { register, handleSubmit } = useForm();
   const onSubmit = async (values) => {
     const res = await registroConsulta(values);
     if (res.status === 201) {
       alert('Consulta registrada con éxito');
       window.location.href = '/SalaDeEspera';
+    }
+  };
+  const handleRutChange = (event) => {
+    let rutSinFormato = event.target.value.replace(/[^\dkK]/g, ''); // Eliminar caracteres que no son números ni 'k' ni 'K'
+    const cursorPosition = event.target.selectionStart;
+    if (
+      event.target.value.charAt(cursorPosition - 1) === '-' &&
+      cursorPosition === event.target.value.length
+    ) {
+      rutSinFormato = rutSinFormato.slice(0, -1); // Eliminar el último carácter (el guion)
+    }
+    // Eliminar los puntos y guiones actuales
+    rutSinFormato = rutSinFormato.replace(/[\.\-]/g, '');
+
+    // Agregar guión después de los primeros dos grupos de números
+    rutSinFormato = rutSinFormato.replace(
+      /^(\d{1,2})(\d{1,3})(\d{0,3})(\w{0,1})$/,
+      '$1.$2.$3-$4'
+    );
+
+    setRut(rutSinFormato);
+
+    // Validar RUT
+    setRutValido(validarRut(rutSinFormato));
+  };
+  const validarRut = (rut) => {
+    if (!rut) return false;
+
+    // Obtener dígito verificador
+    const dv = rut.slice(-1).toUpperCase();
+    const rutNumeros = rut.slice(0, -2).replace(/\./g, '');
+    let suma = 0;
+    let multiplicador = 2;
+
+    // Calcular suma ponderada de los números del rut
+    for (let i = rutNumeros.length - 1; i >= 0; i--) {
+      suma += parseInt(rutNumeros.charAt(i), 10) * multiplicador;
+      multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+    }
+
+    // Calcular dígito verificador esperado
+    const dvEsperado = 11 - (suma % 11);
+
+    // Comparar dígito verificador esperado con el proporcionado
+    if (dvEsperado === 10) {
+      return dv === 'K';
+    } else if (dvEsperado === 11) {
+      return dv === '0';
+    } else {
+      return dv == dvEsperado;
     }
   };
   return (
@@ -31,9 +84,6 @@ function IngresoPage() {
           backgroundSize: 'cover',
         }}>
         <div className="text-center mb-0">
-          <button className="cel fixed top-5 left-5 right-0" onClick={onClick}>
-            <HiMenu />
-          </button>
           <h1 className="text-2xl font-bold" id="tit-form-ing">
             Formulario de ingreso
           </h1>
@@ -54,10 +104,13 @@ function IngresoPage() {
               </div>
               <FloatingLabel
                 variant="outlined"
-                label="Rut Tutor"
-                className="w-full my-2 bg-transparent dark:text-black dark:bg-transparent"
-                {...register('rut', { required: true })}
+                label="Rut"
+                className={`w-full my-2 bg-transparent dark:text-black dark:bg-transparent`}
+                value={rut}
+                onChange={handleRutChange}
+                color={rutValido ? 'success' : 'error'}
               />
+              {!rutValido && <span className="text-failure">RUT inválido</span>}
 
               <FloatingLabel
                 variant="outlined"
@@ -178,9 +231,3 @@ function IngresoPage() {
 }
 
 export default IngresoPage;
-function onClick() {
-  const sideBar = document.querySelector('.SideBar');
-  sideBar.classList.toggle('show');
-  const cel = document.querySelector('.cel');
-  cel.classList.toggle('show');
-}

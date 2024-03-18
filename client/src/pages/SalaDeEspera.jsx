@@ -64,9 +64,6 @@ function SalaDeEspera() {
           backgroundColor: '#f3f4ef',
         }}>
         <div className="text-center mb-8">
-          <button className="cel fixed top-5 left-5 right-0" onClick={onClick}>
-            <HiMenu />
-          </button>
           <h1 className="dark:text-black text-2xl font-bold" id="tit-form-ing">
             Sala de Espera
           </h1>
@@ -218,10 +215,4 @@ function hora(fechaCompleta) {
       return `Hace ${horas} horas con ${minutosRestantes} minutos`;
     }
   }
-}
-function onClick() {
-  const sideBar = document.querySelector('.SideBar');
-  sideBar.classList.toggle('show');
-  const cel = document.querySelector('.cel');
-  cel.classList.toggle('show');
 }

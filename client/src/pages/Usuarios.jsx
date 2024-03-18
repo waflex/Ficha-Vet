@@ -37,7 +37,7 @@ function Usuarios() {
       setFiltro('Alumno');
     }
   };
-  
+
   const { users, getUsers } = useUsers();
   useEffect(() => {
     getUsers();
@@ -49,9 +49,6 @@ function Usuarios() {
       <Lateral />
       <div className="flex flex-grow flex-col justify-start p-4 dark:bg-slate-900">
         <div className="text-center mb-8">
-          <button className="cel fixed top-5 left-5 right-0" onClick={onClick}>
-            <HiMenu />
-          </button>
           <h1 className="text-2xl font-bold dark:text-white" id="tit-form-ing">
             Usuarios
           </h1>
@@ -154,10 +151,4 @@ function verificarTipoUsuario(tipoUsuario) {
     default:
       return 'Tipo de usuario no válido';
   }
-}
-function onClick() {
-  const sideBar = document.querySelector('.SideBar');
-  sideBar.classList.toggle('show');
-  const cel = document.querySelector('.cel');
-  cel.classList.toggle('show');
 }

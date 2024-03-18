@@ -32,9 +32,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await loginRequest(user);
       setIsAuthenticated(true);
-      setUser(res);
+      setUser(res.data);
     } catch (error) {
-      console.log(error);
       setErrors(error.response.data);
     }
   };
@@ -73,7 +72,7 @@ export const AuthProvider = ({ children }) => {
     };
     CheckLogin();
   }, []);
-  
+
   return (
     <AuthContext.Provider
       value={{

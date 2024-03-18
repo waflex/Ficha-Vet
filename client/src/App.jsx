@@ -14,6 +14,9 @@ import ProtectedRoute from './routes';
 import { Flowbite } from 'flowbite-react';
 import { UsersProvider } from './context/UsersContext';
 import { ControlesProvider } from './context/ControlesContext';
+import DosisPage from './pages/DosisPage';
+import DietasPage from './pages/DietasPage';
+import Chat from './pages/ChatGPTPage';
 
 function App() {
   return (
@@ -21,25 +24,31 @@ function App() {
       <AuthProvider>
         <DatosMProvider>
           <UsersProvider>
-          <ControlesProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/IngresoPage" element={<IngresoPage />} />
-                  <Route path="/Ficha/:id" element={<FichaMedicaPage />} />
-                  <Route path="/Home" element={<HomePage />} />
-                  <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
-                  <Route path="/Registro" element={<RegistroUser />} />
-                  <Route path="/Usuarios" element={<Usuarios />} />
-                  <Route path="/ListadoControles" element={<ListadoControles />} />
-                  <Route
-                    path="/ListadoFichasMedicas"
-                    element={<ListadoFichasPage />}
-                  />
-                </Route>
-              </Routes>
-            </BrowserRouter>
+            <ControlesProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<LoginPage />} />
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/IngresoPage" element={<IngresoPage />} />
+                    <Route path="/Ficha/:id" element={<FichaMedicaPage />} />
+                    <Route path="/Home" element={<HomePage />} />
+                    <Route path="/SalaDeEspera" element={<SalaDeEspera />} />
+                    <Route path="/Dosis" element={<DosisPage />}></Route>
+                    <Route path="/Dietas" element={<DietasPage />}></Route>
+                    <Route path="/Chat" element={<Chat />}></Route>
+                    <Route path="/Registro" element={<RegistroUser />} />
+                    <Route path="/Usuarios" element={<Usuarios />} />
+                    <Route
+                      path="/ListadoControles"
+                      element={<ListadoControles />}
+                    />
+                    <Route
+                      path="/ListadoFichasMedicas"
+                      element={<ListadoFichasPage />}
+                    />
+                  </Route>
+                </Routes>
+              </BrowserRouter>
             </ControlesProvider>
           </UsersProvider>
         </DatosMProvider>

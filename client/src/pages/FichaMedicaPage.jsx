@@ -3,7 +3,7 @@ import { Lateral } from '../components/Sidebar';
 import AgendarControlModal from '../components/AgendarControlModal';
 import { useDatosM } from '../context/DatosMedicos';
 import { useParams } from 'react-router-dom';
-import { FloatingLabel, Textarea, Table, Spinner   } from 'flowbite-react';
+import { FloatingLabel, Textarea, Table, Spinner } from 'flowbite-react';
 import { HiMenu } from 'react-icons/hi';
 
 function FichaMedicaPage() {
@@ -40,9 +40,6 @@ function FichaMedicaPage() {
 
       <div className="flex-grow p-6 max-h-full overflow-y-auto">
         <div className="text-center mb-4">
-          <button className="cel fixed top-5 left-5 right-0" onClick={onClick}>
-            <HiMenu />
-          </button>
           <h1 className="text-2xl font-robot font-bold">Ficha Médica</h1>
         </div>
 
@@ -142,7 +139,7 @@ function FichaMedicaPage() {
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   Edad
                 </Table.Cell>
-                <Table.Cell >
+                <Table.Cell>
                   <FloatingLabel variant="outlined" />
                 </Table.Cell>
               </Table.Row>
@@ -151,7 +148,7 @@ function FichaMedicaPage() {
                   Diagnóstico
                 </Table.Cell>
                 <Table.Cell className="">
-                <Textarea id="diagnostico" required rows={4} />
+                  <Textarea id="diagnostico" required rows={4} />
                 </Table.Cell>
               </Table.Row>
             </Table.Body>
@@ -165,10 +162,5 @@ function FichaMedicaPage() {
     </div>
   );
 }
-function onClick() {
-  const sideBar = document.querySelector('.SideBar');
-  sideBar.classList.toggle('show');
-  const cel = document.querySelector('.cel');
-  cel.classList.toggle('show');
-}
+
 export default FichaMedicaPage;
