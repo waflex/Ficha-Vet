@@ -2,15 +2,13 @@ import { useEffect, useState } from 'react';
 import { useUsers } from '../context/UsersContext';
 import { Lateral } from '../components/Sidebar';
 import { Button, Dropdown } from 'flowbite-react';
-import { HiFilter, HiMenu } from 'react-icons/hi';
+import { HiFilter } from 'react-icons/hi';
 import ModificarUsuario from '../components/ModificarUsuario';
-import { useAuth } from '../context/AuthContext';
 
-import { HiAdjustments, HiCloudDownload, HiUserCircle } from 'react-icons/hi';
+import { HiCloudDownload } from 'react-icons/hi';
 
 function Usuarios() {
   const [filtro, setFiltro] = useState(null);
-  const { user } = useAuth();
   const handleFiltroQuit = () => {
     setFiltro(null);
   };
@@ -64,7 +62,7 @@ function Usuarios() {
           </Dropdown>
         </div>
         {/* Contenedor de las fichas */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 overflow-y-auto">
           {users.Usuarios &&
             users.Usuarios.filter((usuario) => {
               if (!filtro) return true;
@@ -93,10 +91,10 @@ function Usuarios() {
                   <div className="absolute bottom-10 left-0 w-full flex justify-center space-x-4">
                     <Button.Group outline>
                       <ModificarUsuario
-                        name={fila.Nombre}
+                        Nombre={fila.Nombre}
                         id={fila._id}
-                        rut={fila.rutUsuario}
-                        Tipo={verificarTipoUsuario(fila.tipoUsuario)}
+                        rutUsuario={fila.rutUsuario}
+                        tipoUsuario={verificarTipoUsuario(fila.tipoUsuario)}
                       />
                       <Button color="gray">
                         <HiCloudDownload />

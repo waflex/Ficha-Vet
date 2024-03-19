@@ -15,41 +15,28 @@ const Chat = () => {
 
   const handleSendMessage = async () => {
     appendMessage(inputText, 'user');
-    setInputText('');
 
     // Llamar a la API de OpenAI para obtener una respuesta
     try {
-      const assistant = await openai.beta.assistants.create({
+      const stream = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
-        name: 'Math Tutor',
-        instructions: 'Eres un asistente para alumnos que estudian veterinaria',
-      });
-      let assistantId = assistant.id;
-      console.log('Created Assistant with Id: ' + assistantId);
-      const thread = await openai.beta.threads.create({
-        assistantId: assistantId,
         messages: [{ role: 'user', content: inputText }],
+        stream: true,
       });
-      let threadId = thread.id;
-
-      console.log('Created thread with Id: ' + threadId);
-      const run = openai.beta.threads.runs
-        .createAndStream(threadId, {
-          assistant_id: assistantId,
-        })
-        //Subscribe to streaming events and log them
-        .on('event', (event) => console.log(event))
-        .on('textDelta', (delta, snapshot) => console.log(snapshot))
-        .on('messageDelta', (delta, snapshot) => console.log(snapshot))
-        .on('run', (run) => console.log(run))
-        .on('messageDelta', (delta, snapshot) => console.log(snapshot))
-        .on('connect', () => console.log());
-      const result = await run.finalRun();
-      console.log('Run Result' + result);
-      appendMessage(result.messages[0].content, 'bot');
+      messages.push({
+        text: stream.data.choices[0].message.content,
+        sender: 'bot',
+      });
+      setInputText('');
     } catch (error) {
-      console.error('Error:', error);
-      appendMessage('Lo siento, no pude entender tu mensaje.', 'bot');
+      if (JSON.stringify(error.type) !== 'insufficient_quota') {
+        appendMessage(
+          'lo sentimos pero se ha superado la cuota para preguntas',
+          'bot'
+        );
+      } else {
+        appendMessage('Lo siento, no pude entender tu mensaje.', 'bot');
+      }
     }
   };
 

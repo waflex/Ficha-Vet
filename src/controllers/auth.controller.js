@@ -94,6 +94,11 @@ export const verify = async (req, res) => {
       return res
         .status(401)
         .json({ message: 'No Autorizado, Usuario No encontrado' });
+    await Usuario.findByIdAndUpdate(
+      userFound._id,
+      { ultimaConexion: Date.now() },
+      { new: true }
+    );
     return res.json({
       rutUsuario: userFound.rutUsuario,
       Nombre: userFound.Nombre,

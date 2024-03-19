@@ -11,6 +11,7 @@ import {
   HiCalculator,
   HiMenu,
 } from 'react-icons/hi';
+import { TbPremiumRights } from 'react-icons/tb';
 import { useAuth } from '../context/AuthContext';
 import { DarkThemeToggle } from 'flowbite-react';
 import { useEffect } from 'react';
@@ -26,12 +27,10 @@ export const Lateral = () => {
 
   if (loading || !user) {
     return (
-      <div className="relative items-center block max-w-sm p-6 bg-white border border-gray-100 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-800 dark:hover:bg-gray-700">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white opacity-20">
-          Cargando Datos
-        </h5>
-        <Spinner aria-label="Default status example" />
-        <span className="sr-only">Loading...</span>
+      <div className="flex h-full bg-gradient-to-br from-teal-200 to-teal-400 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 items-center overflow-hidden">
+        <div className="grid w-full justify-items-center scale-150">
+          <Spinner aria-label="Center-aligned spinner example" />
+        </div>
       </div>
     );
   }
@@ -65,11 +64,15 @@ export const Lateral = () => {
             <Sidebar.Item href="/ListadoControles" icon={HiBookOpen}>
               Controles
             </Sidebar.Item>
-            <Sidebar.Collapse icon={HiCalculator} label="Herramientas">
+            <Sidebar.Collapse
+              icon={HiCalculator}
+              label="Herramientas"
+              className="inline-flex">
               <Sidebar.Item href="/Dosis">Calcular dosis</Sidebar.Item>
               <Sidebar.Item href="/Dietas">Dietas</Sidebar.Item>
-              <Sidebar.Item href="/Chat">Chat</Sidebar.Item>
-              <Sidebar.Item href="#">Shipping</Sidebar.Item>
+              <Sidebar.Item href="/#" icon={TbPremiumRights}>
+                Chat IA
+              </Sidebar.Item>
             </Sidebar.Collapse>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
