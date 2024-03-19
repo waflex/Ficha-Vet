@@ -95,7 +95,7 @@ function SalaDeEspera() {
         </div>
         {/* Contenedor de las fichas */}
         {DatosM.Fichas && DatosM.Fichas.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto shadow-inner">
             {pacientesActuales.map((fila) => (
               <Link
                 to={`/Ficha/${fila._id}`}

@@ -27,9 +27,7 @@ export function ProtectedAdminRoute() {
         </div>
       </div>
     );
-  console.log(!loading);
-  console.log(IsAuthenticated);
-  if (!loading && IsAuthenticated && user.TipoUsuario !== 1)
+  if (!loading && !IsAuthenticated && user.TipoUsuario !== 1)
     return <Navigate to="/Home" replace />;
 
   return <Outlet />;

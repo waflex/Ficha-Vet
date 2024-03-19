@@ -59,10 +59,8 @@ const ModificarUsuario = (Data) => {
         popup
         position={'center'}
         onClose={() => setOpenModal(false)}>
-        <Modal.Header>
-          <h4 className="text-lg font-bold text-gray-900 dark:text-white">
-            Modificar Usuario
-          </h4>
+        <Modal.Header className="flex text-center text-lg font-bold text-gray-900 dark:text-white">
+          Modificar Usuario
         </Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
