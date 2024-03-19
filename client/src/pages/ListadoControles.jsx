@@ -33,7 +33,7 @@ function ListadoControles() {
               </Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
-              {controles.map((control, index) => (
+            {controles.ListadoControles && controles.map((control, index) => (
                 <Table.Row
                   key={index}
                   className="bg-white dark:border-gray-700 dark:bg-gray-800">

@@ -18,6 +18,6 @@ router.post('/crearControl', crearControl);
 router.delete('/Borrar:id', authRequired, borrarFicha);
 router.get('/Ver:id', authRequired);
 router.put('/Mod:id', authRequired);
-router.get('/getControles', getControl);
+router.get('/getControles/', getControl);
 
 export default router;
