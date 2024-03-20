@@ -8,3 +8,11 @@ export const obtenerControles = async () => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+export const crearControl = async (control) => {
+  try {
+    const res = await axios.post('/Consultas/crearControl/', control);
+    return res;
+  } catch (error) {
+    throw new Error('No se pudo conectar a la API:', error);
+  }
+};

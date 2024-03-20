@@ -12,7 +12,7 @@ import {
 const router = Router();
 
 router.get('/', mainficha);
-router.get('/getFitcha/:id', authRequired, mainfichaID);
+router.get('/getFicha/:id', authRequired, mainfichaID);
 router.post('/crearConsulta', crearFicha);
 router.post('/crearControl', crearControl);
 router.delete('/Borrar:id', authRequired, borrarFicha);

@@ -156,7 +156,7 @@ function FichaMedicaPage() {
         </div>
 
         <div className="flex mt-5">
-          <AgendarControlModal />
+          <AgendarControlModal Mid={id} />
         </div>
       </div>
     </div>

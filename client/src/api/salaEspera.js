@@ -19,7 +19,7 @@ export const obtenerDatos = async () => {
 };
 export const obtenerDatosfiltradoM = async (id) => {
   try {
-    const res = await axios.get(`Consultas/getFitcha/${id}`);
+    const res = await axios.get(`Consultas/getFicha/${id}`);
     return res;
   } catch (error) {
     throw new Error('No se pudo conectar a la API:', error);

@@ -29,7 +29,6 @@ export function DatosMProvider({ children }) {
   const obtenerDatosFiltrados = async (id) => {
     try {
       const res = await obtenerDatosfiltradoM(id);
-      console.log(res);
       setDatosMFiltrados(res.data);
     } catch (error) {
       console.log(error);

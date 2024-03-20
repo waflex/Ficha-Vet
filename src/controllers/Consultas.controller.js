@@ -184,12 +184,13 @@ export const borrarFicha = async (req, res) => {
 
 export const crearControl = async (req, res) => {
   try {
-    const { date: Fecha, id } = req.body;
-    const ficha = await Ficha.findById({ _id: id })
+    const { Fecha, _id, Estado } = req.body.valores;
+    console.log(req.body.valores);
+    const ficha = await Ficha.findById({ _id })
       .populate('ID_Mascota')
       .populate('ID_Tutor');
     const ID_Mascota = ficha.ID_Mascota._id;
-    const newControl = control({ ID_Mascota, Fecha });
+    const newControl = control({ ID_Mascota, Fecha, Estado });
     await newControl.save();
     res.status(201).json(['Control Agendado']);
   } catch (error) {
