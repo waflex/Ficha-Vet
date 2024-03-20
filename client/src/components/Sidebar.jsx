@@ -4,7 +4,6 @@ import {
   HiBookOpen,
   HiClipboard,
   HiUser,
-  HiUserAdd,
   HiHeart,
   HiUserGroup,
   HiKey,
@@ -15,6 +14,7 @@ import { TbPremiumRights } from 'react-icons/tb';
 import { useAuth } from '../context/AuthContext';
 import { DarkThemeToggle } from 'flowbite-react';
 import { useEffect } from 'react';
+import RegistroUser from './RegistroUser';
 
 export const Lateral = () => {
   const { user, loading, logout } = useAuth();
@@ -40,14 +40,12 @@ export const Lateral = () => {
   return (
     <>
       <button
-        className="cel fixed top-5 left-5 right-0 dark:text-gray-500"
+        className="cel fixed top-5 left-5 right-0 z-20 dark:text-gray-500"
         onClick={onClick}>
         <HiMenu />
       </button>
-      <Sidebar
-        aria-label="Sidebar"
-        className="SideBar rounded-none w-72 min-w-72">
-        <Sidebar.Items className="items-start max-w-52">
+      <Sidebar aria-label="Sidebar" className="SideBar nav w-72 min-w-72">
+        <Sidebar.Items className="items-start max-w-52 mt-8">
           <Sidebar.ItemGroup>
             <Sidebar.Item href="/Home" icon={HiHome}>
               Inicio
@@ -59,7 +57,7 @@ export const Lateral = () => {
               Nueva Consulta
             </Sidebar.Item>
             <Sidebar.Item href="/ListadoFichasMedicas" icon={HiBookOpen}>
-              Ver Fichas Medicas
+              Ver Macotas
             </Sidebar.Item>
             <Sidebar.Item href="/ListadoControles" icon={HiBookOpen}>
               Controles
@@ -83,9 +81,7 @@ export const Lateral = () => {
             </Sidebar.Item>
             {user && parseInt(user.TipoUsuario) === 1 ? (
               <>
-                <Sidebar.Item href="/Registro" icon={HiUserAdd}>
-                  Agregar Usuario
-                </Sidebar.Item>
+                <RegistroUser />
                 <Sidebar.Item href="/Usuarios" icon={HiUserGroup}>
                   Ver usuarios
                 </Sidebar.Item>

@@ -1,4 +1,5 @@
 import Usuario from '../models/user.model.js';
+import bcrypt from 'bcryptjs';
 
 export const getUsuarios = async (req, res) => {
   try {
@@ -48,5 +49,25 @@ export const UpdateUsuario = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Error al actualizar usuario' });
+  }
+};
+export const cambiarContrasena = async (req, res) => {
+  const { id } = req.params;
+  const { rutUsuario } = req.body;
+  console.log(req.body, req.params); // Puedes ver los campos modificados aquí (si los hay
+  try {
+    const usuario = await Usuario.findById({ _id: id });
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+    const passwordHash = await bcrypt.hash(rutUsuario, 10);
+
+    usuario.contrasena = passwordHash;
+    console.log(usuario.contrasena);
+    // await usuario.save();
+    return res.json({ message: 'Contraseña actualizada' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error al actualizar contraseña' });
   }
 };

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Label, Modal, TextInput } from 'flowbite-react';
 import { HiUserCircle } from 'react-icons/hi';
-import { actualizarUsuario } from '../api/Usuarios';
+import { actualizarUsuario, restablecerContrasena } from '../api/Usuarios';
 import { useAuth } from '../context/AuthContext';
 
 const ModificarUsuario = (Data) => {
@@ -43,6 +43,21 @@ const ModificarUsuario = (Data) => {
     } catch (error) {
       console.error(error);
       // Manejar errores de actualización aquí
+    }
+  };
+  const handleRestablecer = async () => {
+    try {
+      // Enviar la solicitud de restablecimiento de contraseña al backend utilizando la función importada
+      const response = await restablecerContrasena(Data.id, Data);
+      // Verificar la respuesta y manejarla según sea necesario
+      if (response.status === 200) {
+        alert('Contraseña Restablecida');
+      }
+      // Cerrar el modal después de la actualización exitosa
+      setOpenModal(false);
+    } catch (error) {
+      console.error(error);
+      // Manejar errores de restablecimiento aquí
     }
   };
   return (
@@ -115,7 +130,7 @@ const ModificarUsuario = (Data) => {
             <Button
               color="failure"
               className="h-full"
-              onClick={() => setOpenModal(false)}>
+              onClick={handleRestablecer}>
               Restablecer Contraseña
             </Button>
             <Button

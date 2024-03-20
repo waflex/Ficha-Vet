@@ -8,8 +8,8 @@ import {
   FaTimesCircle,
   FaCheckCircle,
 } from 'react-icons/fa';
-import { HiFilter, HiMenu } from 'react-icons/hi';
-import { Pagination } from 'flowbite-react';
+import { HiFilter } from 'react-icons/hi';
+import { Pagination, Spinner } from 'flowbite-react';
 
 function SalaDeEspera() {
   const [filtro, setFiltro] = useState(null);
@@ -39,8 +39,10 @@ function SalaDeEspera() {
   // Pacientes a mostrar en la página actual
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="spinner"></div>
+      <div className="flex h-full bg-gradient-to-br from-teal-200 to-teal-400 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 items-center">
+        <div className="grid w-full justify-items-center scale-150">
+          <Spinner aria-label="Center-aligned spinner example" />
+        </div>
       </div>
     );
   }
@@ -57,7 +59,7 @@ function SalaDeEspera() {
       <div
         className="flex items-center flex-grow flex-col justify-start p-4 bg-gray-100"
         style={{
-          backgroundImage: `url(/img/bg_doc_dog.jpg)`,
+          backgroundImage: `linear-gradient(to bottom, rgba(22, 189, 202, 0.2), rgba(23, 189, 202, 1)), url(/img/bg_doc_dog.jpg)`,
           backgroundSize: 'contain',
           backgroundPosition: 'center right',
           backgroundRepeat: 'no-repeat',
@@ -95,12 +97,12 @@ function SalaDeEspera() {
         </div>
         {/* Contenedor de las fichas */}
         {DatosM.Fichas && DatosM.Fichas.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto shadow-inner">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto shadow-inner">
             {pacientesActuales.map((fila) => (
               <Link
                 to={`/Ficha/${fila._id}`}
                 key={fila._id}
-                className="relative  min-w-48 card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
+                className="relative min-w-48 card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
                 {/* Contenido de la ficha */}
                 <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
@@ -193,7 +195,7 @@ export default SalaDeEspera;
 
 function hora(fechaCompleta) {
   const fecha = new Date(fechaCompleta);
-  const fechaBase = new Date('1900-01-01T00:00:00.196Z');
+  const fechaBase = new Date('1900-01-01T00:00:00.000Z');
   const fechaActual = new Date();
 
   // Si la fecha es igual a la fecha base, devuelve "Nunca"

@@ -23,3 +23,11 @@ export const actualizarUsuario = async (id, data) => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+export const restablecerContrasena = async (id, data) => {
+  try {
+    const res = await axios.put(`Usuarios/restablecerContrasena/${id}`, data);
+    return res;
+  } catch (error) {
+    throw new Error('No se pudo conectar a la API:', error);
+  }
+};

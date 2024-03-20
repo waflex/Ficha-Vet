@@ -80,7 +80,7 @@ function IngresoPage() {
       <div
         className="flex-grow p-4 max-h-full overflow-y-auto"
         style={{
-          backgroundImage: `url(/img/Background_Ingreso.jpg)`,
+          backgroundImage: `linear-gradient(to bottom, rgba(22, 189, 202, 0.1), rgba(23, 189, 202, 0.5)),url(/img/Background_Ingreso.jpg)`,
           backgroundSize: 'cover',
         }}>
         <div className="text-center mb-0">

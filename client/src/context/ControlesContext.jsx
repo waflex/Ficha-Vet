@@ -19,7 +19,7 @@ export const ControlesProvider = ({ children }) => {
   const getControles = async () => {
     try {
       const res = await obtenerControles();
-      setControles(res.data);
+      setControles(res.data.controles);
     } catch (error) {
       console.log(error);
     }
@@ -34,4 +34,3 @@ export const ControlesProvider = ({ children }) => {
     </ControlesContext.Provider>
   );
 };
-

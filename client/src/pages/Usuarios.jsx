@@ -43,26 +43,32 @@ function Usuarios() {
   }, []);
 
   return (
-    <div className="flex w-full h-full ">
+    <div className="flex w-full h-full">
       <Lateral />
-      <div className="flex flex-grow flex-col justify-start p-4 dark:bg-slate-900">
+      <div className="flex items-center flex-grow flex-col justify-start p-4 bg-gradient-to-br from-teal-200 to-teal-400 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 overflow-y-auto">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold dark:text-white" id="tit-form-ing">
             Usuarios
           </h1>
         </div>
-        <div className="bg-gray-200 m-0 p-4 flex justify-end space-x-4 dark:bg-blue-300 rounded-lg">
+        <div className="rounded-lg text-center min-w-60 m-0 space-x-4 bg-gradient-to-br from-teal-300 to-teal-500 dark:bg-gradient-to-br dark:from-gray-700 dark:to-gray-900 p-2 flex items-center justify-between">
           {filtro ? (
-            <HiFilter onClick={handleFiltroQuit} className="hover:click" />
+            <HiFilter
+              onClick={handleFiltroQuit}
+              className="hover:click text-black dark:text-white"
+            />
           ) : null}
-          <Dropdown label="Filtros" dismissOnClick={true}>
+          <Dropdown
+            className="bg-teal-500 hover:bg-teal-600 dark:bg-gray-700 dark:hover:bg-gray-800"
+            label="Filtros"
+            dismissOnClick={true}>
             <Dropdown.Item onClick={handleFiltroAdmin}>Admin</Dropdown.Item>
             <Dropdown.Item onClick={handleFiltroDocente}>Docente</Dropdown.Item>
             <Dropdown.Item onClick={handleFiltroAlumno}>Alumno</Dropdown.Item>
           </Dropdown>
         </div>
         {/* Contenedor de las fichas */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 overflow-y-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5 overflow-y-auto">
           {users.Usuarios &&
             users.Usuarios.filter((usuario) => {
               if (!filtro) return true;
@@ -70,8 +76,8 @@ function Usuarios() {
             }).map((fila) => (
               <div
                 key={fila._id}
-                className="relative card max-w-96 rounded-md p-2 hover:scale-105 duration-150 hover:z-40 ml-6">
-                <div className="block min-h-64 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 min-h-80 min-w-56 max-h-90 max-w-96">
+                className="relative card md:min-w-72 rounded-md p-2 hover:scale-105 duration-150 hover:z-40 ml-6">
+                <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 min-h-80 min-w-56 max-h-90 max-w-96">
                   {/* Contenido de la ficha */}
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
                     Usuario:

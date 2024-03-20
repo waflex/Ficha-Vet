@@ -5,7 +5,6 @@ import FichaMedicaPage from './pages/FichaMedicaPage';
 import ListadoFichasPage from './pages/ListadoFichasPage';
 import HomePage from './pages/HomePage';
 import SalaDeEspera from './pages/SalaDeEspera';
-import RegistroUser from './pages/RegistroUser';
 import ListadoControles from './pages/ListadoControles';
 import Usuarios from './pages/Usuarios';
 import { AuthProvider } from './context/AuthContext';
@@ -38,7 +37,6 @@ function App() {
                     <Route path="/Dosis" element={<DosisPage />}></Route>
                     <Route path="/Dietas" element={<DietasPage />}></Route>
                     <Route path="/Chat" element={<Chat />}></Route>
-                    <Route path="/Registro" element={<RegistroUser />} />
                     <Route element={<ProtectedAdminRoute />}>
                       <Route path="/Usuarios" element={<Usuarios />} />
                     </Route>
