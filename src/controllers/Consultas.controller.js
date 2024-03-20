@@ -213,7 +213,21 @@ export const getControl = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+export const getControlid = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const controles = await control.findById({ id }).populate({
+      path: 'ID_Mascota',
+      populate: {
+        path: 'Rut_Tutor',
+        model: 'Tutor',
+      },
+    });
+    res.status(200).json({ controles });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 async function CrearTutor(rutTutor, Nombre, Correo, Celular, Direccion) {
   const newTutor = Tutor({
     rutTutor,
