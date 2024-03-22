@@ -185,12 +185,16 @@ export const borrarFicha = async (req, res) => {
 export const crearControl = async (req, res) => {
   try {
     const { Fecha, _id, Estado } = req.body.valores;
-    console.log(req.body.valores);
+    const isCreated = await control
+      .findOne({ ID_Ficha: _id })
+      .sort({ createdAt: -1 });
+    if (isCreated && isCreated.Estado === 'Pendiente')
+      return res.status(403).json({ message: 'Control ya creado' });
     const ficha = await Ficha.findById({ _id })
       .populate('ID_Mascota')
       .populate('ID_Tutor');
     const ID_Mascota = ficha.ID_Mascota._id;
-    const newControl = control({ ID_Mascota, Fecha, Estado });
+    const newControl = control({ ID_Ficha: _id, ID_Mascota, Fecha, Estado });
     await newControl.save();
     res.status(201).json(['Control Agendado']);
   } catch (error) {

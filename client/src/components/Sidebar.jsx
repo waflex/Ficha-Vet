@@ -1,7 +1,6 @@
 import { Sidebar, Spinner } from 'flowbite-react';
 import {
   HiHome,
-  HiBookOpen,
   HiClipboard,
   HiUser,
   HiHeart,
@@ -10,6 +9,8 @@ import {
   HiCalculator,
   HiMenu,
 } from 'react-icons/hi';
+import { BsCalendarCheckFill } from 'react-icons/bs';
+import { MdOutlinePets } from 'react-icons/md';
 import { TbPremiumRights } from 'react-icons/tb';
 import { useAuth } from '../context/AuthContext';
 import { DarkThemeToggle } from 'flowbite-react';
@@ -56,10 +57,10 @@ export const Lateral = () => {
             <Sidebar.Item href="/IngresoPage" icon={HiClipboard}>
               Nueva Consulta
             </Sidebar.Item>
-            <Sidebar.Item href="/ListadoFichasMedicas" icon={HiBookOpen}>
+            <Sidebar.Item href="/ListadoFichasMedicas" icon={MdOutlinePets}>
               Ver Macotas
             </Sidebar.Item>
-            <Sidebar.Item href="/ListadoControles" icon={HiBookOpen}>
+            <Sidebar.Item href="/ListadoControles" icon={BsCalendarCheckFill}>
               Controles
             </Sidebar.Item>
             <Sidebar.Collapse

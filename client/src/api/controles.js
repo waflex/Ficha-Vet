@@ -13,6 +13,9 @@ export const crearControl = async (control) => {
     const res = await axios.post('/Consultas/crearControl/', control);
     return res;
   } catch (error) {
+    if (error.response && error.response.status === 403) {
+      return error.response;
+    }
     throw new Error('No se pudo conectar a la API:', error);
   }
 };

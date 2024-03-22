@@ -6,16 +6,15 @@ import { crearControl } from '../api/controles';
 
 function AgendarControlButton(Datos) {
   const [openModal, setOpenModal] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
   const [selectedDate, setSelectedDate] = useState(null);
+  const [horaSeleccionada, setHoraSeleccionada] = useState('');
 
-  const onSubmit = async (data) => {
-    const horaSeleccionada = data.hora;
+  const onSubmit = async () => {
     const [hora, minutos] = horaSeleccionada.split(':');
 
     // Convertir a objeto de fecha
     const fechaHora = new Date(selectedDate.setHours(hora, minutos));
-    console.log('Fecha y hora', fechaHora.toISOString());
     const valores = {
       _id: Datos.Mid,
       Fecha: fechaHora.toISOString(),
@@ -23,8 +22,16 @@ function AgendarControlButton(Datos) {
     };
     try {
       const res = await crearControl({ valores });
-      console.log('Control creado:', res);
-      setOpenModal(false);
+      if (res.data && res.data.message === 'Control ya creado') {
+        alert(
+          'Ya existe un control agendado, para volver a agendar debe cancelar el control existente.'
+        );
+        setOpenModal(false);
+        return;
+      } else {
+        alert('Control creado', res.data);
+        setOpenModal(false);
+      }
     } catch (error) {
       console.error('Error al crear el control:', error);
     }
@@ -32,6 +39,24 @@ function AgendarControlButton(Datos) {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+  };
+
+  // Opciones de horas disponibles
+  const horasDisponibles = [
+    '09:00',
+    '09:30',
+    '10:00',
+    '10:30',
+    '11:00',
+    '11:30',
+    '12:00',
+    '12:30',
+    '13:00',
+  ];
+
+  // Manejar el cambio de la hora seleccionada
+  const handleHoraChange = (event) => {
+    setHoraSeleccionada(event.target.value);
   };
   return (
     <>
@@ -57,11 +82,24 @@ function AgendarControlButton(Datos) {
                 className="block w-full rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm border-gray-300"
               />
 
-              <input
-                {...register('hora')}
-                type="time"
-                className="block w-full rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm border-gray-300"
-              />
+              <div>
+                <label htmlFor="hora">Selecciona una hora:</label>
+                {/* Selector personalizado de horas */}
+                <select
+                  id="hora"
+                  name="hora"
+                  value={horaSeleccionada}
+                  onChange={handleHoraChange}
+                  className="block w-full rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm border-gray-300">
+                  <option value="">Seleccionar hora</option>
+                  {/* Mapear las horas disponibles para crear las opciones */}
+                  {horasDisponibles.map((hora, index) => (
+                    <option key={index} value={hora}>
+                      {hora}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div className="flex justify-center gap-4 mt-6">
                 <Button type="submit" gradientDuoTone="cyanToBlue">
                   Agendar
