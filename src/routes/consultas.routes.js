@@ -7,6 +7,7 @@ import {
   mainfichaID,
   crearControl,
   getControl,
+  cancelarVariosControles,
 } from '../controllers/Consultas.controller.js';
 
 const router = Router();
@@ -19,5 +20,6 @@ router.delete('/Borrar:id', authRequired, borrarFicha);
 router.get('/Ver:id', authRequired);
 router.put('/Mod:id', authRequired);
 router.get('/getControles/', getControl);
+router.put('/cancelarControles/', authRequired, cancelarVariosControles);
 
 export default router;

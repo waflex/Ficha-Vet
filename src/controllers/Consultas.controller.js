@@ -2,7 +2,8 @@ import Ficha from '../models/Ficha.model.js';
 import Tutor from '../models/tutor.model.js';
 import Mascota from '../models/mascotas.model.js';
 import control from '../models/control.model.js';
-
+import mongoose from 'mongoose';
+/*FICHAS */
 export const crearFicha = async (req, res) => {
   try {
     let idtutor, idmascota, newRut;
@@ -71,9 +72,11 @@ export const crearFicha = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 export const verFicha = async (req, res) => {
   const { chipMascota, idFicha } = req.body;
 };
+
 export const mainfichaID = async (req, res) => {
   const { id } = req.params;
   try {
@@ -182,6 +185,7 @@ export const borrarFicha = async (req, res) => {
   }
 };
 
+/*CONTROLES */
 export const crearControl = async (req, res) => {
   try {
     const { Fecha, _id, Estado } = req.body.valores;
@@ -217,6 +221,7 @@ export const getControl = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 export const getControlid = async (req, res) => {
   try {
     const { id } = req.params;
@@ -232,6 +237,49 @@ export const getControlid = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const cancelarVariosControles = async (req, res) => {
+  try {
+    const data = req.body;
+
+    // Verifica si el cuerpo de la solicitud contiene datos válidos
+    if (!data || Object.keys(data).length === 0) {
+      return res
+        .status(400)
+        .json({ message: 'No se proporcionaron datos válidos' });
+    }
+
+    // Itera sobre cada controlId en los datos del cuerpo de la solicitud
+    for (const controlId in data) {
+      if (Object.prototype.hasOwnProperty.call(data, controlId)) {
+        // Verifica si el controlId es un ID de control válido
+        if (!mongoose.Types.ObjectId.isValid(controlId)) {
+          console.log(`ID de control no válido: ${controlId}`);
+          continue; // Salta a la próxima iteración si el ID no es válido
+        }
+
+        const Control = await control.findByIdAndUpdate(controlId, {
+          Estado: 'Cancelado',
+        });
+        console.log(Control);
+        // Verifica si el control existe en la base de datos
+        if (!Control) {
+          console.log(`Control no encontrado con ID: ${controlId}`);
+          continue; // Salta a la próxima iteración si el control no se encuentra
+        }
+        console.log(`Control cancelado con ID: ${controlId}`);
+      }
+    }
+
+    // Envía una respuesta al cliente indicando que los controles se cancelaron exitosamente
+    res.status(200).json({ message: 'Controles cancelados exitosamente' });
+  } catch (error) {
+    // Maneja cualquier error y envía una respuesta de error al cliente
+    console.error('Error al cancelar controles:', error);
+    res.status(500).json({ message: 'Error interno del servidor' });
+  }
+};
+
+/* ACCIONES */
 async function CrearTutor(rutTutor, Nombre, Correo, Celular, Direccion) {
   const newTutor = Tutor({
     rutTutor,

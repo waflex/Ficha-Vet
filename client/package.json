@@ -14,7 +14,7 @@
     "@midudev/tailwind-animations": "^0.0.7",
     "axios": "^1.6.7",
     "flowbite": "^2.3.0",
-    "flowbite-react": "^0.7.2",
+    "flowbite-react": "^0.7.3",
     "js-cookie": "^3.0.5",
     "openai": "^4.29.1",
     "react": "^18.2.0",

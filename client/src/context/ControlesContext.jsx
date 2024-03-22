@@ -1,5 +1,4 @@
-import React from 'react';
-import { obtenerControles } from '../api/controles'; //
+import { obtenerControles, cancelarVariosControles } from '../api/controles'; //
 import { createContext, useState, useContext } from 'react';
 
 export const ControlesContext = createContext();
@@ -24,10 +23,19 @@ export const ControlesProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const cancelarControles = async (ids) => {
+    try {
+      const res = await cancelarVariosControles(ids);
+      setControles(res.data.controles);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <ControlesContext.Provider
       value={{
         getControles,
+        cancelarControles,
         controles,
       }}>
       {children}

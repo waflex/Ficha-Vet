@@ -10,7 +10,7 @@ const ListadoMascotasPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [inputValue, setInputValue] = useState('');
   const [filteredMascotas, setFilteredMascotas] = useState([]);
-  const mascotasPorPagina = 12;
+  const mascotasPorPagina = 9;
 
   useEffect(() => {
     getMascotas()
@@ -60,58 +60,60 @@ const ListadoMascotasPage = () => {
               placeholder="Buscar mascota"
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto shadow-inner">
-            {Mascotas &&
-              mascotasActuales.map((mascota) => (
-                <Link
-                  onClick={() => {
-                    console.log(mascota);
-                  }}
-                  key={mascota._id}
-                  className="relative min-w-48 card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
-                  <div className="block max-w-sm bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
-                    <div className="p-6">
-                      <h5 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
-                        {mascota.Nombre}
-                      </h5>
-                      <h6 className="mb-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-                        Nombre Tutor: {mascota.Rut_Tutor?.Nombre}{' '}
-                      </h6>
-                      <h6 className="mb-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-                        Raza: {mascota.Raza}
-                      </h6>
-                      <h6 className="mb-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-                        Especie: {mascota.Especie}
-                      </h6>
-                      <p className="mt-2 text-sm font-thin text-gray-700 dark:text-gray-400">
-                        Ver Próximo Control
-                      </p>
+          <div className="overflow-y-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-5 max-h-full overflow-y-auto shadow-inner">
+              {Mascotas &&
+                mascotasActuales.map((mascota) => (
+                  <Link
+                    onClick={() => {
+                      console.log(mascota);
+                    }}
+                    key={mascota._id}
+                    className="relative min-w-48 card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
+                    <div className="block max-w-sm bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
+                      <div className="p-6">
+                        <h5 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
+                          {mascota.Nombre}
+                        </h5>
+                        <h6 className="mb-2 text-sm font-normal text-gray-700 dark:text-gray-400">
+                          Nombre Tutor: {mascota.Rut_Tutor?.Nombre}{' '}
+                        </h6>
+                        <h6 className="mb-2 text-sm font-normal text-gray-700 dark:text-gray-400">
+                          Raza: {mascota.Raza}
+                        </h6>
+                        <h6 className="mb-2 text-sm font-normal text-gray-700 dark:text-gray-400">
+                          Especie: {mascota.Especie}
+                        </h6>
+                        <p className="mt-2 text-sm font-thin text-gray-700 dark:text-gray-400">
+                          Ver Historial Medico
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+            </div>
+            {filteredMascotas.length > 0 ? (
+              <div className="flex justify-center mt-4">
+                <Pagination
+                  layout="pagination"
+                  currentPage={currentPage}
+                  totalPages={Math.ceil(
+                    filteredMascotas.length / mascotasPorPagina
+                  )}
+                  previousLabel="Anterior"
+                  nextLabel="Siguiente"
+                  onPageChange={(page) => {
+                    setCurrentPage(page);
+                    window.scrollTo(0, 0);
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="flex justify-center items-center h-64">
+                No hay resultados
+              </div>
+            )}
           </div>
-          {filteredMascotas.length > 0 ? (
-            <div className="flex justify-center mt-4">
-              <Pagination
-                layout="pagination"
-                currentPage={currentPage}
-                totalPages={Math.ceil(
-                  filteredMascotas.length / mascotasPorPagina
-                )}
-                previousLabel="Anterior"
-                nextLabel="Siguiente"
-                onPageChange={(page) => {
-                  setCurrentPage(page);
-                  window.scrollTo(0, 0);
-                }}
-              />
-            </div>
-          ) : (
-            <div className="flex justify-center items-center h-64">
-              No hay resultados
-            </div>
-          )}
         </div>
       </div>
     </div>

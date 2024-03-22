@@ -8,3 +8,12 @@ export const obtenerMascotas = async () => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
+export const obtenerTutores = async () => {
+  try {
+    const res = await axios.get('/Mascotas/obtenerTutores');
+    return res;
+  } catch (error) {
+    throw new Error('No se pudo conectar a la API:', error);
+  }
+};

@@ -1,4 +1,5 @@
 import Mascota from '../models/mascotas.model.js';
+import Tutor from '../models/tutor.model.js';
 
 export const getMascotas = async (req, res) => {
   try {
@@ -8,6 +9,7 @@ export const getMascotas = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 export const getMascotasId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -19,6 +21,15 @@ export const getMascotasId = async (req, res) => {
       },
     });
     res.status(200).json({ controles });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getTutores = async (req, res) => {
+  try {
+    const tutores = await Tutor.find({});
+    res.status(200).json({ tutores });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

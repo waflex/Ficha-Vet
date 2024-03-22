@@ -1,4 +1,4 @@
-import { obtenerMascotas } from '../api/Mascotas';
+import { obtenerMascotas, obtenerTutores } from '../api/Mascotas';
 import { createContext, useState, useContext } from 'react';
 
 export const MascotasContext = createContext();
@@ -14,11 +14,20 @@ export const useMascotas = () => {
 // eslint-disable-next-line react/prop-types
 export const MascotasProvider = ({ children }) => {
   const [Mascotas, setMascotas] = useState([]);
+  const [Tutores, setTutores] = useState([]);
 
   const getMascotas = async () => {
     try {
       const res = await obtenerMascotas();
       setMascotas(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getTutores = async () => {
+    try {
+      const res = await obtenerTutores();
+      setTutores(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -29,6 +38,8 @@ export const MascotasProvider = ({ children }) => {
       value={{
         Mascotas,
         getMascotas,
+        Tutores,
+        getTutores,
       }}>
       {children}
     </MascotasContext.Provider>

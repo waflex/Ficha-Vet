@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { registroConsulta } from '../api/registroDatos';
+import { useMascotas } from '../context/MascotasContext'; // Importar el contexto de mascotas
 import { Lateral } from '../components/Sidebar';
 import {
   FloatingLabel,
@@ -8,13 +9,20 @@ import {
   Select,
   Textarea,
 } from 'flowbite-react';
-import { HiMenu } from 'react-icons/hi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function IngresoPage() {
   const [rut, setRut] = useState('');
+  const { Tutores, getTutores } = useMascotas();
   const [rutValido, setRutValido] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
+  const [tutoresSimilares, setTutoresSimilares] = useState([]);
+  const [ShowTutor, setShowTutor] = useState(false);
+
+  useEffect(() => {
+    getTutores();
+  }, []);
+
   const onSubmit = async (values) => {
     const res = await registroConsulta(values);
     if (res.status === 201) {
@@ -23,28 +31,27 @@ function IngresoPage() {
     }
   };
   const handleRutChange = (event) => {
-    let rutSinFormato = event.target.value.replace(/[^\dkK]/g, ''); // Eliminar caracteres que no son números ni 'k' ni 'K'
-    const cursorPosition = event.target.selectionStart;
-    if (
-      event.target.value.charAt(cursorPosition - 1) === '-' &&
-      cursorPosition === event.target.value.length
-    ) {
-      rutSinFormato = rutSinFormato.slice(0, -1); // Eliminar el último carácter (el guion)
-    }
-    // Eliminar los puntos y guiones actuales
-    rutSinFormato = rutSinFormato.replace(/[\.\-]/g, '');
-
-    // Agregar guión después de los primeros dos grupos de números
-    rutSinFormato = rutSinFormato.replace(
-      /^(\d{1,2})(\d{1,3})(\d{0,3})(\w{0,1})$/,
-      '$1.$2.$3-$4'
-    );
-
+    const rutSinFormato = event.target.value.replace(/[^\dkK]/g, '');
     setRut(rutSinFormato);
-
-    // Validar RUT
     setRutValido(validarRut(rutSinFormato));
+
+    // Si el RUT ingresado es válido, realizar búsqueda de tutores similares
+    console.log(rutSinFormato.length);
+    if (rutSinFormato.length > 0) {
+      setShowTutor(true);
+    } else {
+      setShowTutor(false);
+    }
+    buscarTutoresSimilares(rutSinFormato);
+
+    if (rutValido) {
+      // buscarTutoresSimilares(rutSinFormato);
+    } else {
+      // Si el RUT no es válido, limpiar la lista de tutores similares
+      // setTutoresSimilares([]);
+    }
   };
+
   const validarRut = (rut) => {
     if (!rut) return false;
 
@@ -72,6 +79,40 @@ function IngresoPage() {
       return dv == dvEsperado;
     }
   };
+  const buscarTutoresSimilares = (rut) => {
+    const tutoresSimilaresEncontrados =
+      Tutores &&
+      Tutores.tutores.filter((tutor) => tutor.rutTutor.startsWith(rut));
+    setTutoresSimilares(tutoresSimilaresEncontrados);
+  };
+
+  const handleCheck = (e) => {
+    // Obtener el RUT del tutor seleccionado
+    const selectedRut = e.target.innerText;
+
+    // Buscar el tutor correspondiente en la lista de tutores similares
+    const selectedTutor = tutoresSimilares.find(
+      (tutor) => tutor.rutTutor === selectedRut
+    );
+
+    console.log(selectedTutor);
+    // Verificar si se encontró el tutor
+    if (selectedTutor) {
+      // Establecer el RUT en el estado
+      setRut(selectedRut);
+
+      // Establecer los demás campos del formulario con los datos del tutor seleccionado
+      setValue('existenciaTutor', true);
+      setValue('nombreTutor', selectedTutor.Nombre);
+      setValue('correo', selectedTutor.Correo);
+      setValue('celular', selectedTutor.Celular);
+      setValue('direccion', selectedTutor.Direccion);
+
+      // Limpiar la lista de tutores similares
+      setTutoresSimilares([]);
+    }
+  };
+
   return (
     <div className="flex h-full">
       {/* Menú */}
@@ -90,53 +131,74 @@ function IngresoPage() {
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mx-auto mt-0 p-2 rounded backdrop-blur-md">
+          className="mx-auto mt-0 p-2 rounded backdrop-blur-md font-robot">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
             <div className="flex flex-col space-y-4">
               <h2 className="text-xl font-bold mb-2">Datos tutor</h2>
               <div>
-                <Checkbox {...register('existenciaTutor')} />
+                <Checkbox {...register('existenciaTutor')} disabled />
                 <Label
                   htmlFor="existenciaTutor"
                   className="w-full dark:text-black">
                   Existente
                 </Label>
               </div>
+              <div className="relative">
+                <FloatingLabel
+                  variant="filled"
+                  label="Rut"
+                  className="w-full my-2 dark:text-gray-200 rounded-md"
+                  value={rut}
+                  maxLength={12}
+                  onChange={handleRutChange}
+                  color={rutValido ? 'success' : 'error'}
+                />
+                {!rutValido && (
+                  <span className="text-failure text-red-900 absolute top-0 -mt-3">
+                    RUT inválido
+                  </span>
+                )}
+                {ShowTutor && tutoresSimilares.length > 0 && (
+                  <div className="absolute top-0 right-0 bg-slate-300 mt-2 z-10 p-4 rounded-md shadow-md">
+                    <h3 className="font-bold">Tutores:</h3>
+                    <ul>
+                      {tutoresSimilares.map((tutor, index) => (
+                        <li
+                          key={index}
+                          onClick={handleCheck}
+                          className="cursor-pointer hover:bg-gray-200 rounded-md p-1 mb-1">
+                          {tutor.rutTutor}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
               <FloatingLabel
-                variant="outlined"
-                label="Rut"
-                className={`w-full my-2 bg-transparent dark:text-black dark:bg-transparent`}
-                value={rut}
-                onChange={handleRutChange}
-                color={rutValido ? 'success' : 'error'}
-              />
-              {!rutValido && <span className="text-failure">RUT inválido</span>}
-
-              <FloatingLabel
-                variant="outlined"
+                variant="filled"
                 label="Nombre Tutor"
-                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
+                className="my-2  dark:text-gray-200 rounded-md"
                 {...register('nombreTutor', { required: true })}
               />
 
               <FloatingLabel
-                variant="outlined"
+                variant="filled"
                 label="Correo"
-                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
+                className="my-2  dark:text-gray-200 rounded-md"
                 {...register('correo', { required: true })}
               />
 
               <FloatingLabel
-                variant="outlined"
+                variant="filled"
                 label="Celular"
-                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
+                className="my-2  dark:text-gray-200 rounded-md"
                 {...register('celular', { required: true })}
               />
 
               <FloatingLabel
-                variant="outlined"
+                variant="filled"
                 label="Direccion"
-                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
+                className="my-2  dark:text-gray-200 rounded-md"
                 {...register('direccion', { required: true })}
               />
             </div>
@@ -147,20 +209,20 @@ function IngresoPage() {
                 <Checkbox {...register('existenciaMascota')} />
                 <Label
                   htmlFor="existenciaTutor"
-                  className="bg-transparent dark:text-black dark:bg-transparent">
+                  className=" dark:text-gray-900">
                   Existente
                 </Label>
               </div>
               <FloatingLabel
-                variant="outlined"
+                variant="filled"
                 label="Rut o Chip Mascota (Opcional)"
-                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
+                className="my-2 rounded-md"
                 {...register('rutChip', { required: false })}
               />
               <FloatingLabel
-                variant="outlined"
+                variant="filled"
                 label="Nombre Mascota"
-                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
+                className="my-2  dark:text-gray-200 rounded-md"
                 {...register('nombreMascota', { required: true })}
               />
 
@@ -169,7 +231,7 @@ function IngresoPage() {
                   <Label
                     htmlFor="especie"
                     value="Seleccione la Especie:"
-                    className="bg-transparent dark:text-black dark:bg-transparent"
+                    className=" dark:text-gray-200"
                   />
                 </div>
                 <Select
@@ -185,23 +247,23 @@ function IngresoPage() {
               </div>
 
               <FloatingLabel
-                variant="outlined"
+                variant="filled"
                 label="Raza"
-                className="my-2 bg-transparent dark:text-black dark:bg-transparent"
+                className="my-2 dark:text-gray-200 rounded-md"
                 {...register('raza', { required: true })}
               />
               <div className="max-w">
                 <div className="mb-2 block ">
                   <Label
                     htmlFor="antcedentes"
-                    className="bg-transparent dark:text-black dark:bg-transparent"
+                    className=" dark:text-gray-200"
                     value="Antecedentes o Problemas de salud"
                   />
                 </div>
                 <Textarea
                   placeholder="Antecedentes medicos de la mascota."
                   {...register('antecedentes', { required: false })}
-                  className="text-black bg-transparent dark:text-black dark:bg-transparent"
+                  className="text-black  dark:text-gray-200"
                   rows={3}
                 />
               </div>
@@ -209,7 +271,9 @@ function IngresoPage() {
           </div>
 
           <div className="mt-0">
-            <h2 className="text-xl font-bold mb-2">Síntomas/Observaciones</h2>
+            <h2 className="text-xl font-bold mb-2 dark:text-gray-800">
+              Síntomas/Observaciones
+            </h2>
             <Textarea
               {...register('comentarios')}
               placeholder="Observaciones o síntomas de la mascota."
