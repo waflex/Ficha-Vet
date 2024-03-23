@@ -32,7 +32,14 @@ export const MascotasProvider = ({ children }) => {
       console.log(error);
     }
   };
-
+  const agendarCita = async (cita) => {
+    try {
+      const res = await crearCita(cita);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <MascotasContext.Provider
       value={{
@@ -40,6 +47,7 @@ export const MascotasProvider = ({ children }) => {
         getMascotas,
         Tutores,
         getTutores,
+        agendarCita,
       }}>
       {children}
     </MascotasContext.Provider>

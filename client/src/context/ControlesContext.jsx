@@ -1,8 +1,13 @@
-import { obtenerControles, cancelarVariosControles } from '../api/controles'; //
+import {
+  obtenerControles,
+  cancelarVariosControles,
+  AgendarControl,
+} from '../api/controles'; //
 import { createContext, useState, useContext } from 'react';
 
 export const ControlesContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useControles = () => {
   const context = useContext(ControlesContext);
   if (!context) {
@@ -31,11 +36,20 @@ export const ControlesProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const agendarControl = async (cita) => {
+    try {
+      const res = await AgendarControl(cita);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <ControlesContext.Provider
       value={{
         getControles,
         cancelarControles,
+        agendarControl,
         controles,
       }}>
       {children}

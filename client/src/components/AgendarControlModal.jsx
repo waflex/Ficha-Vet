@@ -60,7 +60,11 @@ function AgendarControlButton(Datos) {
   };
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>Agendar Control</Button>
+      <Button
+        onClick={() => setOpenModal(true)}
+        className="bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+        Agendar Control
+      </Button>
       <Modal
         show={openModal}
         size="md"

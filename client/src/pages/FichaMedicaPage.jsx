@@ -157,6 +157,9 @@ function FichaMedicaPage() {
 
         <div className="flex mt-5">
           <AgendarControlModal Mid={id} />
+          <button className="ml-3 bg-green-400 rounded-md px-4 py-2 text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50">
+            Finalizar Consulta
+          </button>
         </div>
       </div>
     </div>

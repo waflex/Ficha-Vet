@@ -25,7 +25,6 @@ export const crearFicha = async (req, res) => {
 
     if (!rutChip) {
       newRut = await newID(rutChip);
-      console.log(newRut);
     }
 
     if (!existenciaTutor) {
@@ -165,7 +164,7 @@ export const actualizarControlEst = async (req, res) => {
     return res.json(['Control Actualizado']);
   } catch (error) {
     return res.status(500).json({ message: error.message });
-  }
+  } //
 };
 
 export const borrarFicha = async (req, res) => {
@@ -206,16 +205,37 @@ export const crearControl = async (req, res) => {
   }
 };
 
+export const agendarControl = async (req, res) => {
+  const { _id, ID_Mascota, user } = req.body;
+  const { _id: idMascota, Rut_Tutor } = ID_Mascota;
+  const { _id: idTutor } = Rut_Tutor;
+  const { _id: userid } = user;
+
+  console.log(Rut_Tutor);
+  try {
+    await control.findByIdAndUpdate({ _id }, { Estado: 'Agendado' });
+    await subirFicha('Control', 'En Espera', idMascota, idTutor, userid);
+    return res.status(200).json({ message: 'Control Agendado' });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 export const getControl = async (req, res) => {
   try {
-    // const { id } = req.params;
-    const controles = await control.find({}).populate({
-      path: 'ID_Mascota',
-      populate: {
-        path: 'Rut_Tutor',
-        model: 'Tutor',
-      },
-    });
+    const fechaActual = new Date();
+    const controles = await control
+      .find({
+        Fecha: { $gte: fechaActual }, // Filtramos para obtener solo los controles con fecha igual o posterior a la actual
+      })
+      .populate({
+        path: 'ID_Mascota',
+        populate: {
+          path: 'Rut_Tutor',
+          model: 'Tutor',
+        },
+      })
+      .sort({ Fecha: 1 });
     res.status(200).json({ controles });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -237,6 +257,7 @@ export const getControlid = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 export const cancelarVariosControles = async (req, res) => {
   try {
     const data = req.body;

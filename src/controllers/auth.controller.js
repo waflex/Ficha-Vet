@@ -52,9 +52,7 @@ export const login = async (req, res) => {
     res.json({
       Rut_Usuario: userFound.rutUsuario,
       nombreUsuario: userFound.Nombre,
-      Contrasena: userFound.Contrasena,
       tipoUsuario: userFound.tipoUsuario,
-      ultimaConexion: userFound.ultimaConexion,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -100,6 +98,7 @@ export const verify = async (req, res) => {
       { new: true }
     );
     return res.json({
+      _id: userFound._id,
       rutUsuario: userFound.rutUsuario,
       Nombre: userFound.Nombre,
       TipoUsuario: userFound.tipoUsuario,

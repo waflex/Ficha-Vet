@@ -41,7 +41,7 @@ export const Lateral = () => {
   return (
     <>
       <button
-        className="cel fixed top-5 left-5 right-0 z-20 dark:text-gray-500"
+        className="cel fixed top-5 left-5 right-0 z-20 bg-gradient-to-br from-teal-200 to-teal-400 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 scale-200 dark:text-gray-200"
         onClick={onClick}>
         <HiMenu />
       </button>

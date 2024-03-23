@@ -1,11 +1,15 @@
 import { Lateral } from '../components/Sidebar';
 import { useEffect, useState } from 'react';
 import { Checkbox, Spinner, Card, Pagination } from 'flowbite-react'; // Reemplazamos Table por Card
+import { BsTelephoneOutboundFill, BsWhatsapp } from 'react-icons/bs';
 import { useControles } from '../context/ControlesContext';
+import { useAuth } from '../context/AuthContext';
 import { GoSearch } from 'react-icons/go';
 
 function ListadoControles() {
-  const { controles, getControles, cancelarControles } = useControles();
+  const { user } = useAuth();
+  const { controles, getControles, cancelarControles, agendarControl } =
+    useControles();
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [inputValue, setInputValue] = useState('');
@@ -48,6 +52,7 @@ function ListadoControles() {
   };
   const handleAgendar = (data) => {
     console.log(data);
+    agendarControl(data);
     // Lógica para agendar los controles seleccionados
   };
 
@@ -133,7 +138,7 @@ function ListadoControles() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto shadow-inner">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto shadow-inner">
               {/* Iteramos sobre los controles actuales y los mostramos como tarjetas */}
               {controlesActuales &&
                 controlesActuales.length > 0 &&
@@ -147,7 +152,7 @@ function ListadoControles() {
                       border: '1px solid rgba(0, 169, 255, 0.55)',
                     }}
                     key={index}
-                    className={`mb-4 dark:text-gray-200 ${
+                    className={`select-none mb-4 dark:text-gray-200 min-w-64 max-w-80 ${
                       control.Estado === 'Pendiente'
                         ? 'bg-blue-300 dark:bg-blue-800'
                         : control.Estado === 'Cancelado'
@@ -155,11 +160,12 @@ function ListadoControles() {
                         : 'bg-green-300 dark:bg-green-600'
                     }`}>
                     <div className="flex flex-col md:flex-row">
-                      <div className="md:w-1/2 pr-4">
-                        <div className="flex items-center mt-2">
-                          <span className="text-xs rounded-md border border-gray-300 px-2 py-1 mr-2">
-                            Seleccionar
-                          </span>
+                      <div className="md:w-1/2  pr-4">
+                        <div
+                          className={`text-xs rounded-md inline-flex items-center border border-gray-300 px-2 py-1 mr-2 ${
+                            control.Estado === 'Agendado' ? 'hidden' : 'none'
+                          }`}>
+                          <span className="">Seleccionar</span>
                           <Checkbox
                             id={`${control._id}`}
                             checked={selectedControls[`${control._id}`]}
@@ -167,12 +173,12 @@ function ListadoControles() {
                               handleCheckboxChange(`${control._id}`)
                             }
                             value={false}
-                            className="mt-1"
+                            className="mt-1 mx-2"
                           />{' '}
                         </div>
                         <div className="mt-2">
-                          <span className="ml-2">
-                            Nombre:{' '}
+                          <span className="text-xs">
+                            Nombre:{`\n`}
                             <span className="font-bold text-lg">
                               {control.ID_Mascota.Nombre}
                             </span>
@@ -183,6 +189,24 @@ function ListadoControles() {
                             Nombre Tutor:{' '}
                             {control.ID_Mascota?.Rut_Tutor?.Nombre}
                           </span>
+                        </div>
+                        <div className="mt-2">
+                          <span>
+                            Telefono: {control.ID_Mascota?.Rut_Tutor?.Celular}
+                          </span>
+                          <div className="flex my-2">
+                            <a
+                              href={`tel:${control.ID_Mascota?.Rut_Tutor?.Celular}`}
+                              className="inline-flex mr-5"
+                              target="_blank">
+                              <BsTelephoneOutboundFill className="scale-150" />
+                            </a>
+                            <a
+                              href={`https://wa.me/${control.ID_Mascota?.Rut_Tutor?.Celular}?text=Hola%20nos%20comunicamos%20desde%20el%20instituto%20Valle%20Central%20La%20Serena,%20para%20consultar%20si%20${control.ID_Mascota?.Nombre}%20va%20a%20venir%20hoy?`}
+                              target="_blank">
+                              <BsWhatsapp className="scale-150" />
+                            </a>
+                          </div>
                         </div>
                       </div>
                       <div className="md:w-1/2 pl-4">
@@ -223,10 +247,20 @@ function ListadoControles() {
                         </div>
                       </div>
                     </div>
-                    <div className="w-full mt-2 flex justify-center">
+                    <div
+                      className={`w-full flex mt-2 justify-center ${
+                        control.Estado === 'Agendado' ? 'hidden' : 'none'
+                      }`}>
                       <button
                         className="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
-                        onClick={() => handleAgendar(control)}>
+                        onClick={
+                          control.Estado !== 'Agendado'
+                            ? () => {
+                                control.user = user;
+                                handleAgendar(control);
+                              }
+                            : null
+                        }>
                         Agendar
                       </button>
                     </div>

@@ -8,6 +8,7 @@ import {
   crearControl,
   getControl,
   cancelarVariosControles,
+  agendarControl,
 } from '../controllers/Consultas.controller.js';
 
 const router = Router();
@@ -21,5 +22,6 @@ router.get('/Ver:id', authRequired);
 router.put('/Mod:id', authRequired);
 router.get('/getControles/', getControl);
 router.put('/cancelarControles/', authRequired, cancelarVariosControles);
+router.post('/agendarControl/', authRequired, agendarControl);
 
 export default router;
