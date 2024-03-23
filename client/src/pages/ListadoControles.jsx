@@ -44,7 +44,6 @@ function ListadoControles() {
   };
   const handleCancelSelected = () => {
     cancelarControles(selectedControls);
-    setSelectedControls({});
     window.location.reload();
   };
   const handleAgendar = (data) => {
@@ -155,75 +154,76 @@ function ListadoControles() {
                         ? 'bg-red-400 dark:bg-amber-700'
                         : 'bg-green-300 dark:bg-green-600'
                     }`}>
-                    <div className="flex items-center">
-                      <div className="mt-2">
-                        <span>Seleccionar</span>
-                        <Checkbox
-                          id={`${control._id}`}
-                          checked={selectedControls[`${control._id}`]}
-                          onChange={() =>
-                            handleCheckboxChange(`${control._id}`)
-                          }
-                          value={false}
-                        />{' '}
-                      </div>
-                      <div className="mt-2">
-                        <span className="ml-2">
-                          Nombre:{' '}
-                          <span className="font-bold text-lg">
-                            {control.ID_Mascota.Nombre}
+                    <div className="flex flex-col md:flex-row">
+                      <div className="md:w-1/2 pr-4">
+                        <div className="flex items-center mt-2">
+                          <span className="text-xs rounded-md border border-gray-300 px-2 py-1 mr-2">
+                            Seleccionar
                           </span>
-                        </span>
+                          <Checkbox
+                            id={`${control._id}`}
+                            checked={selectedControls[`${control._id}`]}
+                            onChange={() =>
+                              handleCheckboxChange(`${control._id}`)
+                            }
+                            value={false}
+                            className="mt-1"
+                          />{' '}
+                        </div>
+                        <div className="mt-2">
+                          <span className="ml-2">
+                            Nombre:{' '}
+                            <span className="font-bold text-lg">
+                              {control.ID_Mascota.Nombre}
+                            </span>
+                          </span>
+                        </div>
+                        <div className="mt-2">
+                          <span>
+                            Nombre Tutor:{' '}
+                            {control.ID_Mascota?.Rut_Tutor?.Nombre}
+                          </span>
+                        </div>
                       </div>
-                      <div>
+                      <div className="md:w-1/2 pl-4">
                         <div>Fecha: {formatDate(control.Fecha)}</div>
                         <div className="mt-2">
                           Hora: {formatHour(control.Fecha)}
                         </div>
+                        <div className="mt-2">
+                          <span>Estado: {control.Estado}</span>
+                          {/* Condicional para mostrar el ícono dependiendo del estado */}
+                          {control.Estado === 'Pendiente' && (
+                            <span className="text-red-500">
+                              <img
+                                src="/Pendiente_ico.svg"
+                                alt="Cancelado"
+                                className="absolute top-5 right-5 scale-300 -z-10 h-5 w-5 inline-block my-auto items-center"
+                              />
+                            </span>
+                          )}
+                          {control.Estado === 'Cancelado' && (
+                            <span className="text-red-500">
+                              <img
+                                src="/cancel_ico.svg"
+                                alt="Cancelado"
+                                className="absolute top-5 right-5 scale-250 -z-10 h-5 w-5 inline-block my-auto items-center"
+                              />
+                            </span>
+                          )}
+                          {control.Estado === 'Agendado' && (
+                            <span className="text-red-500">
+                              <img
+                                src="/Agendado_ico.svg"
+                                alt="Cancelado"
+                                className="absolute top-5 right-5 scale-250 -z-10 h-5 w-5 inline-block my-auto items-center"
+                              />
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    <div className="mt-2">
-                      <span>
-                        Nombre Tutor: {control.ID_Mascota?.Rut_Tutor?.Nombre}
-                      </span>
-                    </div>
-                    <div className="mt-2 relative">
-                      <span>Estado: {control.Estado}</span>
-                      {/* Condicional para mostrar el ícono dependiendo del estado */}
-                      {control.Estado === 'Pendiente' && (
-                        <span className="text-red-500">
-                          <img
-                            src="/Pendiente_ico.svg"
-                            alt="Cancelado"
-                            className="absolute top-0 right-0 scale-150 h-5 w-5 inline-block  my-auto items-center"
-                          />
-                        </span>
-                      )}
-                      {control.Estado === 'Cancelado' && (
-                        <span className="text-red-500">
-                          <img
-                            src="/cancel_ico.svg"
-                            alt="Cancelado"
-                            className="absolute top-0 right-0 scale-150 h-5 w-5 inline-block my-auto items-center"
-                          />
-                        </span>
-                      )}
-                      {control.Estado === 'Agendado' && (
-                        <span className="text-red-500">
-                          <img
-                            src="/Agendado_ico.svg"
-                            alt="Cancelado"
-                            className="absolute top-0 right-0 scale-150 h-5 w-5 inline-block my-auto items-center"
-                          />
-                        </span>
-                      )}
-                    </div>
-                    <div
-                      className="w-full mt-2 justify-center "
-                      style={{
-                        display:
-                          control.Estado === 'Agendado' ? 'none' : 'flex',
-                      }}>
+                    <div className="w-full mt-2 flex justify-center">
                       <button
                         className="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
                         onClick={() => handleAgendar(control)}>

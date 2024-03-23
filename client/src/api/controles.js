@@ -21,11 +21,10 @@ export const crearControl = async (control) => {
 };
 export const cancelarVariosControles = async (ids) => {
   try {
-    console.log(ids);
     const res = await axios.put('/Consultas/cancelarControles/', ids);
     return res;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error('No se pudo conectar a la API:', error);
   }
 };

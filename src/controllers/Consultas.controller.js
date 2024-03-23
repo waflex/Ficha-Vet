@@ -256,17 +256,21 @@ export const cancelarVariosControles = async (req, res) => {
           console.log(`ID de control no válido: ${controlId}`);
           continue; // Salta a la próxima iteración si el ID no es válido
         }
-
-        const Control = await control.findByIdAndUpdate(controlId, {
-          Estado: 'Cancelado',
-        });
-        console.log(Control);
-        // Verifica si el control existe en la base de datos
-        if (!Control) {
+        const ControlChk = await control.findById({ _id: controlId });
+        console.log('controlCHK', ControlChk);
+        if (ControlChk.Estado === 'Agendado') {
+          console.log(`Control no se puede cancelar, esta Agendado`);
+          continue; // Salta a la próxima iteración si el control esta agendado
+        }
+        if (!ControlChk) {
           console.log(`Control no encontrado con ID: ${controlId}`);
           continue; // Salta a la próxima iteración si el control no se encuentra
         }
-        console.log(`Control cancelado con ID: ${controlId}`);
+        const Control = await control.findByIdAndUpdate(controlId, {
+          Estado: 'Cancelado',
+        });
+        // Verifica si el control existe en la base de datos
+        console.log(`Control cancelado con ID: ${Control}`);
       }
     }
 

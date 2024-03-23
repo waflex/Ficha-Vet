@@ -67,7 +67,7 @@ function DosisPage() {
             </label>
             <select
               id="medicamento"
-              className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+              className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700"
               value={medicamento}
               onChange={(e) => setMedicamento(e.target.value)}>
               <option value="">Selecciona un medicamento</option>
