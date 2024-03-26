@@ -65,9 +65,7 @@ const ListadoMascotasPage = () => {
               {Mascotas &&
                 mascotasActuales.map((mascota) => (
                   <Link
-                    onClick={() => {
-                      console.log(mascota);
-                    }}
+                    to={`Mascota/${mascota._id}`}
                     key={mascota._id}
                     className="relative min-w-48 card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
                     <div className="block max-w-sm bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">

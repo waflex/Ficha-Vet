@@ -23,6 +23,7 @@ import Usuarios from './pages/Usuarios';
 import DosisPage from './pages/DosisPage';
 import DietasPage from './pages/DietasPage';
 import Chat from './pages/ChatGPTPage';
+import MascotaDetallePage from './pages/MascotaDetallePage';
 // import Prueba from './pages/Prueba';
 
 function App() {
@@ -57,6 +58,9 @@ function App() {
                         element={<ListadoMascotasPage />}
                       />
                     </Route>
+                    <Route
+                      path="ListadoFichasMedicas/Mascota/:id"
+                      element={<MascotaDetallePage />}></Route>
                   </Routes>
                 </MascotasProvider>
               </BrowserRouter>
