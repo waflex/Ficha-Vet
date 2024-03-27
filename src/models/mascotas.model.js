@@ -18,7 +18,7 @@ const mascotaSchema = new mongoose.Schema(
     Raza: {
       type: String,
     },
-    Antencedentes: {
+    Antecedentes: {
       type: String,
       default: 'Sin Antecedentes',
     },

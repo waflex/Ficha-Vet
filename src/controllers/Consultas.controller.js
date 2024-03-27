@@ -1,4 +1,5 @@
 import Ficha from '../models/Ficha.model.js';
+import FichaEg from '../models/FichaEg.model.js';
 import Tutor from '../models/tutor.model.js';
 import Mascota from '../models/mascotas.model.js';
 import control from '../models/control.model.js';
@@ -304,6 +305,35 @@ export const cancelarVariosControles = async (req, res) => {
   }
 };
 
+export const FinalizarFicha = async (req, res) => {
+  const {
+    Peso,
+    Tamaño: Tamano,
+    Edad,
+    Diagnostico,
+    Mascota: ID_Mascota,
+    Medico: ID_Usuario,
+  } = req.body;
+  const { id: ID_Ficha } = req.params;
+  try {
+    const newFicha = await FichaEg({
+      ID_Mascota,
+      ID_Ficha,
+      Peso,
+      Tamano,
+      Edad,
+      ID_Usuario,
+      Diagnostico,
+    });
+    await newFicha.save();
+    await ActualizarEstado(ID_Ficha);
+    res.status(200).json(['Ficha Finalizada']);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 /* ACCIONES */
 async function CrearTutor(rutTutor, Nombre, Correo, Celular, Direccion) {
   const newTutor = Tutor({
@@ -326,7 +356,7 @@ async function CrearMascota(
   Especie,
   Raza,
   Rut_Tutor,
-  Antencedentes
+  Antecedentes
 ) {
   const mascota = Mascota({
     Rut_Ficha_Masc,
@@ -334,7 +364,7 @@ async function CrearMascota(
     Especie,
     Raza,
     Rut_Tutor,
-    Antencedentes,
+    Antecedentes,
   });
   try {
     return await mascota.save();
@@ -382,5 +412,23 @@ async function newID(rutChip) {
     } else {
       return newRut;
     }
+  }
+}
+
+async function ActualizarEstado(id) {
+  try {
+    const ficha = await Ficha.findByIdAndUpdate(
+      { _id: id },
+      { Estado: 'Finalizado' }
+    );
+    if (!ficha)
+      return res
+        .status(401)
+        .json([
+          'No encontrado',
+          'No se encontro la ficha con el id proporcionado',
+        ]);
+  } catch (error) {
+    console.log(error);
   }
 }

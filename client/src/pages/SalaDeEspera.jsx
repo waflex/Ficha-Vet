@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDatosM } from '../context/DatosMedicos';
 import { Lateral } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
@@ -12,17 +12,20 @@ import { HiFilter } from 'react-icons/hi';
 import { Pagination, Spinner } from 'flowbite-react';
 
 function SalaDeEspera() {
-  const [filtro, setFiltro] = useState(null);
   const { obtenerDatosM, DatosM } = useDatosM();
-  const [loading, setLoading] = useState(true); //
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filtro, setFiltro] = useState(null);
 
   useEffect(() => {
     obtenerDatosM()
       .then(() => setLoading(false))
       .catch((error) => console.error('Error al obtener los datos:', error));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    obtenerDatosM();
+  }, [filtro]);
 
   const handleFiltro = (filtroSeleccionado) => {
     if (filtro === filtroSeleccionado) {
@@ -32,11 +35,18 @@ function SalaDeEspera() {
     }
   };
 
-  useEffect(() => {
-    obtenerDatosM();
-  }, [filtro]);
+  const pacientesFiltrados = filtro
+    ? DatosM.Fichas.filter((paciente) => paciente.Estado === filtro)
+    : DatosM.Fichas;
 
-  // Pacientes a mostrar en la página actual
+  const pacientesPorPagina = 9;
+  const indexOfLastPaciente = currentPage * pacientesPorPagina;
+  const indexOfFirstPaciente = indexOfLastPaciente - pacientesPorPagina;
+  const pacientesActuales = pacientesFiltrados?.slice(
+    indexOfFirstPaciente,
+    indexOfLastPaciente
+  );
+
   if (loading) {
     return (
       <div className="flex h-full bg-gradient-to-br from-teal-200 to-teal-400 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 items-center">
@@ -46,13 +56,7 @@ function SalaDeEspera() {
       </div>
     );
   }
-  const pacientesPorPagina = 9; // Cantidad de pacientes por página
-  const indexOfLastPaciente = currentPage * pacientesPorPagina;
-  const indexOfFirstPaciente = indexOfLastPaciente - pacientesPorPagina;
-  const pacientesActuales = DatosM.Fichas.slice(
-    indexOfFirstPaciente,
-    indexOfLastPaciente
-  );
+
   return (
     <div className="flex w-full h-full dark:text-white" id="main-content">
       <Lateral />
@@ -71,8 +75,10 @@ function SalaDeEspera() {
           </h1>
         </div>
         <div className="bg-gray-200 rounded m-0 p-4 flex justify-center space-x-4">
-          <button className="dark:text-black">
-            <HiFilter onClick={() => handleFiltro(null)} />
+          <button
+            className="dark:text-black"
+            onClick={() => handleFiltro(null)}>
+            <HiFilter />
           </button>
           <button
             className="filter-btn"
@@ -95,15 +101,13 @@ function SalaDeEspera() {
             <img src="/img/x.png" alt="Icono anulado" />
           </button>
         </div>
-        {/* Contenedor de las fichas */}
-        {DatosM.Fichas && DatosM.Fichas.length > 0 ? (
+        {pacientesActuales.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto shadow-inner">
             {pacientesActuales.map((fila) => (
               <Link
                 to={`/Ficha/${fila._id}`}
                 key={fila._id}
                 className="relative min-w-48 card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
-                {/* Contenido de la ficha */}
                 <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
                     Nombre Paciente
@@ -121,7 +125,6 @@ function SalaDeEspera() {
                     Estado: {fila.Estado}
                   </p>
                 </div>
-                {/* Icono de estado */}
                 {(() => {
                   switch (fila.Estado) {
                     case 'En Espera':
@@ -179,8 +182,9 @@ function SalaDeEspera() {
         <Pagination
           layout="pagination"
           currentPage={currentPage}
-          totalPages={Math.ceil(DatosM.Fichas.length / pacientesPorPagina)}
-          {...console.log(Math.ceil(DatosM.Fichas.length / pacientesPorPagina))}
+          totalPages={Math.ceil(
+            pacientesFiltrados?.length / pacientesPorPagina
+          )}
           previousLabel="Volver"
           nextLabel="Siguiente"
           itemsperpage={pacientesPorPagina}

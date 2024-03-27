@@ -9,6 +9,7 @@ import {
   getControl,
   cancelarVariosControles,
   agendarControl,
+  FinalizarFicha,
 } from '../controllers/Consultas.controller.js';
 
 const router = Router();
@@ -23,5 +24,6 @@ router.put('/Mod:id', authRequired);
 router.get('/getControles/', getControl);
 router.put('/cancelarControles/', authRequired, cancelarVariosControles);
 router.post('/agendarControl/', authRequired, agendarControl);
+router.post('/FinalizarFicha/:id', authRequired, FinalizarFicha);
 
 export default router;

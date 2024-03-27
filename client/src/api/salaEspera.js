@@ -17,11 +17,13 @@ export const obtenerDatos = async () => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
 export const obtenerDatosfiltradoM = async (id) => {
   try {
     const res = await axios.get(`Consultas/getFicha/${id}`);
     return res;
   } catch (error) {
+    console.log(error);
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
@@ -34,9 +36,19 @@ export const getMascota = async (id) => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
 export const getTutor = async (id) => {
   try {
     const res = await axios.get(`Consultas/getTutor/${id}`);
+    return res;
+  } catch (error) {
+    throw new Error('No se pudo conectar a la API:', error);
+  }
+};
+
+export const FinalizarFicha = async (data, ID) => {
+  try {
+    const res = await axios.post(`Consultas/FinalizarFicha/${ID}`, data);
     return res;
   } catch (error) {
     throw new Error('No se pudo conectar a la API:', error);

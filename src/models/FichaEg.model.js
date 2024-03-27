@@ -3,27 +3,36 @@ import mongoose from 'mongoose';
 const fichaEgSchema = new mongoose.Schema(
   {
     ID_Mascota: {
-      type: String,
-      required:true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Mascota', // referencia a la colección Mascota
+      required: true,
     },
     ID_Ficha: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Ficha', // referencia a la colección Mascota
+      required: true,
+    },
+    Peso: {
       type: String,
       required: true,
     },
-    Estado: {
+    Tamano: {
       type: String,
-      required:true,
+      required: true,
     },
-    Fecha: {
-      type: Date,
-      default: Date.now,
+    Edad: {
+      type: String,
+      required: true,
     },
-    Prox_Control:{
-      type:Date,
+    ID_Usuario: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Usuario', // referencia a la colección Mascota
+      required: true,
     },
-    ID_Usuario:{
-      type:String
-    }
+    Diagnostico: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

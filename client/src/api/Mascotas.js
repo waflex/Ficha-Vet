@@ -17,3 +17,12 @@ export const obtenerTutores = async () => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
+export const obtenerFichas = async (id) => {
+  try {
+    const res = await axios.get(`/Mascotas/Fichas/${id}`);
+    return res;
+  } catch (error) {
+    throw new Error('No se pudo conectar a la API:', error);
+  }
+};

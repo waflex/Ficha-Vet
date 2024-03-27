@@ -8,6 +8,7 @@ export const obtenerControles = async () => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
 export const crearControl = async (control) => {
   try {
     const res = await axios.post('/Consultas/crearControl/', control);
@@ -19,6 +20,7 @@ export const crearControl = async (control) => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
 export const cancelarVariosControles = async (ids) => {
   try {
     const res = await axios.put('/Consultas/cancelarControles/', ids);
@@ -28,6 +30,7 @@ export const cancelarVariosControles = async (ids) => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
 export const AgendarControl = async (cita) => {
   try {
     const res = await axios.post('/Consultas/agendarControl/', cita);

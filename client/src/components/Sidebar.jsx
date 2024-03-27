@@ -93,8 +93,8 @@ export const Lateral = () => {
             <Sidebar.Item href="/" onClick={() => logout()} icon={HiKey}>
               Cerrar Sesion
             </Sidebar.Item>
-            <Sidebar.Item>
-              <DarkThemeToggle className="w-full text-left dark:text-right" />
+            <Sidebar.Item >
+              <DarkThemeToggle className="flex w-full border border-gray-900 dark:border-gray-400 justify-start dark:justify-end" />
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>

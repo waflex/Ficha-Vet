@@ -6,7 +6,9 @@
 .SideBar * {
   transition: all 1s;
 }
-
+.animated {
+  transition: all 1s;
+}
 @media only screen and (min-width: 600px) {
   .cel {
     display: none;

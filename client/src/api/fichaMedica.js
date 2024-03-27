@@ -1,4 +1,5 @@
 import axios from './axios';
+
 export const obtenerUsuario = async (id) => {
   try {
     const res = await axios.get(`Usuario/${id}`);
@@ -7,6 +8,7 @@ export const obtenerUsuario = async (id) => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
 export const obtenerUsuarios = async () => {
   try {
     const res = await axios.get(`Usuario/`);
@@ -15,3 +17,4 @@ export const obtenerUsuarios = async () => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
