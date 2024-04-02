@@ -99,7 +99,7 @@ function MascotaDetallePage() {
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
               Historial Clínico
             </h2>
-            <div className="grid grid-cols-1  gap-4 uppercase my-5">
+            <div className="grid grid-cols-1 gap-4 uppercase my-5">
               {Historial.length > 0 ? (
                 Historial.map((ficha) => (
                   <Link
@@ -133,7 +133,7 @@ function MascotaDetallePage() {
         </div>
         <div className="flex">
           <Button
-            className="bg-cyan-500 text-gray-900 dark:bg-gray-800 dark:text-gray-200"
+            className="bg-cyan-500 text-gray-900 dark:bg-gray-800 dark:text-gray-200 print:hidden"
             onClick={handleImpresion}>
             Imprimir
           </Button>

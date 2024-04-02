@@ -14,14 +14,7 @@
     display: none;
   }
 }
-@media print {
-  .cel {
-    display: none;
-  }
-  .lateral {
-    display: none; /* Oculta el lateral al imprimir la página */
-  }
-}
+
 @media only screen and (max-width: 600px) {
   .SideBar {
     width: 0;
