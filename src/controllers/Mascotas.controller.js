@@ -40,8 +40,10 @@ export const getFichas = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const fichas = await FichaEg.find({ ID_Mascota: id });
-    console.log(fichas);
+    const fichas = await FichaEg.find({ ID_Mascota: id })
+      .populate('ID_Mascota')
+      .populate('ID_Ficha')
+      .populate('ID_Usuario');
     res.status(200).json({ fichas });
   } catch (error) {
     console.log(error);

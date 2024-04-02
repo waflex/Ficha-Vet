@@ -14,19 +14,21 @@ import { MdOutlinePets } from 'react-icons/md';
 import { TbPremiumRights } from 'react-icons/tb';
 import { useAuth } from '../context/AuthContext';
 import { DarkThemeToggle } from 'flowbite-react';
-import { useEffect } from 'react';
 import RegistroUser from './RegistroUser';
+import { useEffect, useState } from 'react'; // Importa useState
 
 export const Lateral = () => {
   const { user, loading, logout } = useAuth();
+  const [userLoaded, setUserLoaded] = useState(false); // Nuevo estado para indicar si los datos del usuario están cargados
 
   useEffect(() => {
-    if (loading && !user) {
-      window.location.reload();
+    if (!loading && user) {
+      setUserLoaded(true); // Marca que los datos del usuario están cargados
     }
-  }, [loading, user]);
+  }, [loading, user]); // Ejecutar solo cuando loading o user cambien
 
-  if (loading || !user) {
+  if (loading || !userLoaded) {
+    // Cambiado !user por !userLoaded
     return (
       <div className="flex h-full bg-gradient-to-br from-teal-200 to-teal-400 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 items-center overflow-hidden">
         <div className="grid w-full justify-items-center scale-150">
@@ -41,11 +43,13 @@ export const Lateral = () => {
   return (
     <>
       <button
-        className="cel fixed top-5 left-5 right-0 z-20 bg-gradient-to-br from-teal-200 to-teal-400 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 scale-200 dark:text-gray-200"
+        className="cel fixed top-5 left-5 z-20 scale-200 dark:text-gray-200"
         onClick={onClick}>
         <HiMenu />
       </button>
-      <Sidebar aria-label="Sidebar" className="SideBar nav w-72 min-w-72">
+      <Sidebar
+        aria-label="Sidebar"
+        className="SideBar nav w-72 min-w-72 print:hidden">
         <Sidebar.Items className="items-start max-w-52 mt-8">
           <Sidebar.ItemGroup>
             <Sidebar.Item href="/Home" icon={HiHome}>
@@ -93,7 +97,7 @@ export const Lateral = () => {
             <Sidebar.Item href="/" onClick={() => logout()} icon={HiKey}>
               Cerrar Sesion
             </Sidebar.Item>
-            <Sidebar.Item >
+            <Sidebar.Item>
               <DarkThemeToggle className="flex w-full border border-gray-900 dark:border-gray-400 justify-start dark:justify-end" />
             </Sidebar.Item>
           </Sidebar.ItemGroup>
@@ -119,6 +123,7 @@ function obtenerNombreApellido(nombreCompleto) {
     return partes[0] + ' ' + partes[partes.length - 1];
   }
 }
+
 function onClick() {
   const sideBar = document.querySelector('.SideBar');
   sideBar.classList.toggle('show');

@@ -54,3 +54,20 @@ export const FinalizarFicha = async (data, ID) => {
     throw new Error('No se pudo conectar a la API:', error);
   }
 };
+
+export const FichaAtender = async (id) => {
+  try {
+    const res = await axios.post(`Consultas/FichaAtender/${id}`);
+    return res;
+  } catch (error) {
+    throw new Error('No se pudo conectar a la API:', error);
+  }
+};
+export const FichaCancelar = async (id) => {
+  try {
+    const res = await axios.post(`Consultas/FichaCancelar/${id}`);
+    return res;
+  } catch (error) {
+    throw new Error('No se pudo conectar a la API:', error);
+  }
+};

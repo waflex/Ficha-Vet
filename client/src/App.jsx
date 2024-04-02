@@ -59,7 +59,7 @@ function App() {
                       />
                     </Route>
                     <Route
-                      path="ListadoFichasMedicas/Mascota/:id"
+                      path="/ListadoFichasMedicas/Mascota/:id"
                       element={<MascotaDetallePage />}></Route>
                   </Routes>
                 </MascotasProvider>

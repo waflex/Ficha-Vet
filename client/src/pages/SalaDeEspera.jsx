@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDatosM } from '../context/DatosMedicos';
 import { Lateral } from '../components/Sidebar';
-import { Link } from 'react-router-dom';
+import { HiMinusCircle, HiCheckCircle } from 'react-icons/hi';
+import { FichaAtender, FichaCancelar } from '../api/salaEspera';
+import { useNavigate } from 'react-router-dom';
 import {
   FaClock,
   FaGlasses,
@@ -9,13 +11,14 @@ import {
   FaCheckCircle,
 } from 'react-icons/fa';
 import { HiFilter } from 'react-icons/hi';
-import { Pagination, Spinner } from 'flowbite-react';
+import { Button, Pagination, Spinner } from 'flowbite-react';
 
 function SalaDeEspera() {
   const { obtenerDatosM, DatosM } = useDatosM();
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [filtro, setFiltro] = useState(null);
+  const Navigate = useNavigate();
 
   useEffect(() => {
     obtenerDatosM()
@@ -24,7 +27,11 @@ function SalaDeEspera() {
   }, []);
 
   useEffect(() => {
-    obtenerDatosM();
+    obtenerDatosM()
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => console.error('Error al obtener los datos:', error));
   }, [filtro]);
 
   const handleFiltro = (filtroSeleccionado) => {
@@ -32,6 +39,36 @@ function SalaDeEspera() {
       setFiltro(null);
     } else {
       setFiltro(filtroSeleccionado);
+    }
+  };
+
+  const handelAtender = async (idPaciente) => {
+    // Lógica para atender al paciente y comunicarse con la función FichaAtender
+    try {
+      const res = await FichaAtender(idPaciente);
+      console.log(res);
+      if (res.status === 200) {
+        Navigate(`/Ficha/${idPaciente}`);
+        // Redireccionar a "/Ficha/${fila._id}"
+      }
+    } catch (error) {
+      alert('Error al atender al paciente \n intentalo denuevo', error);
+      console.error('Error al atender al paciente:', error);
+    }
+  };
+
+  const handelCancelar = async (data) => {
+    // Lógica para atender al paciente y comunicarse con la función FichaAtender
+    try {
+      const res = await FichaCancelar(data);
+      console.log(res);
+      if (res.status === 200) {
+        Navigate(`/Ficha/${data}`);
+        // Redireccionar a "/Ficha/${fila._id}"
+      }
+    } catch (error) {
+      alert('Error al atender al paciente \n intentalo denuevo', error);
+      console.error('Error al atender al paciente:', error);
     }
   };
 
@@ -46,7 +83,6 @@ function SalaDeEspera() {
     indexOfFirstPaciente,
     indexOfLastPaciente
   );
-
   if (loading) {
     return (
       <div className="flex h-full bg-gradient-to-br from-teal-200 to-teal-400 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 items-center">
@@ -74,41 +110,40 @@ function SalaDeEspera() {
             Sala de Espera
           </h1>
         </div>
-        <div className="bg-gray-200 rounded m-0 p-4 flex justify-center space-x-4">
+        <div className="bg-gray-200 rounded m-0 p-4 flex justify-center space-x-6">
           <button
             className="dark:text-black"
             onClick={() => handleFiltro(null)}>
-            <HiFilter />
+            <HiFilter className="relative mx-auto my-2 scale-200" />
           </button>
           <button
             className="filter-btn"
             onClick={() => handleFiltro('En Espera')}>
-            <img src="/img/reloj.png" alt="Icono en espera" />
+            <FaClock className="relative mx-auto my-2 scale-200 text-gray-500 opacity-50 " />
           </button>
           <button
             className="filter-btn"
             onClick={() => handleFiltro('Ingresado')}>
-            <img src="/img/!.png" alt="Icono ingresado" />
+            <FaGlasses className="relative mx-auto my-2 scale-200 text-blue-500 opacity-50" />
           </button>
           <button
             className="filter-btn"
             onClick={() => handleFiltro('Finalizado')}>
-            <img src="/img/check.png" alt="Icono finzalizado" />
+            <FaCheckCircle className="relative mx-auto my-2 scale-200 text-green-500   opacity-50" />
           </button>
           <button
             className="filter-btn"
             onClick={() => handleFiltro('Cancelado')}>
-            <img src="/img/x.png" alt="Icono anulado" />
+            <FaTimesCircle className="relative mx-auto my-2 scale-200 text-red-500 opacity-50" />
           </button>
         </div>
         {pacientesActuales.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5 max-h-full overflow-y-auto shadow-inner">
             {pacientesActuales.map((fila) => (
-              <Link
-                to={`/Ficha/${fila._id}`}
+              <div
                 key={fila._id}
-                className="relative min-w-48 card max-w-96 rounded-md opacity-75 p-2 hover:scale-105 duration-150 ml-6">
-                <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                className="relative select-none hover:cursor-pointer min-w-48 card max-w-96 rounded-md p-2 hover:scale-105 duration-150 ml-6">
+                <div className="block max-w-sm p-6 min-h-72 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                   <h6 className="font-normal text-gray-700 dark:text-gray-400">
                     Nombre Paciente
                   </h6>
@@ -124,6 +159,24 @@ function SalaDeEspera() {
                   <p className="font-normal text-gray-700 dark:text-gray-400">
                     Estado: {fila.Estado}
                   </p>
+
+                  <Button.Group
+                    className={`relative w-full justify-center mt-6 ${
+                      fila.Estado === 'Cancelado' ? 'hidden' : 'none'
+                    }`}>
+                    <Button
+                      color="success"
+                      onClick={() => handelAtender(fila._id)}>
+                      <HiCheckCircle className="mr-3 h-4 w-4" />
+                      Atender
+                    </Button>
+                    <Button
+                      color="failure"
+                      onClick={() => handelCancelar(fila._id)}>
+                      <HiMinusCircle className="mr-3 h-4 w-4" />
+                      Cancelar
+                    </Button>
+                  </Button.Group>
                 </div>
                 {(() => {
                   switch (fila.Estado) {
@@ -133,7 +186,6 @@ function SalaDeEspera() {
                           className="absolute top-0 right-0 mr-2 mt-2 text-gray-500 opacity-50"
                           style={{
                             fontSize: '5em',
-                            position: 'absolute',
                           }}
                         />
                       );
@@ -143,7 +195,6 @@ function SalaDeEspera() {
                           className="absolute top-0 right-0 mr-2 mt-2 text-blue-500 opacity-50"
                           style={{
                             fontSize: '5em',
-                            position: 'absolute',
                           }}
                         />
                       );
@@ -153,7 +204,6 @@ function SalaDeEspera() {
                           className="absolute top-0 right-0 mr-2 mt-2 text-red-500 opacity-50"
                           style={{
                             fontSize: '5em',
-                            position: 'absolute',
                           }}
                         />
                       );
@@ -163,7 +213,6 @@ function SalaDeEspera() {
                           className="absolute top-0 right-0 mr-2 mt-2 text-green-500 opacity-50"
                           style={{
                             fontSize: '5em',
-                            position: 'absolute',
                           }}
                         />
                       );
@@ -171,7 +220,7 @@ function SalaDeEspera() {
                       return null;
                   }
                 })()}
-              </Link>
+              </div>
             ))}
           </div>
         ) : (

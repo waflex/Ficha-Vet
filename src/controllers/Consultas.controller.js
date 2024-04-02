@@ -185,6 +185,34 @@ export const borrarFicha = async (req, res) => {
   }
 };
 
+export const FichaAtender = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const actualizarEstado = await Ficha.findByIdAndUpdate(
+      { _id: id },
+      { Estado: 'Ingresado' }
+    );
+    console.log(actualizarEstado);
+    return res.status(200).json({ message: 'Ficha Atendida' });
+  } catch (error) {
+    throw new Error('No se pudo conectar a la API:', error);
+  }
+};
+
+export const FichaCancelar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const actualizarEstado = await Ficha.findByIdAndUpdate(
+      { _id: id },
+      { Estado: 'Cancelado' }
+    );
+    console.log(actualizarEstado);
+    return res.status(200).json({ message: 'Ficha Atendida' });
+  } catch (error) {
+    throw new Error('No se pudo conectar a la API:', error);
+  }
+};
+
 /*CONTROLES */
 export const crearControl = async (req, res) => {
   try {
